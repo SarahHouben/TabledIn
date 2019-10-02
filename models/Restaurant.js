@@ -73,7 +73,7 @@ const getTimeslots = () => {
     "2330",
     "2345"
   ].reduce((acc, val) => {
-    acc[val] = Boolean;
+    return (acc[val] = Boolean);
   }, {});
 };
 
@@ -97,7 +97,7 @@ const restaurantSchema = new Schema(
     restaurantname: String,
     owner: { type: Schema.Types.ObjectId, ref: "User" },
     address: String,
-    telefonnumber: String,
+    phone: String,
     email: String,
     menu: String,
     logo: {

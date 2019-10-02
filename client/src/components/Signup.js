@@ -37,7 +37,7 @@ export default class Signup extends Component {
         // update the state of the parent component
         this.props.setUser(data);
         console.log(this.props);
-        //redirect to home CHANGE LATER TO WELCOME PAGE OR STH LIKE THAT
+        //redirect to RESTAURANT SIGNUP/CREATION PAGE
         this.props.history.push("/");
       }
     });
