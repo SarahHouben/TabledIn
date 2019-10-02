@@ -1,29 +1,35 @@
 import React, { Component } from "react";
 
 export default class TableForm extends Component {
+ 
+  //set state in which to export the values input into the tableform
   state = {
     cap: 0,
     num: ""
   };
 
-  gettingTables = () => {
-    let n = this.props.tableNb; //NUMBER OF TABLES
+  handleChange = event => {
+    // const { name, value } = event.target;
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  // testFunct = event => {
+  //   console.log(event)
+  // }
+
+  //get amount of tables from RestaurantForm. .
+  getTableAmount = () => {
+    let n = this.props.tableAmount; //NUMBER OF TABLES
     n = parseInt(n);
     if (!n) {
       n = 0;
     }
 
-    handleChange = event => {
-      // const { name, value } = event.target;
-      const name = event.target.name;
-      const value = event.target.value;
-      this.setState({
-        [name]: value
-      });
-    };
-
-
-
+    //Create a list element for each table
     return [...Array(n)].map((e, i) => {
       return (
         <React.Fragment key={i}>
@@ -36,7 +42,7 @@ export default class TableForm extends Component {
             onChange={this.handleChange}
           />
 
-          <label htmlFor="cap">Seats how many?</label>
+          <label htmlFor="cap">Seats how many people?</label>
           <input
             type="number"
             name="cap"
@@ -50,18 +56,18 @@ export default class TableForm extends Component {
   };
 
   render() {
+
     const cap = this.state.cap
     const num = this.state.num
-    const cap = this.props.test
+    // const cap = this.props.test
+    // test(cap, num)
 
-    test(cap, num)
-
-    const tables = this.gettingTables();
-    // console.log(tables);
+    // Create list of table forms (list elements = amount of tables)
+    const tables = this.getTableAmount();
     return (
       <ul>
-        {tables.map((el, i) => {
-          return <li key={i}>{el}</li>;
+        {tables.map((table, i) => {
+          return <li key={i}>{table}</li>;
         })}
       </ul>
     );
