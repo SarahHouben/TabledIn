@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import RestaurantForm from "./components/RestaurantForm";
-import "./App.css";
+import "./App.scss";
 
 class App extends React.Component {
   state = {
