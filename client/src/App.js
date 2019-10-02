@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
+import Navbar from "./components/Navbar";
+import { Route, Redirect } from "react-router-dom";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    user: this.props.user
+  };
+
+  setUser = user => {
+    this.setState({
+      user: user
+    });
+  };
+
+  render() {
+    console.log(this.state);
+    return (
+      <div className="App">
+        <Navbar user={this.state.user} setUser={this.setUser} />
+        <Route
+          exact
+          path="/signup"
+          render={props => (
+            //spread props object so that all properties of props are passed on
+            <Signup setUser={this.setUser} {...props} />
+          )}
+        />
+        <Route
+          exact
+          path="/login"
+          render={props => <Login setUser={this.setUser} {...props} />}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
