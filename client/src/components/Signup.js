@@ -20,10 +20,10 @@ export default class Signup extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const { username, password } = this.state;
-    // console.log(username, password);
-    signup(username, password).then(data => {
-      // console.log(data);
+    const { username, password, email } = this.state;
+    console.log("THIS STATE:", username, password, email);
+    signup(username, password, email).then(data => {
+      console.log("DATA: ", data);
       if (data.message) {
         this.setState({
           message: data.message,
@@ -32,12 +32,13 @@ export default class Signup extends Component {
           password: ""
         });
       } else {
-        // console.log(data);
+        console.log(data);
         //successfully signed up
         // update the state of the parent component
         this.props.setUser(data);
         console.log(this.props);
-        this.props.history.push("/projects");
+        //redirect to home CHANGE LATER TO WELCOME PAGE OR STH LIKE THAT
+        this.props.history.push("/");
       }
     });
   };
