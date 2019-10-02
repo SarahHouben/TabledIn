@@ -3,7 +3,8 @@ import Navbar from "./components/Navbar";
 import { Route, Redirect } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import './App.css';
+import RestaurantForm from "./components/RestaurantForm";
+import "./App.css";
 
 class App extends React.Component {
   state = {
@@ -34,6 +35,7 @@ class App extends React.Component {
           path="/login"
           render={props => <Login setUser={this.setUser} {...props} />}
         />
+        <RestaurantForm />
       </div>
     );
   }

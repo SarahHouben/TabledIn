@@ -13,7 +13,7 @@ export default class TimeForm extends Component {
           max="23:30"
           step="900"
           required
-          value={this.state.opentime}
+          // value={this.state.opentime}
         />
         <label htmlFor="closetime">Closing time: </label>
         <input
@@ -24,7 +24,7 @@ export default class TimeForm extends Component {
           max="23:30"
           step="900"
           required
-          value={this.state.closetime}
+          // value={this.state.closetime}
         />
       </>
     );
