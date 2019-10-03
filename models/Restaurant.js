@@ -118,7 +118,8 @@ const restaurantSchema = new Schema(
       }
     ],
     weekdays: Schema.Types.Mixed,
-    openingtime: openingTimes,
+    openingtime: Schema.Types.Mixed,
+    timeslots: { type: Schema.Types.Mixed, default: openingTimes },
     tables: [Schema.Types.Mixed]
   },
   {
