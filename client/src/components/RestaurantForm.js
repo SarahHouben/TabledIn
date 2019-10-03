@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TimeForm from "./TimeForm";
-// import axios from "axios";
+import axios from "axios";
 import TableForm from "./TableForm";
 
 export default class RestaurantForm extends Component {
@@ -19,7 +19,16 @@ export default class RestaurantForm extends Component {
       sunday: false
     },
     tablenumber: 0,
-    tables: []
+    tables: [],
+    openingtimes: {
+      monday: {},
+      tuesday: {},
+      wednesday: {},
+      thursday: {},
+      friday: {},
+      saturday: {},
+      sunday: {}
+    }
   };
 
   // get values from text-inputs and update state with them
@@ -36,8 +45,23 @@ export default class RestaurantForm extends Component {
         }
       }
     );
+    this.setOpeningTime(name, value);
   };
 
+  setOpeningTime = (name, value, weekday) => {
+    this.setState(
+      {
+        openingtimes: {
+          ...this.state.openingtimes,
+          [weekday]: {
+            ...this.state.openingtimes[weekday],
+            [name]: value
+          }
+        }
+      },
+      () => console.log("updated state", this.state)
+    );
+  };
   //get values from checkboxes and update states of weekdays with them
   handleCheckboxChange = event => {
     const { weekdays } = { ...this.state };
@@ -138,7 +162,12 @@ export default class RestaurantForm extends Component {
                 checked={this.state.weekdays.monday}
                 onChange={this.handleCheckboxChange}
               />
-              {this.state.weekdays.monday && <TimeForm />}
+              {this.state.weekdays.monday && (
+                <TimeForm
+                  setOpeningTime={this.setOpeningTime}
+                  weekday={"monday"}
+                />
+              )}
             </div>
             <div>
               <p>Tuesday</p>
@@ -150,7 +179,12 @@ export default class RestaurantForm extends Component {
                 checked={this.state.weekdays.tuesday}
                 onChange={this.handleCheckboxChange}
               />
-              {this.state.weekdays.tuesday && <TimeForm />}
+              {this.state.weekdays.tuesday && (
+                <TimeForm
+                  setOpeningTime={this.setOpeningTime}
+                  weekday={"tuesday"}
+                />
+              )}
             </div>
             <div>
               <p>Wednesday</p>
@@ -162,7 +196,12 @@ export default class RestaurantForm extends Component {
                 checked={this.state.weekdays.wednesday}
                 onChange={this.handleCheckboxChange}
               />
-              {this.state.weekdays.wednesday && <TimeForm />}
+              {this.state.weekdays.wednesday && (
+                <TimeForm
+                  setOpeningTime={this.setOpeningTime}
+                  weekday={"wednesday"}
+                />
+              )}
             </div>
             <div>
               <p>Thursday</p>
@@ -174,7 +213,12 @@ export default class RestaurantForm extends Component {
                 checked={this.state.weekdays.thursday}
                 onChange={this.handleCheckboxChange}
               />
-              {this.state.weekdays.thursday && <TimeForm />}
+              {this.state.weekdays.thursday && (
+                <TimeForm
+                  setOpeningTime={this.setOpeningTime}
+                  weekday={"thursday"}
+                />
+              )}
             </div>
             <div>
               <p>Friday</p>
@@ -186,7 +230,12 @@ export default class RestaurantForm extends Component {
                 checked={this.state.weekdays.friday}
                 onChange={this.handleCheckboxChange}
               />
-              {this.state.weekdays.friday && <TimeForm />}
+              {this.state.weekdays.friday && (
+                <TimeForm
+                  setOpeningTime={this.setOpeningTime}
+                  weekday={"friday"}
+                />
+              )}
             </div>
             <div>
               <p>Saturday</p>
@@ -198,7 +247,12 @@ export default class RestaurantForm extends Component {
                 checked={this.state.weekdays.saturday}
                 onChange={this.handleCheckboxChange}
               />
-              {this.state.weekdays.saturday && <TimeForm />}
+              {this.state.weekdays.saturday && (
+                <TimeForm
+                  setOpeningTime={this.setOpeningTime}
+                  weekday={"saturday"}
+                />
+              )}
             </div>
             <div>
               <p>Sunday</p>
@@ -210,7 +264,12 @@ export default class RestaurantForm extends Component {
                 checked={this.state.weekdays.sunday}
                 onChange={this.handleCheckboxChange}
               />
-              {this.state.weekdays.sunday && <TimeForm />}
+              {this.state.weekdays.sunday && (
+                <TimeForm
+                  setOpeningTime={this.setOpeningTime}
+                  weekday={"sunday"}
+                />
+              )}
             </div>
           </div>
 
@@ -235,3 +294,24 @@ export default class RestaurantForm extends Component {
     );
   }
 }
+
+// let dayArray = [{"name": "monday"},{"name": "tuesday"},{"name": "wednesday"},{"name": "thursday"},{"name": "friday"},{"name": "saturday"},{"name": "sunday"}]
+
+// const week = dayArray.map(day => {
+//    console.log(week);
+//   return (
+
+//     <div>
+//     <p>{day.name}</p>
+//     <label htmlFor={day.name}>Open? </label>
+//     <input
+//       type="checkbox"
+//       name={day.name}
+//       id={day.name}
+//       checked={`this.state.weekdays.${day.name}`}
+//       onChange={this.handleCheckboxChange}
+//     />
+//     {`this.state.weekdays.${day.name}` && <TimeForm  weekday={`this.state.weekdays.${day.name}`}/>}
+//   </div>
+//   );
+// });

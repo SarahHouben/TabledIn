@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 
 export default class TimeForm extends Component {
+  handleChange = event => {
+    const { name, value } = event.target;
+    // console.log("val", name, value);
+    this.props.setOpeningTime(name, value, this.props.weekday);
+  };
+
   render() {
     return (
       <>
@@ -14,6 +20,7 @@ export default class TimeForm extends Component {
           step="900"
           required
           // value={this.state.opentime}
+          onChange={this.handleChange}
         />
         <label htmlFor="closetime">Closing time: </label>
         <input
@@ -25,6 +32,7 @@ export default class TimeForm extends Component {
           step="900"
           required
           // value={this.state.closetime}
+          onChange={this.handleChange}
         />
       </>
     );
