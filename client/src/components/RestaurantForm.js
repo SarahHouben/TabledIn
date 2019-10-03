@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TimeForm from "./TimeForm";
-import axios from "axios";
+// import axios from "axios";
 import TableForm from "./TableForm";
 
 export default class RestaurantForm extends Component {
@@ -19,16 +19,23 @@ export default class RestaurantForm extends Component {
       sunday: false
     },
     tablenumber: 0,
-    tables: [{ tablenumber: "", tablecapacity: 0 }]
+    tables: []
   };
 
   // get values from text-inputs and update state with them
   handleChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState({
-      [name]: value
-    });
+    const { name, value } = event.target;
+
+    this.setState(
+      {
+        [name]: value
+      },
+      () => {
+        if (name === "tablenumber" && this.state.tablenumber) {
+          this.initializedTable(this.state.tablenumber);
+        }
+      }
+    );
   };
 
   handleCheckboxChange = event => {
@@ -42,17 +49,38 @@ export default class RestaurantForm extends Component {
     this.setState({ weekdays: currentState });
   };
 
-  // testFunct = (cap, num) => {
-  //   const tablecapacity = cap;
-  //   const tablenumber = num;
+  tablesStage2B = (cap, num, index) => {
+    /*   const tablecapacity = cap;
+    const tablenumber = num; */
+    console.log(cap, num, index);
+    let totalTables = this.state.tables.map((table, i) => {
+      if (index == i) {
+        return {
+          cap,
+          num
+        };
+      } else return table;
+    });
 
-  //   this.setState({
-  //     tables: [{ tablenumber: num, tablecapacity: cap }]
-  //   });
-  // };
+    //  const table = total.push({cap: tablecapacity, num: tablenumber})
+    this.setState(
+      {
+        tables: totalTables
+      },
+      () => {}
+    );
+  };
+
+  initializedTable = tableNumber => {
+    let newTableState = [...Array(Number(tableNumber))].map(table => ({
+      cap: 0,
+      num: ""
+    }));
+    this.setState({ tables: newTableState });
+  };
 
   //POST results of form to create / update restaurant document
-  handleSubmit = event => {
+  handleSubmit = (event, str) => {
     event.preventDefault();
     //POST TO AXIOS to be implemented here
   };
@@ -95,7 +123,6 @@ export default class RestaurantForm extends Component {
               type="text"
               name="email"
               id="email"
-              id="phone"
               value={this.state.email}
               onChange={this.handleChange}
             />
@@ -202,190 +229,11 @@ export default class RestaurantForm extends Component {
           {/* {<TimeForm test={(x,y)=>testFunct(x,y)}/>} */}
           <TableForm
             tableAmount={this.state.tablenumber}
-            // test={(cap, num) => testFunct(cap, num)}
+            tablesStage2A={this.tablesStage2B}
           />
+          <button type="submit">Submit</button>
         </form>
-
-        <button type="submit">Submit</button>
       </React.Fragment>
     );
   }
 }
-
-// ########## OLD VERSION ##############################
-
-// import React, { Component } from "react";
-// import TimeForm from "./TimeForm";
-// import axios from "axios";
-// import TableForm from "./TableForm";
-
-// export default class RestaurantForm extends Component {
-
-//   state = {
-//     name: "",
-//     address: "",
-//     phone: "",
-//     email: "",
-//     weekdays: {
-//       monday: false,
-//       tuesday: false,
-//       wednesday: false,
-//       thursday: false,
-//       friday: false,
-//       saturday: false,
-//       sunday: false
-//     },
-//     tablenumber: 0,
-//     tables: [{ tablenumber: "", tablecapacity: 0 }]
-//   };
-
-//   handleChange = event => {
-//     // const { name, value, checked } = event.target;
-
-//     const result =
-//       event.target.type === "checkbox"
-//         ? event.target.checked
-//         : event.target.value;
-
-//     this.setState({
-//       weekdays: { [name]: result },
-//       tablenumber: value
-//     });
-//   };
-
-//   // handleCheck = event => {
-
-//   // }
-
-//   // testFunct = (cap, num) => {
-//   //   const tablecapacity = cap;
-//   //   const tablenumber = num;
-
-//   //   this.setState({
-//   //     tables: [{ tablenumber: num, tablecapacity: cap }]
-//   //   });
-//   // };
-
-//   handleSubmit = event => {
-//     event.preventDefault();
-//   };
-
-//   render() {
-//     // console.log(this.state.weekdays.monday);
-//     return (
-//       <React.Fragment>
-//         <form action="">
-//           <label htmlFor="name">Restaurant name: </label>
-//           <input
-//             type="text"
-//             name="name"
-//             id="name"
-//             value={this.state.name}
-//             onChange={this.handleChange}
-//           />
-//           <label htmlFor="address">Address: </label>
-//           <input
-//             type="text"
-//             name="address"
-//             id="address"
-//             value={this.state.address}
-//             onChange={this.handleChange}
-//           />
-//           <label htmlFor="phone">Phone number: </label>
-//           <input
-//             type="text"
-//             name="phone"
-//             id="phone"
-//             value={this.state.phone}
-//             onChange={this.handleChange}
-//           />
-//           <label htmlFor="email">Email: </label>
-//           <input
-//             type="text"
-//             name="email"
-//             id="email"
-//             id="phone"
-//             value={this.state.email}
-//             onChange={this.handleChange}
-//           />
-//           <label htmlFor="">Opening times: </label>
-//           <div>
-//             <div>
-//               <p>Monday</p>
-//               <label htmlFor="monday">Open? </label>
-//               <input
-//                 type="checkbox"
-//                 name="monday"
-//                 id="monday"
-//                 checked={this.state.weekdays.monday}
-//                 onChange={this.handleChange}
-//               />
-//               {/* //if checkbox is checked, render TimeForm component */}
-//               {this.state.weekdays.monday && <TimeForm />}
-//             </div>
-//             <div>
-//               <p>Tuesday</p>
-//               <label htmlFor="tuesday">Open? </label>
-//               <input type="checkbox" name="tuesday" id="tuesday" />
-//               {/* //if checkbox is checked, render TimeForm component */}
-//               <TimeForm />
-//             </div>
-//             <div>
-//               <p>Wednesday</p>
-//               <label htmlFor="wednesday">Open? </label>
-//               <input type="checkbox" name="wednesday" id="wednesday" />
-//               {/* //if checkbox is checked, render TimeForm component */}
-//               <TimeForm />
-//             </div>
-//             <div>
-//               <p>Thursday</p>
-//               <label htmlFor="thursday">Open? </label>
-//               <input type="checkbox" name="thursday" id="thursday" />
-//               {/* //if checkbox is checked, render TimeForm component */}
-//               <TimeForm />
-//             </div>
-//             <div>
-//               <p>Friday</p>
-//               <label htmlFor="friday">Open? </label>
-//               <input type="checkbox" name="friday" id="friday" />
-//               {/* //if checkbox is checked, render TimeForm component */}
-//               <TimeForm />
-//             </div>
-//             <div>
-//               <p>Saturday</p>
-//               <label htmlFor="saturday">Open? </label>
-//               <input type="checkbox" name="saturday" id="saturday" />
-//               {/* //if checkbox is checked, render TimeForm component */}
-//               <TimeForm />
-//             </div>
-//             <div>
-//               <p>Sunday</p>
-//               <label htmlFor="sunday">Open? </label>
-//               <input type="checkbox" name="sunday" id="sunday" />
-//               {/* //if checkbox is checked, render TimeForm component */}
-//               <TimeForm />
-//             </div>
-//           </div>
-
-//           <label htmlFor="tablenumber">Number of tables: </label>
-//           <input
-//             type="number"
-//             name="tablenumber"
-//             id="tablenumber"
-//             value={this.state.tablenumber}
-//             onChange={this.handleChange}
-//             min="0"
-//           />
-//           {/* //RENDER  SAME AMOUNT OF TABLEFORMS  AS NUMBER OF TABLES */}
-//           {/* {<TimeForm test={(x,y)=>testFunct(x,y)}/>} */}
-//           <TableForm
-//             tableAmount={this.state.tablenumber}
-//             // test={(cap, num) => testFunct(cap, num)}
-//           />
-//         </form>
-
-//         <button type="submit">Submit</button>
-//       </React.Fragment>
-//     );
-//   }
-// }
