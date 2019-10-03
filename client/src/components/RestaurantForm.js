@@ -38,6 +38,7 @@ export default class RestaurantForm extends Component {
     );
   };
 
+  //get values from checkboxes and update states of weekdays with them
   handleCheckboxChange = event => {
     const { weekdays } = { ...this.state };
     const currentState = weekdays;
@@ -49,12 +50,19 @@ export default class RestaurantForm extends Component {
     this.setState({ weekdays: currentState });
   };
 
+  //create array of tables based on table number with default empty states for cap and num
+  initializedTable = tableNumber => {
+    let newTableState = [...Array(Number(tableNumber))].map(table => ({
+      cap: 0,
+      num: ""
+    }));
+    this.setState({ tables: newTableState });
+  };
+
+  //update array of tables with cap and num according to their indexes. Update state with tables with correct state.
   tablesStage2B = (cap, num, index) => {
-    /*   const tablecapacity = cap;
-    const tablenumber = num; */
-    console.log(cap, num, index);
     let totalTables = this.state.tables.map((table, i) => {
-      if (index == i) {
+      if (index === i) {
         return {
           cap,
           num
@@ -62,21 +70,12 @@ export default class RestaurantForm extends Component {
       } else return table;
     });
 
-    //  const table = total.push({cap: tablecapacity, num: tablenumber})
     this.setState(
       {
         tables: totalTables
       },
       () => {}
     );
-  };
-
-  initializedTable = tableNumber => {
-    let newTableState = [...Array(Number(tableNumber))].map(table => ({
-      cap: 0,
-      num: ""
-    }));
-    this.setState({ tables: newTableState });
   };
 
   //POST results of form to create / update restaurant document
@@ -225,8 +224,7 @@ export default class RestaurantForm extends Component {
             onChange={this.handleChange}
             min="0"
           />
-          {/* //RENDER  SAME AMOUNT OF TABLEFORMS  AS NUMBER OF TABLES */}
-          {/* {<TimeForm test={(x,y)=>testFunct(x,y)}/>} */}
+          {/* render TableForm with amount of TableRows equal to number of tables */}
           <TableForm
             tableAmount={this.state.tablenumber}
             tablesStage2A={this.tablesStage2B}

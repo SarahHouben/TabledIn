@@ -2,28 +2,8 @@ import React, { Component } from "react";
 import TableRow from "./TableRow";
 
 export default class TableForm extends Component {
-  //set state in which to export the values input into the tableform
-  // state = {
-  //   tables: []
-  // };
 
-  // handleChange = event => {
-  //   this.props.tablesStage2A(this.state.tables);
-  //   console.log("table form handlechange");
-  //   // console.log(event.target);
-  //   // const name = event.target.name;
-  //   // const value = event.target.value;
-  //   // this.setState(
-  //   //   {
-  //   //     [name]: value
-  //   //   },
-  //   // () => {
-  //   //   this.props.tableValues(this.state.tables);
-  //   //   console.log(this.state);
-  //   // }
-  //   // );
-  // };
-
+//pass props to parent (RestaurantForm)
   tablesStage1B = (cap, num, index) => {
     this.props.tablesStage2A(cap, num, index);
   };

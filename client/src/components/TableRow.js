@@ -6,20 +6,14 @@ export default class TableRow extends Component {
     num: ""
   };
 
-  // () => {
-  //   // call this on submit
-  //   this.props.tablesStage1A(this.state.cap, this.state.num);
-  // }
-
   handleChange = event => {
     const { name, value } = event.target;
-    //get state with cap and num for each table
+    //get state with cap, num, index for each table
     this.setState(
       {
         [name]: value
       },
       () => {
-        // call this on submit
         this.props.tablesStage1A(
           this.state.cap,
           this.state.num,
