@@ -171,25 +171,7 @@ export default class RestaurantForm extends Component {
       });
   };
 
-  // handleSubmit = event => {
-  //   event.preventDefault();
-
-  //   const { title, description } = this.state;
-
-  //   axios
-  //     .post("/api/tasks", {
-  //       title,
-  //       description,
-  //       projectId: this.props.projectId
-  //     })
-  //     .then(() => {
-  //       this.props.getData();
-  //       this.props.hideForm();
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
+  
 
   render() {
     return (

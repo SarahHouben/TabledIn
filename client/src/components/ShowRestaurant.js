@@ -69,6 +69,10 @@ export default class ShowRestaurant extends Component {
         <p>Phone: {this.state.phone}</p>
         <p>Address: {this.state.address}</p>
 
+        <h4>Opening times</h4>
+        <h4>Seating information</h4>
+        <p>Number of tables: {this.state.tables.length}</p>
+
         <Link to="/restaurant/edit">
           <button>Edit information</button>
         </Link>
