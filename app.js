@@ -92,9 +92,4 @@ const bookingRoutes = require("./routes/bookings");
 app.use("/api/bookings", bookingRoutes);
 
 
-
-// const taskRoutes = require("./routes/task");
-// app.use("/api/tasks", taskRoutes);
-//EQUIVALENT TO TABLES ?
-
 module.exports = app;
