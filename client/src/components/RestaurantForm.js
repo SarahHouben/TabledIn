@@ -49,13 +49,15 @@ export default class RestaurantForm extends Component {
   };
 
   setOpeningTime = (name, value, weekday) => {
+    //valute that we get from time form is a string and we need it as a number in DB
+    let valueInt = Number(value.replace(":",""))
     this.setState(
       {
         openingtimes: {
           ...this.state.openingtimes,
           [weekday]: {
             ...this.state.openingtimes[weekday],
-            [name]: value
+            [name]: valueInt
           }
         }
       },

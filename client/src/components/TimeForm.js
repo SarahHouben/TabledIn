@@ -4,6 +4,7 @@ export default class TimeForm extends Component {
   handleChange = event => {
     const { name, value } = event.target;
     // console.log("val", name, value);
+    
     this.props.setOpeningTime(name, value, this.props.weekday);
   };
 
