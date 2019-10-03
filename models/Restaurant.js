@@ -73,8 +73,8 @@ const getTimeslots = () => {
     "2330",
     "2345"
   ].reduce((acc, val) => {
-    acc[val] = false
-    return acc
+    acc[val] = false;
+    return acc;
   }, {});
 };
 
@@ -95,7 +95,7 @@ const timeslots = [
 
 const restaurantSchema = new Schema(
   {
-    restaurantname: String,
+    name: String,
     owner: { type: Schema.Types.ObjectId, ref: "User" },
     address: String,
     phone: String,
@@ -135,4 +135,4 @@ const restaurantSchema = new Schema(
 );
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
-module.exports = {Restaurant, timeslots}
+module.exports = { Restaurant, timeslots };

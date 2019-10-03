@@ -52,6 +52,7 @@ export default class BookingForm extends Component {
       })
       .then(() => {
         console.log("created booking step1");
+        // this.props.history.push("/");
         // this.setState({
         //   title: "",
         //   description: ""

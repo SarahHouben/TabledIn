@@ -36,8 +36,16 @@ class App extends React.Component {
           path="/login"
           render={props => <Login setUser={this.setUser} {...props} />}
         />
-        <RestaurantForm />
-        <BookingForm />
+           <Route
+          exact
+          path="/restaurants"
+          render={props => {
+            if (this.state.user) return <RestaurantForm {...props} />;
+            else return <Redirect to="/" />;
+          }}
+        />
+        {/* <RestaurantForm /> */}
+        {/* <BookingForm /> */}
       </div>
     );
   }
