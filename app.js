@@ -88,15 +88,13 @@ app.use("/api/auth", authRoutes);
 const restaurantRoutes = require("./routes/restaurants");
 app.use("/api/restaurants", restaurantRoutes);
 
+const bookingRoutes = require("./routes/bookings");
+app.use("/api/bookings", bookingRoutes);
 
 
-// FROM  PROJECTS-EXAMPLE
-// const projectRoutes = require("./routes/project");
-// app.use("/api/projects", projectRoutes);
-// EQUIVALENT TO BOOKINGS
 
 // const taskRoutes = require("./routes/task");
 // app.use("/api/tasks", taskRoutes);
-//EQUIVALENT TO TABLES
+//EQUIVALENT TO TABLES ?
 
 module.exports = app;
