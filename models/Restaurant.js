@@ -117,8 +117,9 @@ const restaurantSchema = new Schema(
         ref: "Booking"
       }
     ],
+    weekdays: Schema.Types.Mixed,
     openingtime: openingTimes,
-    tables: [{ tablenumber: String, tablecapacity: Number }]
+    tables: [Schema.Types.Mixed]
   },
   {
     timestamps: {

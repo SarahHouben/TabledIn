@@ -85,6 +85,11 @@ app.use("/", index);
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);
 
+const restaurantRoutes = require("./routes/restaurants");
+app.use("/api/restaurants", restaurantRoutes);
+
+
+
 // FROM  PROJECTS-EXAMPLE
 // const projectRoutes = require("./routes/project");
 // app.use("/api/projects", projectRoutes);

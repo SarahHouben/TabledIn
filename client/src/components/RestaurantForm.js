@@ -105,8 +105,57 @@ export default class RestaurantForm extends Component {
   //POST results of form to create / update restaurant document
   handleSubmit = (event, str) => {
     event.preventDefault();
-    //POST TO AXIOS to be implemented here
+
+    const {
+      name,
+      address,
+      phone,
+      email,
+      weekdays,
+      tablenumber,
+      tables,
+      openingtimes
+    } = this.state;
+    console.log(weekdays);
+    axios
+      .post("/api/restaurants", {
+        name,
+        address,
+        phone,
+        email,
+        weekdays,
+        tablenumber,
+        tables,
+        openingtimes
+      })
+      .then(data => {
+        // this.props.getData();
+        // this.props.hideForm();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
+
+  // handleSubmit = event => {
+  //   event.preventDefault();
+
+  //   const { title, description } = this.state;
+
+  //   axios
+  //     .post("/api/tasks", {
+  //       title,
+  //       description,
+  //       projectId: this.props.projectId
+  //     })
+  //     .then(() => {
+  //       this.props.getData();
+  //       this.props.hideForm();
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
   render() {
     return (
