@@ -73,11 +73,12 @@ const getTimeslots = () => {
     "2330",
     "2345"
   ].reduce((acc, val) => {
-    return (acc[val] = Boolean);
+    acc[val] = false
+    return acc
   }, {});
 };
 
-const openingTimes = [
+const timeslots = [
   "monday",
   "tuesday",
   "wednesday",
@@ -87,7 +88,7 @@ const openingTimes = [
   "sunday"
 ].map(day => {
   return {
-    open: Boolean,
+    day: day,
     timeslots: getTimeslots()
   };
 });
@@ -118,7 +119,11 @@ const restaurantSchema = new Schema(
       }
     ],
     weekdays: Schema.Types.Mixed,
-    openingtime: openingTimes,
+    openingtime: Schema.Types.Mixed,
+    timeslots: {
+      type: Array,
+      default: timeslots
+    },
     tables: [Schema.Types.Mixed]
   },
   {
@@ -130,4 +135,4 @@ const restaurantSchema = new Schema(
 );
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
-module.exports = Restaurant;
+module.exports = {Restaurant, timeslots}
