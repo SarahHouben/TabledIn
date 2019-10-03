@@ -24,6 +24,16 @@ const Navbar = props => {
 
         {props.user ? (
           <>
+          <li>
+            <Link to="/schedule">
+                Planner
+              </Link>
+            </li>
+            <li>
+            <Link to="/restaurant/show">
+                Restaurant Info
+              </Link>
+            </li>
             <li>
               <Link to="/" onClick={() => handleLogout(props)}>
                 Logout
