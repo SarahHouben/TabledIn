@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema(
   {
-    Date: Date,
+    date: Date,
     timeslot: String, //starting time
     tablenumber: String, //tablenumber from table which is booked
     visitorname: String,

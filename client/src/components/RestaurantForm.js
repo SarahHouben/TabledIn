@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TimeForm from "./TimeForm";
-import axios from "axios";
 import TableForm from "./TableForm";
+import axios from "axios";
 
 export default class RestaurantForm extends Component {
   state = {
