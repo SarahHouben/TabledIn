@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../services/api";
-import  "../styles.scss";
+import "../styles.scss";
 
 //Logout function
 const handleLogout = props => {
@@ -17,7 +17,7 @@ const Navbar = props => {
   return (
     <nav>
       {/* //LATER IMPLEMENT CONDITIONAL RENDERING WHEN ALL COMPONENTS AND LINKS HAVE BEEN ADDED TO NAV */}
-      <ul class="nav-list">
+      <ul className="nav-list">
         <li>
           <Link to="/">Home</Link>
         </li>

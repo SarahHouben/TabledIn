@@ -26,23 +26,20 @@ export default class RestaurantForm extends Component {
   handleChange = event => {
     const name = event.target.name;
     const value = event.target.value;
-    // console.log({
-    //   [name]: value
-    // });
     this.setState({
       [name]: value
     });
   };
-  //get values from checkboxes for weekdays (open/closed) and update state with them
+
   handleCheckboxChange = event => {
+    const { weekdays } = { ...this.state };
+    const currentState = weekdays;
+
     const name = event.target.name;
     const check = event.target.checked;
-    // console.log({
-    //   [name]: value
-    // });
-    this.setState({
-      weekdays: { [name]: check }
-    });
+    currentState[name] = check;
+
+    this.setState({ weekdays: currentState });
   };
 
   // testFunct = (cap, num) => {
