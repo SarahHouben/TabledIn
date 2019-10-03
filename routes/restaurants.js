@@ -99,7 +99,6 @@ const {Restaurant, timeslots} = require("../models/Restaurant")
 //   };
 // });
 router.post("/", (req, res) => {
-
   const name = req.body.name;
   const address = req.body.address;
   const phone = req.body.phone;
@@ -168,17 +167,17 @@ router.post("/", (req, res) => {
 //     });
 // });
 
-// // GET /api/projects/:id
-// // return a specific `project` resource with a given id
+// GET /api/projects/:id
+// return a specific `restaurant` resource with a given id
 // router.get("/:id", (req, res) => {
 //   // check if req.params.id is valid, if not respond with a 4xx status code
-//   Project.findById(req.params.id)
-//     .populate("tasks")
-//     .then(project => {
-//       if (!project) {
-//         res.status(404).json(project);
+//   Restaurant.findById(req.params.id)
+//     // .populate("tasks")
+//     .then(restaurant => {
+//       if (!restaurant) {
+//         res.status(404).json(restaurant);
 //       } else {
-//         res.json(project);
+//         res.json(restaurant);
 //       }
 //     })
 //     .catch(err => {

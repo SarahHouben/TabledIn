@@ -4,6 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import RestaurantForm from "./components/RestaurantForm";
+import BookingForm from "./components/BookingForm";
 import "./App.scss";
 
 class App extends React.Component {
@@ -36,6 +37,7 @@ class App extends React.Component {
           render={props => <Login setUser={this.setUser} {...props} />}
         />
         <RestaurantForm />
+        <BookingForm />
       </div>
     );
   }

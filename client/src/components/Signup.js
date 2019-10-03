@@ -38,7 +38,7 @@ export default class Signup extends Component {
         this.props.setUser(data);
         console.log(this.props);
         //redirect to RESTAURANT SIGNUP/CREATION PAGE
-        this.props.history.push("/");
+        this.props.history.push("/api/restaurants");
       }
     });
   };
