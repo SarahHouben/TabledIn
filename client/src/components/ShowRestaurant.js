@@ -70,8 +70,20 @@ export default class ShowRestaurant extends Component {
         <p>Address: {this.state.address}</p>
 
         <h4>Opening times</h4>
+        <ul>
+          <li>Monday from to</li>
+          <li>Tuesday</li>
+          <li>Wednesday</li>
+          <li>Thursday</li>
+          <li>Friday</li>
+          <li>Saturday</li>
+          <li>Sunday</li>
+        </ul>
         <h4>Seating information</h4>
         <p>Number of tables: {this.state.tables.length}</p>
+        <ul>
+          <li>{/* map over array of tables and get their info? */}</li>
+        </ul>
 
         <Link to="/restaurant/edit">
           <button>Edit information</button>

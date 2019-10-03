@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { login } from "../services/api";
+import { Link } from "react-router-dom";
 
 export default class Login extends Component {
   state = {
@@ -43,6 +44,7 @@ export default class Login extends Component {
   render() {
     return (
       <>
+        <h1>Welcome to TabledIn</h1>
         <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -68,6 +70,7 @@ export default class Login extends Component {
           {this.state.message && <p>{this.state.message}</p>}
           <button type="submit">Login</button>
         </form>
+        Or <Link to="/signup">Sign up</Link>
       </>
     );
   }
