@@ -4,9 +4,9 @@ import "react-day-picker/lib/style.css";
 import axios from "axios";
 
 export default class BookingForm extends Component {
-  state = {
-    selectedDay: undefined
-  };
+  // state = {
+  //   selectedDay: undefined
+  // };
 
   constructor(props) {
     super(props);

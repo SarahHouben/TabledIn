@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import TableRow from "./TableRow";
+import axios from "axios";
 
 export default class TableForm extends Component {
+  state = {
+    tables: []
+  };
 
-//pass props to parent (RestaurantForm)
+  //pass props to parent (RestaurantForm)
   tablesStage1B = (cap, num, index) => {
     this.props.tablesStage2A(cap, num, index);
   };
@@ -20,10 +24,41 @@ export default class TableForm extends Component {
     return [...Array(n)].map((e, i) => {
       return (
         <React.Fragment key={i}>
-          <TableRow tablesStage1A={this.tablesStage1B} index={i} />
+          <TableRow
+            tablesStage1A={this.tablesStage1B}
+            index={i}
+            tableobject={this.state.tables[i]}
+          />
         </React.Fragment>
       );
     });
+  };
+
+  getData = () => {
+    axios
+      .get("/api/restaurants")
+      .then(response => {
+        
+        if (response.data) {
+          this.setState(
+            {
+              tables: response.data.tables
+            },
+            () => console.log(this.state)
+          );
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        // handle err.response depending on err.response.status
+        if (err.response.status === 404) {
+          this.setState({ error: "Not found" });
+        }
+      });
+  };
+
+  componentDidMount = () => {
+    this.getData();
   };
 
   render() {

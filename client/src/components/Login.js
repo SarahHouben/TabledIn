@@ -31,12 +31,11 @@ export default class Login extends Component {
           password: ""
         });
       } else {
-        // console.log(data);
         //successfully logged in
         // update the state of the parent component
         this.props.setUser(data);
         console.log(this.props);
-        this.props.history.push("/projects");
+        this.props.history.push("/");
       }
     });
   };

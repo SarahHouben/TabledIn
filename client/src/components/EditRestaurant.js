@@ -44,7 +44,7 @@ export default class EditRestaurant extends Component {
           weekdays: response.data.weekdays,
           tablenumber: response.data.tablenumber,
           tables: response.data.tables,
-          openingtimes: response.data.openingtimes
+          openingtimes: response.data.openingtime
         });
       })
       .catch(err => {
@@ -73,7 +73,6 @@ export default class EditRestaurant extends Component {
         }
       }
     );
-    this.setOpeningTime(name, value);
   };
 
   setOpeningTime = (name, value, weekday) => {
@@ -134,7 +133,35 @@ export default class EditRestaurant extends Component {
 
   handleSubmit = (event, str) => {
     event.preventDefault();
-    //ON HANDLE SUBMIT POST OR PATCH WITH AXIOS SO THAT THE RESTAURANT WITH THE CORRECT ID IS UPDATED
+
+    const {
+      name,
+      address,
+      phone,
+      email,
+      weekdays,
+      tablenumber,
+      tables,
+      openingtimes
+    } = this.state;
+
+    axios
+      .put("/api/restaurants", {
+        name,
+        address,
+        phone,
+        email,
+        weekdays,
+        tablenumber,
+        tables,
+        openingtimes
+      })
+      .then(data => {
+        this.props.history.push("/restaurant/show");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -196,6 +223,7 @@ export default class EditRestaurant extends Component {
                 />
                 {this.state.weekdays.monday && (
                   <TimeForm
+                    openingtimes={this.state.openingtimes.monday}
                     setOpeningTime={this.setOpeningTime}
                     weekday={"monday"}
                   />
@@ -213,6 +241,7 @@ export default class EditRestaurant extends Component {
                 />
                 {this.state.weekdays.tuesday && (
                   <TimeForm
+                    openingtimes={this.state.openingtimes.tuesday}
                     setOpeningTime={this.setOpeningTime}
                     weekday={"tuesday"}
                   />
@@ -230,6 +259,7 @@ export default class EditRestaurant extends Component {
                 />
                 {this.state.weekdays.wednesday && (
                   <TimeForm
+                    openingtimes={this.state.openingtimes.wednesday}
                     setOpeningTime={this.setOpeningTime}
                     weekday={"wednesday"}
                   />
@@ -247,6 +277,7 @@ export default class EditRestaurant extends Component {
                 />
                 {this.state.weekdays.thursday && (
                   <TimeForm
+                    openingtimes={this.state.openingtimes.thursday}
                     setOpeningTime={this.setOpeningTime}
                     weekday={"thursday"}
                   />
@@ -264,6 +295,7 @@ export default class EditRestaurant extends Component {
                 />
                 {this.state.weekdays.friday && (
                   <TimeForm
+                    openingtimes={this.state.openingtimes.friday}
                     setOpeningTime={this.setOpeningTime}
                     weekday={"friday"}
                   />
@@ -281,6 +313,7 @@ export default class EditRestaurant extends Component {
                 />
                 {this.state.weekdays.saturday && (
                   <TimeForm
+                    openingtimes={this.state.openingtimes.saturday}
                     setOpeningTime={this.setOpeningTime}
                     weekday={"saturday"}
                   />
@@ -298,6 +331,7 @@ export default class EditRestaurant extends Component {
                 />
                 {this.state.weekdays.sunday && (
                   <TimeForm
+                    openingtimes={this.state.openingtimes.sunday}
                     setOpeningTime={this.setOpeningTime}
                     weekday={"sunday"}
                   />
@@ -317,6 +351,7 @@ export default class EditRestaurant extends Component {
             />
             {/* render TableForm with amount of TableRows equal to number of tables */}
             <TableForm
+              tables={this.state.tables}
               tableAmount={this.state.tablenumber}
               tablesStage2A={this.tablesStage2B}
             />

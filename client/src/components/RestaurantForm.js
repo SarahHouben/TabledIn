@@ -31,35 +31,6 @@ export default class RestaurantForm extends Component {
     }
   };
 
-  // getData = () => {
-  //   const id = this.props.match.params.id;
-  //   axios
-  //     .get(`/api/restaurants/${id}`)
-  //     .then(response => {
-  //       this.setState({
-  //          name: response.data.name,
-  //          address: response.data.address,
-  //          phone: response.data.phone,
-  //          email: response.data.email,
-  //          weekdays: response.data.weekdays,
-  //          tablenumber: response.data.tablenumber,
-  //          tables: response.data.tables,
-  //          openingtimes: response.data.openingtimes,
-  //         //  owner: response.data._id
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err.response);
-  //       if (err.response.status === 404) {
-  //         this.setState({ error: "Not found" });
-  //       }
-  //     });
-  // };
-
-  // componentDidMount = () => {
-  //   this.getData();
-  // };
-
   // get values from text-inputs and update state with them
   handleChange = event => {
     const { name, value } = event.target;
@@ -74,12 +45,12 @@ export default class RestaurantForm extends Component {
         }
       }
     );
-    this.setOpeningTime(name, value);
   };
 
   setOpeningTime = (name, value, weekday) => {
     //valute that we get from time form is a string and we need it as a number in DB
     let valueInt = Number(value.replace(":", ""));
+    // console.log("------VALUEINT:", valueInt);
     this.setState(
       {
         openingtimes: {
@@ -93,6 +64,7 @@ export default class RestaurantForm extends Component {
       () => console.log("updated state", this.state)
     );
   };
+
   //get values from checkboxes and update states of weekdays with them
   handleCheckboxChange = event => {
     const { weekdays } = { ...this.state };
@@ -147,7 +119,7 @@ export default class RestaurantForm extends Component {
       tables,
       openingtimes
     } = this.state;
-    console.log(weekdays);
+
     axios
       .post("/api/restaurants", {
         name,
@@ -160,18 +132,12 @@ export default class RestaurantForm extends Component {
         openingtimes
       })
       .then(data => {
-        //check how to build getDate function based on ProjectDetails.js in w8d2
-        // this.props.getData();
-        // this.props.hideForm();
-        // console.log(data);
         this.props.history.push("/");
       })
       .catch(err => {
         console.log(err);
       });
   };
-
-  
 
   render() {
     return (
