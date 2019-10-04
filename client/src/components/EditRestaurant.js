@@ -73,7 +73,6 @@ export default class EditRestaurant extends Component {
         }
       }
     );
-    this.setOpeningTime(name, value);
   };
 
   setOpeningTime = (name, value, weekday) => {
