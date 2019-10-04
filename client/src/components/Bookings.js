@@ -42,12 +42,12 @@ export default class Bookings extends Component {
   };
 
   render() {
-    //get default Date (current date)
     let defaultYear = new Date().getFullYear();
     let defaultYearString = defaultYear.toString();
     let defaultYearMonth = "";
 
-    let defaultMonth = new Date().getMonth();
+    let defaultMonth = new Date().getMonth() + 1;
+    console.log(defaultMonth);
     let defaultMonthString = defaultMonth.toString();
     if (defaultMonthString.length === 1) {
       defaultYearMonth = defaultYearString.concat("-0", defaultMonthString);
@@ -55,7 +55,7 @@ export default class Bookings extends Component {
       defaultYearMonth = defaultYearString.concat("-", defaultMonthString);
     }
 
-    let defaultDay = new Date().getDay();
+    let defaultDay = new Date().getDate();
     let defaultDayString = defaultDay.toString();
     let defaultDate = "";
 
@@ -77,47 +77,42 @@ export default class Bookings extends Component {
     //set selected Date to have the default value of the current date. On picking a date in the calender, date changes to the calender date
     const selectedDate = calenderString || defaultDate;
 
+    //filter Bookings and only return bookings with the correct date
     const filteredBookings = this.state.bookings.filter(booking => {
       let bookingDate = [...booking.date].splice(0, 10).join("");
+      // console.log(selectedDate);
 
       let dateMatched = bookingDate === selectedDate;
 
       return dateMatched;
     });
 
-    //const bookings = this.state.bookings;
     const bookingItems = filteredBookings.map(booking => {
       return (
         <ul key={booking._id}>
           <li>
-            {booking ? (
-              <section>
-                <div>
-                  <p>Date: {[...booking.date].splice(0, 10).join("")}</p>
+            <section>
+              <div>
+                <p>Date: {[...booking.date].splice(0, 10).join("")}</p>
 
-                  <p>Time: REPLACE LATER</p>
-                  {/* <p>Time: {booking.timeslot}</p> */}
-                  <p>Table: REPLACE LATER</p>
-                  {/* <p>Table: {booking.tablenumber}</p> */}
-                </div>
-                <div>
-                  <p>
-                    Guest: {booking.visitorname} Amount: {booking.visitorcount}
-                  </p>
-                  <p>
-                    Contact: {booking.visitorphone}, {booking.visitoremail}
-                  </p>
-                </div>
-                <div>
-                  <button>Edit</button>
-                  <button>Delete</button>
-                </div>
-              </section>
-            ) : (
-              <section>
-                <p>No bookings for this date</p>
-              </section>
-            )}
+                <p>Time: REPLACE LATER</p>
+                {/* <p>Time: {booking.timeslot}</p> */}
+                <p>Table: REPLACE LATER</p>
+                {/* <p>Table: {booking.tablenumber}</p> */}
+              </div>
+              <div>
+                <p>
+                  Guest: {booking.visitorname} Amount: {booking.visitorcount}
+                </p>
+                <p>
+                  Contact: {booking.visitorphone}, {booking.visitoremail}
+                </p>
+              </div>
+              <div>
+                <button>Edit</button>
+                <button>Delete</button>
+              </div>
+            </section>
           </li>
         </ul>
       );
@@ -139,7 +134,13 @@ export default class Bookings extends Component {
           />
         </div>
 
-        <div>{bookingItems}</div>
+        <div>
+          {bookingItems && bookingItems.length ? (
+            bookingItems
+          ) : (
+            <p>No bookings for this date</p>
+          )}
+        </div>
 
         <Link to="/addbooking">
           <button>Add booking</button>
