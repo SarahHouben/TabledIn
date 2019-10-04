@@ -12,6 +12,7 @@ router.post("/", (req, res) => {
   const tablenumber = req.body.tablenumber;
   const tables = req.body.tables;
   const openingtimes = req.body.openingtimes;
+ 
 
   // map the timeslots array with the openingtimes in combined
   let combined = timeslots.map(timeSlotObj => {

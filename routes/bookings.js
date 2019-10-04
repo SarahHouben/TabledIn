@@ -195,9 +195,6 @@ router.post("/", (req, res) => {
     });
 });
 
-
-
-
 //######## ############# ########## Get information for all bookings
 router.get("/", (req, res) => {
   const user = req.user._id;
