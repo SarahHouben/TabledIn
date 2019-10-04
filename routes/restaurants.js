@@ -12,7 +12,6 @@ router.post("/", (req, res) => {
   const tablenumber = req.body.tablenumber;
   const tables = req.body.tables;
   const openingtimes = req.body.openingtimes;
-  console.log(openingtimes);
 
   // map the timeslots array with the openingtimes in combined
   let combined = timeslots.map(timeSlotObj => {
@@ -31,7 +30,6 @@ router.post("/", (req, res) => {
   });
 
   const owner = req.user._id;
-  // console.log("Weekdays from server", weekdays);
   Restaurant.create({
     name: name,
     address: address,
@@ -59,7 +57,7 @@ router.get("/", (req, res) => {
 
   Restaurant.findOne({ owner: user })
     .then(restaurant => {
-      console.log(restaurant);
+      // console.log(restaurant);
       res.json(restaurant);
     })
     .catch(err => {
@@ -68,6 +66,57 @@ router.get("/", (req, res) => {
 });
 
 //Update existing restaurant document
-//ADD PUT ROUTE
+router.put("/", (req, res) => {
+  const user = req.user._id;
+
+  const name = req.body.name;
+  const address = req.body.address;
+  const phone = req.body.phone;
+  const email = req.body.email;
+  const weekdays = req.body.weekdays;
+  const tablenumber = req.body.tablenumber;
+  const tables = req.body.tables;
+  const openingtimes = req.body.openingtimes;
+
+  // map the timeslots array with the openingtimes in combined
+  let combined = timeslots.map(timeSlotObj => {
+    let businessTime = openingtimes[timeSlotObj.day];
+    if (businessTime && businessTime.opentime) {
+      for (let key in timeSlotObj.timeslots) {
+        let timeNum = Number(key);
+        let openingTime = businessTime.opentime;
+        let closingTime = businessTime.closetime;
+
+        if (timeNum < closingTime && timeNum > openingTime)
+          timeSlotObj.timeslots[key] = true;
+      }
+      return timeSlotObj;
+    } else return timeSlotObj;
+  });
+
+  const filter = { owner: user };
+  Restaurant.findOneAndUpdate(
+    filter,
+    {
+      name: name,
+      address: address,
+      phone: phone,
+      email: email,
+      weekdays: weekdays,
+      tablenumber: tablenumber,
+      tables: tables,
+      openingtime: openingtimes,
+      timeslots: combined
+    },
+    { new: true }
+  )
+    .then(restaurant => {
+      console.log(restaurant);
+      res.json(restaurant);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 module.exports = router;

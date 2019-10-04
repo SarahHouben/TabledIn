@@ -44,7 +44,7 @@ export default class ShowRestaurant extends Component {
             weekdays: response.data.weekdays,
             tablenumber: response.data.tablenumber,
             tables: response.data.tables,
-            openingtimes: response.data.openingtimes
+            openingtimes: response.data.openingtime
           });
         }
       })
@@ -73,22 +73,53 @@ export default class ShowRestaurant extends Component {
 
         <h4>Opening times</h4>
         <ul>
-          <li>
-            Monday: CLOSED OR OPEN (Weekday true or false?). If open pull
-            openingtimes from openingtimes object (opentime, closetime) and edit
-            that data to be a time
-          </li>
+          <li>Monday:</li>
+          {this.state.weekdays.monday && <p>Open</p>}
+          {!this.state.weekdays.monday && <p>Closed</p>}
+
           <li>Tuesday</li>
+          {this.state.weekdays.tuesday && <p>Open</p>}
+          {!this.state.weekdays.tuesday && <p>Closed</p>}
+          {/* {this.state.weekdays.tuesday && <p>Opens: {this.state.openingtimes.tuesday.opentime}</p>} */}
+          {/* <p>Opens: {this.state.openingtimes.tuesday}</p> */}
+          {this.state.weekdays.tuesday && <p>Closes: </p>}
+
           <li>Wednesday</li>
+          {this.state.weekdays.wednesday && <p>Open</p>}
+          {!this.state.weekdays.wednesday && <p>Closed</p>}
+
           <li>Thursday</li>
+          {this.state.weekdays.thursday && <p>Open</p>}
+          {!this.state.weekdays.thursday && <p>Closed</p>}
+
           <li>Friday</li>
+          {this.state.weekdays.friday && <p>Open</p>}
+          {!this.state.weekdays.friday && <p>Closed</p>}
+
           <li>Saturday</li>
+          {this.state.weekdays.saturday && <p>Open</p>}
+          {!this.state.weekdays.saturday && <p>Closed</p>}
+
           <li>Sunday</li>
+          {this.state.weekdays.sunday && <p>Open</p>}
+          {!this.state.weekdays.monday && <p>Closed</p>}
         </ul>
+
         <h4>Seating information</h4>
         <p>Number of tables: {this.state.tablenumber}</p>
         <ul>
           <li>{/* map over array of tables and get their info? */}</li>
+
+          {/* render() {
+    const data =[{"name":"test1"},{"name":"test2"}];
+    return (
+      <div>
+      {data.map(function(d, idx){
+         return (<li key={idx}>{d.name}</li>)
+       })}
+      </div>
+    );
+  } */}
         </ul>
 
         <Link to="/restaurant/edit">

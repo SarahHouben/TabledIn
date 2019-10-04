@@ -131,38 +131,38 @@ export default class EditRestaurant extends Component {
     );
   };
 
-  // handleSubmit = (event, str) => {
-  //   event.preventDefault();
+  handleSubmit = (event, str) => {
+    event.preventDefault();
 
-  //   const {
-  //     name,
-  //     address,
-  //     phone,
-  //     email,
-  //     weekdays,
-  //     tablenumber,
-  //     tables,
-  //     openingtimes
-  //   } = this.state;
+    const {
+      name,
+      address,
+      phone,
+      email,
+      weekdays,
+      tablenumber,
+      tables,
+      openingtimes
+    } = this.state;
 
-  //   axios
-  //     .put("/api/restaurants", {
-  //       name,
-  //       address,
-  //       phone,
-  //       email,
-  //       weekdays,
-  //       tablenumber,
-  //       tables,
-  //       openingtimes
-  //     })
-  //     .then(data => {
-  //       this.props.history.push("/");
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
+    axios
+      .put("/api/restaurants", {
+        name,
+        address,
+        phone,
+        email,
+        weekdays,
+        tablenumber,
+        tables,
+        openingtimes
+      })
+      .then(data => {
+        this.props.history.push("/restaurant/show");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     return (
