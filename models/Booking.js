@@ -10,7 +10,7 @@ const bookingSchema = new Schema(
     visitorcount: Number,
     visitorphone: String,
     visitoremail: String,
-    owner: { type: Schema.Types.ObjectId, ref: "User" }
+    restaurant: { type: Schema.Types.ObjectId, ref: "User" }
   },
   {
     timestamps: {
