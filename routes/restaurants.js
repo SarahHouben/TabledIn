@@ -3,30 +3,6 @@ const router = express.Router();
 const { Restaurant, timeslots } = require("../models/Restaurant");
 
 
-<<<<<<< HEAD
-// const openingTimes = [
-//   "monday",
-//   "tuesday",
-//   "wednesday",
-//   "thursday",
-//   "friday",
-//   "saturday",
-//   "sunday"
-// ].map(day => {
-//   return {
-//     open: {
-//      type: Boolean,
-//      default: true
-//     },
-//     timeslots: {
-//      default: getTimeslots()
-//     }
-//   };
-// });
-
-// Create new restaurant document
-=======
->>>>>>> booking-functionality
 router.post("/", (req, res) => {
   const name = req.body.name;
   const address = req.body.address;
@@ -36,6 +12,7 @@ router.post("/", (req, res) => {
   const tablenumber = req.body.tablenumber;
   const tables = req.body.tables;
   const openingtimes = req.body.openingtimes;
+ 
 
   // map the timeslots array with the openingtimes in combined
   /* console.log(timeslots) */

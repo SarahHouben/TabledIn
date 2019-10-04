@@ -3,9 +3,11 @@ const { Schema, model } = mongoose;
 
 const dayreportSchema = new Schema(
   {
-    Date: Date,
-    timeslots: Array,
-    tables: { type: Schema.Types.ObjectId, ref: "Table" }
+    restaurant: { type: Schema.Types.ObjectId, ref: "owner" },
+    date: Date,
+    timeslots: Schema.Types.Mixed,
+    weekdays: Schema.Types.Mixed,
+    tables: Schema.Types.Mixed
   },
   {
     timestamps: {

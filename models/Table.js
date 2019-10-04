@@ -6,9 +6,8 @@ const tableSchema = new Schema(
     dayreport: { type: Schema.Types.ObjectId, ref: "DayReport" },
     tablenumber: String,
     tablecapacity: Number,
-    dayreport: { type: Schema.Types.ObjectId, ref: "DayReport" },
-    timeslots: Array,
-    day: Date
+    timeslots: Object,
+    date: Date
   },
   {
     timestamps: {
