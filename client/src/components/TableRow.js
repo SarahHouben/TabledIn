@@ -30,7 +30,7 @@ export default class TableRow extends Component {
         {
           cap: this.props.tableobject.cap,
           num: this.props.tableobject.num
-        },
+        }
         // () => console.log(this.state)
       );
     }
@@ -39,7 +39,7 @@ export default class TableRow extends Component {
   render() {
     return (
       <React.Fragment>
-        <label htmlFor="num">Table number: </label>
+        <label htmlFor="num">Table Id: </label>
         <input
           type="text"
           name="num"

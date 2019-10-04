@@ -28,20 +28,17 @@ export default class TimeForm extends Component {
         this.props.openingtimes.closetime
       );
 
-      this.setState(
-        {
-          openingtimes: this.props.openingtimes
-        },
-        () => console.log("TIMESTAT: ", this.state)
-      );
+      this.setState({
+        openingtimes: this.props.openingtimes
+      });
     }
   }
 
   handleChange = event => {
     const { name, value } = event.target;
-    // console.log("val", name, value);
+
     this.setState({
-      openingtimes: {...this.state.openingtimes, [name]:value}
+      openingtimes: { ...this.state.openingtimes, [name]: value }
     });
     this.props.setOpeningTime(name, value, this.props.weekday);
   };
