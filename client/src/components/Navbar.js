@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../services/api";
-import "../styles.scss";
 
 //Logout function
 const handleLogout = props => {
@@ -24,15 +23,11 @@ const Navbar = props => {
 
         {props.user ? (
           <>
-          <li>
-            <Link to="/schedule">
-                Planner
-              </Link>
+            <li>
+              <Link to="/schedule">Planner</Link>
             </li>
             <li>
-            <Link to="/restaurant/show">
-                Restaurant Info
-              </Link>
+              <Link to="/restaurant/show">Restaurant Info</Link>
             </li>
             <li>
               <Link to="/" onClick={() => handleLogout(props)}>

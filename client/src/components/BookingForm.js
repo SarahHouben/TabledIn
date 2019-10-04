@@ -24,7 +24,7 @@ export default class BookingForm extends Component {
   // Function for datepicker
   handleDayClick(day) {
     this.setState({ selectedDay: day });
-    console.log(day);
+    // console.log(day);
   }
 
   handleChange = event => {
