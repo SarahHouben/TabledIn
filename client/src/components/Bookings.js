@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import axios from "axios";
-import uuidv4 from "uuid/v4";
 
 export default class Bookings extends Component {
   constructor(props) {
@@ -28,13 +27,6 @@ export default class Bookings extends Component {
       .then(response => {
         console.log("RESPONSE: ", response);
         this.setState({
-          // date: response.data.date,
-          // timeslot: response.data.timeslot,
-          // tablenumber: response.data.tablenumber,
-          // visitorname: response.data.visitorname,
-          // visitorcount: response.data.visitorcount,
-          // visitorphone: response.data.visitorphone,
-          // visitoremail: response.data.visitoremail,
           bookings: response.data
         });
       })
@@ -55,12 +47,26 @@ export default class Bookings extends Component {
     const bookings = this.state.bookings;
     // console.log(this.state)
     const bookingItems = bookings.map(booking => {
-      const id = uuidv4();
-
       return (
-        <ul key={id}>
+        <ul key={booking._id}>
           <li>
-            <div>{booking.visitorname}</div>
+            <section>
+              <div>
+                <p>Date: {booking.date}</p>
+                <p>Time: REPLACE LATER</p>
+                {/* <p>Time: {booking.timeslot}</p> */}
+                <p>Table: REPLACE LATER</p>
+                {/* <p>Table: {booking.tablenumber}</p> */}
+              </div>
+              <div>
+                <p>
+                  Guest: {booking.visitorname} Amount: {booking.visitorcount}
+                </p>
+                <p>
+                  Contact: {booking.visitorphone}, {booking.visitoremail}
+                </p>
+              </div>
+            </section>
           </li>
         </ul>
       );
@@ -85,10 +91,6 @@ export default class Bookings extends Component {
         <div>
           <p>List of bookings which can be filtered according to date</p>
           {bookingItems}
-          {/* <ul>
-            <li>BOOKING</li>
-            <li>BOOKING</li>
-          </ul> */}
         </div>
 
         <Link to="/addbooking">
