@@ -46,8 +46,7 @@ export default class Bookings extends Component {
     let defaultYearString = defaultYear.toString();
     let defaultYearMonth = "";
 
-    let defaultMonth = new Date().getMonth() + 1;
-    console.log(defaultMonth);
+    let defaultMonth = new Date().getMonth() + 1; //plus one as getMonth starts with index 0
     let defaultMonthString = defaultMonth.toString();
     if (defaultMonthString.length === 1) {
       defaultYearMonth = defaultYearString.concat("-0", defaultMonthString);
@@ -80,7 +79,6 @@ export default class Bookings extends Component {
     //filter Bookings and only return bookings with the correct date
     const filteredBookings = this.state.bookings.filter(booking => {
       let bookingDate = [...booking.date].splice(0, 10).join("");
-      // console.log(selectedDate);
 
       let dateMatched = bookingDate === selectedDate;
 
