@@ -53,6 +53,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// Gets data from existing restaurant document
 router.get("/", (req, res) => {
   const user = req.user._id;
 
@@ -65,5 +66,8 @@ router.get("/", (req, res) => {
       res.json(err);
     });
 });
+
+//Update existing restaurant document
+//ADD PUT ROUTE
 
 module.exports = router;

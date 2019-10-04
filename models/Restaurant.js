@@ -124,6 +124,7 @@ const restaurantSchema = new Schema(
       type: Array,
       default: timeslots
     },
+    tablenumber: Number,
     tables: [Schema.Types.Mixed]
   },
   {

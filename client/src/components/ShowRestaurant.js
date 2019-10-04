@@ -71,7 +71,11 @@ export default class ShowRestaurant extends Component {
 
         <h4>Opening times</h4>
         <ul>
-          <li>Monday: CLOSED OR OPEN (Weekday true or false?). If open pull openingtimes from openingtimes object (opentime, closetime) and edit that data to be a time</li>
+          <li>
+            Monday: CLOSED OR OPEN (Weekday true or false?). If open pull
+            openingtimes from openingtimes object (opentime, closetime) and edit
+            that data to be a time
+          </li>
           <li>Tuesday</li>
           <li>Wednesday</li>
           <li>Thursday</li>
@@ -80,7 +84,7 @@ export default class ShowRestaurant extends Component {
           <li>Sunday</li>
         </ul>
         <h4>Seating information</h4>
-        <p>Number of tables: {this.state.tables.length}</p>
+        <p>Number of tables: {this.state.tablenumber}</p>
         <ul>
           <li>{/* map over array of tables and get their info? */}</li>
         </ul>
