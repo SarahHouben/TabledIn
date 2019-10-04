@@ -38,17 +38,18 @@ export default class TableForm extends Component {
     axios
       .get("/api/restaurants")
       .then(response => {
-        console.log(response);
-        if(response){
-        this.setState(
-          {
-            tables: response.data.tables 
-          },
-          () => console.log(this.state)
-        );
+        
+        if (response.data) {
+          this.setState(
+            {
+              tables: response.data.tables
+            },
+            () => console.log(this.state)
+          );
         }
       })
       .catch(err => {
+        console.log(err);
         // handle err.response depending on err.response.status
         if (err.response.status === 404) {
           this.setState({ error: "Not found" });
