@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 const dayreportSchema = new Schema(
   {
     Date: Date,
-    openingtimes: Array,
+    timeslots: Array,
     tables: { type: Schema.Types.ObjectId, ref: "Table" }
   },
   {

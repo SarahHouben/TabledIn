@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Booking = require("../models/Booking");
+const DayReport = require('../models/DayReport')
+const Restaurant = require('../models/Restaurant')
 
 // POST /api/bookings
 // create a new `booking` resource
@@ -13,6 +15,19 @@ router.post("/", (req, res) => {
   const email = req.body.email;
 
 
+
+
+  if(DayReport.find({Date:selectedDay}).count()>0){
+    
+
+  }else{
+let timetable = Restaurant.
+    DayReport.create({
+      Date:selectedDay,
+      openingtimes:
+    })
+  }
+}
   //CHECK BOOKING AVAILABILITY FUNCTION
 
   //check whether there is a DayReport for that date
