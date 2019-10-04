@@ -44,7 +44,7 @@ export default class TableForm extends Component {
             {
               tables: response.data.tables
             },
-            () => console.log(this.state)
+            // () => console.log(this.state)
           );
         }
       })

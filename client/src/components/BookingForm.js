@@ -52,13 +52,7 @@ export default class BookingForm extends Component {
       })
       .then(() => {
         console.log("created booking step1");
-        // this.props.history.push("/");
-        // this.setState({
-        //   title: "",
-        //   description: ""
-        // });
-        // updates the parent's component's state, which causes new props to be passed to the parent component
-        // this.props.getData();
+        this.props.history.push("/");
       })
       .catch(err => {
         console.log(err);

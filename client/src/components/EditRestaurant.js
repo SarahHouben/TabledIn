@@ -35,7 +35,7 @@ export default class EditRestaurant extends Component {
     axios
       .get("/api/restaurants")
       .then(response => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           name: response.data.name,
           address: response.data.address,

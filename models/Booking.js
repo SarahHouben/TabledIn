@@ -9,7 +9,8 @@ const bookingSchema = new Schema(
     visitorname: String,
     visitorcount: Number,
     visitorphone: String,
-    visitoremail: String
+    visitoremail: String,
+    owner: { type: Schema.Types.ObjectId, ref: "User" }
   },
   {
     timestamps: {
