@@ -35,19 +35,21 @@ export default class ShowRestaurant extends Component {
       .get("/api/restaurants")
       .then(response => {
         console.log(response);
-        this.setState({
-          name: response.data.name,
-          address: response.data.address,
-          phone: response.data.phone,
-          email: response.data.email,
-          weekdays: response.data.weekdays,
-          tablenumber: response.data.tablenumber,
-          tables: response.data.tables,
-          openingtimes: response.data.openingtimes
-        });
+        if (response) {
+          this.setState({
+            name: response.data.name,
+            address: response.data.address,
+            phone: response.data.phone,
+            email: response.data.email,
+            weekdays: response.data.weekdays,
+            tablenumber: response.data.tablenumber,
+            tables: response.data.tables,
+            openingtimes: response.data.openingtimes
+          });
+        }
       })
       .catch(err => {
-        console.log(err.response);
+        console.log(err);
         // handle err.response depending on err.response.status
         if (err.response.status === 404) {
           this.setState({ error: "Not found" });

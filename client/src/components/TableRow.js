@@ -23,6 +23,19 @@ export default class TableRow extends Component {
     );
   };
 
+  componentDidMount() {
+    // console.log(this.props.tableobject);
+    if (this.props.tableobject) {
+      this.setState(
+        {
+          cap: this.props.tableobject.cap,
+          num: this.props.tableobject.num
+        },
+        // () => console.log(this.state)
+      );
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
