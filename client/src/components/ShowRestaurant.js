@@ -71,7 +71,7 @@ export default class ShowRestaurant extends Component {
 
         <h4>Opening times</h4>
         <ul>
-          <li>Monday from to</li>
+          <li>Monday: CLOSED OR OPEN (Weekday true or false?). If open pull openingtimes from openingtimes object (opentime, closetime) and edit that data to be a time</li>
           <li>Tuesday</li>
           <li>Wednesday</li>
           <li>Thursday</li>
