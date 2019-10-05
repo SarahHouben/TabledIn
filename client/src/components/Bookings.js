@@ -23,13 +23,12 @@ export default class Bookings extends Component {
     axios
       .get("/api/bookings")
       .then(response => {
-        // console.log("RESPONSE: ", response);
         this.setState({
           bookings: response.data
         });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         // handle err.response depending on err.response.status
         if (err.response.status === 404) {
           this.setState({ error: "Not found" });
@@ -41,12 +40,12 @@ export default class Bookings extends Component {
     this.getData();
   };
 
-  deleteBooking = () => {
-    console.log("DELETE BOOKING FUNCTION IS CALLED");
-    // const id = booking._id
-    // axios.delete(`/api/bookings/${id}`).then(() => {
-    //   this.props.history.push("/bookings");
-    // })
+  deleteBooking = id => {
+    // console.log("DELETE BOOKING FUNCTION IS CALLED");
+    // console.log("ID: ", id);
+    axios.delete(`/api/bookings/${id}`).then(() => {
+      console.log("DELETED BOOKING");
+    });
   };
 
   render() {
@@ -87,9 +86,7 @@ export default class Bookings extends Component {
     //filter Bookings and only return bookings with the correct date
     const filteredBookings = this.state.bookings.filter(booking => {
       let bookingDate = [...booking.date].splice(0, 10).join("");
-
       let dateMatched = bookingDate === selectedDate;
-
       return dateMatched;
     });
 
@@ -112,25 +109,20 @@ export default class Bookings extends Component {
                 <p>
                   Guest: {booking.visitorname} Amount: {booking.visitorcount}
                 </p>
-                <p>
-                  Contact: {booking.visitorphone} {booking.visitoremail}
-                </p>
+                {booking.visitoremail && <p>Email: {booking.visitoremail} </p>}
+                {booking.visitorphone && <p>Phone: {booking.visitorphone} </p>}
               </div>
+
               <div>
                 <button
-                  onClick={e => {
-                    if (
-                      window.confirm(
-                        "Are you sure you wish to delete this booking?"
-                      )
-                    )
-                      this.deleteBooking(e);
-                  }}
+                  onClick={e =>
+                    window.confirm(
+                      "Are you sure you wish to delete this item?"
+                    ) && this.deleteBooking(booking._id)
+                  }
                 >
                   Delete
                 </button>
-
-                <button>Delete</button>
               </div>
             </section>
           </li>

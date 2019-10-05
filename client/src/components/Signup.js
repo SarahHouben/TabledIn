@@ -55,6 +55,7 @@ export default class Signup extends Component {
               type="text"
               name="username"
               value={this.state.username}
+              required
               onChange={this.handleChange}
               id="username"
             />
@@ -65,6 +66,7 @@ export default class Signup extends Component {
               type="text"
               name="email"
               value={this.state.email}
+              required
               onChange={this.handleChange}
               id="email"
             />
@@ -74,6 +76,7 @@ export default class Signup extends Component {
             <input
               type="password"
               name="password"
+              required
               value={this.state.password}
               onChange={this.handleChange}
               id="password"
