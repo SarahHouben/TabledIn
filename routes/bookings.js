@@ -18,8 +18,7 @@ router.post("/", (req, res) => {
  const email = req.body.email;
  const owner = req.user._id;
  const dayIndex = new Date(selectedDay).getDay() - 1;
- console.log('date i get from fe',selectedDay);
- console.log('day INDEX',dayIndex);
+
  function getWeekDay(date) {
    //Create an array containing each day, starting with Sunday.
    var weekdays = new Array(
@@ -48,7 +47,7 @@ router.post("/", (req, res) => {
       $and: [{ date: selectedDay }, { restaurant: restaurant._id }],
     }).then(find => {
       //if there is a dayreport created it finds tables for that capacity and selected date
-      if (find) {
+      if (find && find.open) {
         Table.find({
           $and: [
             { tablecapacity: { $gt: guestnumber - 1 } },
@@ -125,6 +124,7 @@ router.post("/", (req, res) => {
                   timeslot: resTime,
                 })
                   .then(booking => {
+                    console.log('booking created' ,booking)
                     res.json(booking);
                   })
                   .catch(err => {
@@ -132,9 +132,12 @@ router.post("/", (req, res) => {
                   });
               });
             } else {
+              console.log("No free tables. Pick another time.")
               res.json({
                 message: "No free tables. Pick another time.",
-              });
+              })
+              
+              ;
             }
           })
           .catch(err => {
@@ -143,9 +146,11 @@ router.post("/", (req, res) => {
       } else {
         //if there is no dayreport for that day it checks if the restaurant is open for that day
         //and creates the day report.
-        if (restaurant.weekdays[day]) {
+        // console.log(find)
+        if (restaurant.weekdays[day] && !find) {
           DayReport.create({
             restaurant: restaurant._id,
+            open: true,
             date: selectedDay,
             timeslots: restaurant.timeslots,
             weekdays: restaurant.weekdays,
@@ -168,20 +173,26 @@ router.post("/", (req, res) => {
               res.json(err);
             });
         } else {
-          res.json({ message: "Closed on this day. Pick another date" });
+          console.log("Closed on this day. Pick another date")
+          res.json({ message: "Closed on this day. Pick another date" }).catch(err => {
+            res.json(err);
+          });;;
         }
         //The reason we do this is not to copy all of our code when there is no day report
         //First we create report and tables and finish our request here,then we do same code again
         //only this time there is report for tis day and booking is created if possible
+        console.log('Dayreport created,click one more time to make reservation')
         res.json({
           //Maybe fire loading popup ?????
           message: "Dayreport created,click one more time to make reservation",
-        });
+        }).catch(err => {
+          res.json(err);
+        });;
       }
     });
   }).catch(err => {
     res.json(err);
-  });;
+  });
 });
 
 

@@ -5,6 +5,7 @@ const dayreportSchema = new Schema(
   {
     restaurant: { type: Schema.Types.ObjectId, ref: "owner" },
     date: Date,
+    open: Boolean,
     timeslots: Schema.Types.Mixed,
     weekdays: Schema.Types.Mixed,
     tables: Schema.Types.Mixed
