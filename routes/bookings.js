@@ -166,19 +166,40 @@ router.post("/", (req, res) => {
               res.json(err);
             });
         } else {
-          res.json({ message: "Closed on this day. Pick another datee" });
+          res.json({ message: "Closed on this day. Pick another date" });
         }
         //The reason we do this is not to copy all of our code when there is no day report
         //First we create report and tables and finish our request here,then we do same code again
         //only this time there is report for tis day and booking is created if possible
         res.json({
+          //Maybe fire loading popup ?????
           message: "Dayreport created,click one more time to make reservation",
         });
       }
     });
-  });
+  }).catch(err => {
+    res.json(err);
+  });;
 });
 
+
+
+//######## ############# ########## Get information for all bookings
+router.get("/", (req, res) => {
+  const user = req.user._id;
+  Restaurant.findOne({owner:user}).then(restaurant=>{
+  Booking.find({ restaurant: restaurant._id })
+    .then(booking => {
+      // console.log(booking);
+      res.json(booking);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+
+
+  })
+});
 //CHECK BOOKING AVAILABILITY FUNCTION
 
 //check whether there is a DayReport for that date
@@ -191,18 +212,5 @@ router.post("/", (req, res) => {
 //                            5B. If there is a matching table for that timeslot => Send message "Booking confirmed. Table number is: {tablenumber}" && CREATE BOOKING with correct data
 
 // YES: same as above starting from 3.
-
-//######## ############# ########## Get information for all bookings
-router.get("/", (req, res) => {
-  const user = req.user._id;
-  Booking.find({ owner: user })
-    .then(booking => {
-      console.log(booking);
-      res.json(booking);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
 
 module.exports = router;

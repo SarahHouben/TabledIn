@@ -93,7 +93,9 @@ router.put("/", (req, res) => {
       }
       return timeSlotObj;
     } else return timeSlotObj;
-  });
+  }).catch(err => {
+    res.json(err);
+  });;
 
   const filter = { owner: user };
   Restaurant.findOneAndUpdate(
