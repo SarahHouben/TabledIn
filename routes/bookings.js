@@ -36,9 +36,33 @@ router.post("/", (req, res) => {
   const resTime = Number(arrivaltime.replace(":", ""));
 
   //Finding users restaurant
-  Restaurant.findOne({ owner: owner }, { tables: 1, timeslots: 1, weekdays: 1 })
-    .then(restaurant => {
-      //Checking if there is day report for specific restaurant and creating dayreport if there is none
+  Restaurant.findOne(
+    { owner: owner },
+    { tables: 1, timeslots: 1, weekdays: 1,openingtime: 1 }
+  ).then(restaurant => {
+    //Checking if there is day report for specific restaurant and creating dayreport if there is none
+
+    DayReport.findOne({
+      $and: [{ date: selectedDay }, { restaurant: restaurant._id }],
+    }).then(find => {
+      //if there is a dayreport created it finds tables for that capacity and selected date
+      if (find && find.open) {
+        Table.find({
+          $and: [
+            { tablecapacity: { $gt: guestnumber - 1 } },
+            { dayreport: find._id },
+            { date: selectedDay },
+          ],
+        })
+          .then(tables => {
+            //Filters available tables for given timeslots and sorts by lowest capacity(that can fit
+            //number of people that we need to make reservation)
+            const availableTables = tables
+              .filter(table => {
+                let timeSlotArray = Object.keys(table.timeslots);
+                let availabilityArray = Object.values(table.timeslots);
+                let timeSlotIndex = timeSlotArray.indexOf(resTime.toString());
+                let checkArray = [];
 
       DayReport.findOne({
         $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
@@ -100,35 +124,48 @@ router.post("/", (req, res) => {
                       return false;
                     }
                   })
-                  .reduce((acc, val, i) => {
-                    acc[timeSlotArray[i]] = val;
-                    return acc;
-                  }, {});
-
-                //We update table timeslots with updatedTimeslots object maped before
-                Table.findByIdAndUpdate(
-                  availableTables[0]._id,
-                  { $set: { timeslots: updatedTimeslots } },
-                  { new: true }
-                ).then(table => {
-                  //Creating booking with all the data that we used so far.
-                  Booking.create({
-                    date: selectedDay,
-                    visitorcount: guestnumber,
-                    visitorname: name,
-                    visitorphone: phone,
-                    visitoremail: email,
-                    tablenumber: table.tablenumber,
-                    restaurant: restaurant._id,
-                    timeslot: resTime
-                  })
-                    .then(booking => {
-                      console.log("booking created");
-                      res.json(booking);
-                    })
-                    .catch(err => {
-                      res.json(err);
-                    });
+                  .catch(err => {
+                    res.json(err);
+                  });
+              });
+            } else {
+              console.log("No free tables. Pick another time.")
+              res.json({
+                message: "No free tables. Pick another time.",
+              })
+              
+              ;
+            }
+          })
+          .catch(err => {
+            res.json(err);
+          });
+      } else {
+        //if there is no dayreport for that day it checks if the restaurant is open for that day
+        //and creates the day report.
+        // console.log(find)
+        if (restaurant.weekdays[day] && !find) {
+          // console.log(restaurant)
+          DayReport.create({
+            restaurant: restaurant._id,
+            open: true,
+            date: selectedDay,
+            timeslots: restaurant.timeslots,
+            weekdays: restaurant.weekdays,
+            tables: restaurant.tables,
+            openingtime: restaurant.openingtime[day].opentime,
+            closingtime: restaurant.openingtime[day].closetime
+          })
+            .then(dayReport => {
+              //Day report creates tables for that day with timeslots coresponding
+              //with opening times for that day.
+              dayReport.tables.map(el => {
+                Table.create({
+                  dayreport: dayReport._id,
+                  tablecapacity: el.cap,
+                  tablenumber: el.num,
+                  timeslots: dayReport.timeslots[dayIndex].timeslots,
+                  date: dayReport.date,
                 });
               } else {
                 console.log("No free tables. Pick another time.");
