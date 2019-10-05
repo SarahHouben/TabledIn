@@ -4,9 +4,7 @@ import "react-day-picker/lib/style.css";
 import axios from "axios";
 
 export default class BookingForm extends Component {
-  // state = {
-  //   selectedDay: undefined
-  // };
+
 
   constructor(props) {
     super(props);
@@ -17,7 +15,8 @@ export default class BookingForm extends Component {
       arrivaltime: "",
       name: "",
       phone: "",
-      email: ""
+      email: "",
+      message: ""
     };
   }
 
@@ -51,7 +50,7 @@ export default class BookingForm extends Component {
         email: this.state.email
       })
       .then(() => {
-        console.log("created booking step1");
+        console.log("created booking");
         this.props.history.push("/");
       })
       .catch(err => {
@@ -131,7 +130,7 @@ export default class BookingForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-
+          {this.state.message && <p>{this.state.message}</p>}
           <button type="Submit">submit</button>
         </form>
       </React.Fragment>
