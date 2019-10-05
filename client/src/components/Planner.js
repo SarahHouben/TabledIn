@@ -10,11 +10,15 @@ export default class EditPlanner extends Component {
     this.handleDayClick = this.handleDayClick.bind(this);
     this.state = {
       selectedDay: undefined,
-      open: true,
-      message: ""
+      open: false,
+      message: "",
+      openingtime: "",
+      closingtime: "",
+      _id: ""
     };
   }
 
+  
   // Function for datepicker
   handleDayClick(day) {
     this.setState({ selectedDay: day });
@@ -24,7 +28,7 @@ export default class EditPlanner extends Component {
         selectedDay: this.state.selectedDay
       })
       .then(response => {
-         console.log(response);
+        console.log(response);
         if (response.data.message) {
           this.setState({
             message: response.data.message
@@ -32,6 +36,9 @@ export default class EditPlanner extends Component {
         } else {
           this.setState({
             open: response.data.open,
+            openingtime: response.data.openingtime,
+            closingtime: response.data.closingtime,
+            _id: response.data._id,
             message: ""
           });
         }
@@ -40,7 +47,6 @@ export default class EditPlanner extends Component {
         console.log(err);
       });
   }
-  
 
   render() {
     return (
@@ -58,13 +64,30 @@ export default class EditPlanner extends Component {
             selectedDays={this.state.selectedDay}
           />
         </div>
-        <p>{this.state.message}</p>
-        <Link to="/planner/edit">
-          <button>Add schedule</button>
-        </Link>
-        <Link to="/planner/edit">
-          <button>Edit schedule</button>
-        </Link>
+
+        <div>
+          {this.state.open ? <p>Open</p> : <p>Closed</p>}
+          <p>
+            {" "}
+            Opening time:
+            {this.state.openingtime}
+          </p>
+          <p>
+            {" "}
+            Closing time:
+            {this.state.closingtime}
+          </p>
+        </div>
+
+        {this.state._id ? (
+          <Link to="/planner/edit">
+            <button>Edit schedule</button>
+          </Link>
+        ) : (
+          <Link to="/planner/edit">
+            <button>Add schedule</button>
+          </Link>
+        )}
       </React.Fragment>
     );
   }

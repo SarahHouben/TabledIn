@@ -117,8 +117,6 @@ export default class Bookings extends Component {
                 </p>
               </div>
               <div>
-                <button>Edit</button>
-
                 <button
                   onClick={e => {
                     if (
