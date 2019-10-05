@@ -8,6 +8,7 @@ export default class EditPlanner extends Component {
   constructor(props) {
     super(props);
     this.handleDayClick = this.handleDayClick.bind(this);
+    this.editSchedule = this.editSchedule.bind(this);
     this.state = {
       selectedDay: undefined,
       open: false,
@@ -17,11 +18,23 @@ export default class EditPlanner extends Component {
       _id: ""
     };
   }
+editSchedule() {
+  
+  // console.log(this.state.selectedDay)
+  axios.delete("/api/planner", { data: { selectedDay : this.state.selectedDay } }).then(res =>{
+    // console.log('fired' res)
+
+  }).catch(err => {
+    console.log(err);
+  })
+  }
+
+
 
   // Function for datepicker
   handleDayClick(day) {
     this.setState({ selectedDay: day });
-
+// console.log(this.state.selectedDay)
     axios
       .post("/api/planner", {
         selectedDay: day
@@ -112,7 +125,7 @@ export default class EditPlanner extends Component {
 
         {this.state._id ? (
           <Link to="/planner/edit">
-            <button>Edit schedule</button>
+            <button onClick= {this.editSchedule}>Edit schedule</button>
           </Link>
         ) : (
           <Link to="/planner/edit">
