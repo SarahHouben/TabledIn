@@ -223,7 +223,6 @@ router.get("/", (req, res) => {
 //######## ############# ########## Delete booking with certain id
 
 router.delete("/:id", (req, res) => {
-console.log(req.params)
   Booking.findByIdAndDelete(req.params.id)
     .then(() => {
       res.json({ message: "Deleted booking" });
@@ -232,7 +231,5 @@ console.log(req.params)
       res.json(err);
     });
 });
-
-
 
 module.exports = router;

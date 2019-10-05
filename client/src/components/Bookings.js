@@ -28,7 +28,6 @@ export default class Bookings extends Component {
         });
       })
       .catch(err => {
-        // console.log(err);
         // handle err.response depending on err.response.status
         if (err.response.status === 404) {
           this.setState({ error: "Not found" });
@@ -41,10 +40,9 @@ export default class Bookings extends Component {
   };
 
   deleteBooking = id => {
-    // console.log("DELETE BOOKING FUNCTION IS CALLED");
-    // console.log("ID: ", id);
-    axios.delete(`/api/bookings/${id}`).then(() => {
-      console.log("DELETED BOOKING");
+    axios.delete(`/api/bookings/${id}`).then(res => {
+      // console.log(res);
+      this.getData();
     });
   };
 

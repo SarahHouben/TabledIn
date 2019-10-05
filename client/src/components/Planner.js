@@ -24,13 +24,17 @@ export default class EditPlanner extends Component {
 
     axios
       .post("/api/planner", {
-        selectedDay: this.state.selectedDay
+        selectedDay: day
       })
       .then(response => {
         console.log(response);
         if (response.data.message) {
           this.setState({
-            message: response.data.message
+            message: response.data.message,
+            open: false,
+            openingtime: "",
+            closingtime: "",
+            _id: ""
           });
         } else {
           this.setState({
