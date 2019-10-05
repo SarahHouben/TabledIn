@@ -18,7 +18,7 @@ export default class EditPlanner extends Component {
     };
   }
 
-  
+
   // Function for datepicker
   handleDayClick(day) {
     this.setState({ selectedDay: day });
@@ -49,6 +49,8 @@ export default class EditPlanner extends Component {
   }
 
   render() {
+
+    
     return (
       <React.Fragment>
         <h3>Search for Schedules</h3>
