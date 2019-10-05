@@ -1,62 +1,91 @@
 import React, { Component } from "react";
-import DayPicker from "react-day-picker";
-import "react-day-picker/lib/style.css";
-// import axios from "axios";
 
 export default class EditPlanner extends Component {
-  constructor(props) {
-    super(props);
-    this.handleDayClick = this.handleDayClick.bind(this);
-    this.state = {
-      selectedDay: undefined
-      //ADD ANY OTHER INITIAL STATES HERE
-    };
-  }
+  state = {
+    open: false,
+    opentime: "",
+    closetime: ""
+  };
 
-  // Function for datepicker
-  handleDayClick(day) {
-    this.setState({ selectedDay: day });
-  }
+  //get values from text inputs and update state of weekday, opentime, closetime
 
-  //USE THIS FOR THE AXIOS ROUTE TO GET THE DATA FOR THE SCHEDULES IF YOU WANT
-  // getData = () => {
-  //   axios
-  //     .get("/api/planner")
-  //     .then(response => {
-  //        console.log("RESPONSE: ", response);
-  //       this.setState({
-  //         dayreport: response.data
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       // handle err.response depending on err.response.status
-  //       if (err.response.status === 404) {
-  //         this.setState({ error: "Not found" });
-  //       }
-  //     });
-  // };
+  handleChange = event => {
+    const { name, value } = event.target;
 
-  // componentDidMount = () => {
-  //   this.getData();
-  // };
+    this.setState({
+      [name]: value
+    });
+  };
+
+  //get values from checkbox and update state of "open"
+  handleCheckboxChange = event => {
+    const check = event.target.checked;
+    
+    this.setState({ open: check });
+  };
+
+  //Function to be called when submitting the form
+  handleSubmit = event => {
+    event.preventDefault();
+  };
 
   render() {
     return (
       <React.Fragment>
-        <h3>Edit / Add DayReports - change this title</h3>
+        <h3>Create new schedule</h3>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label htmlFor="weekday">Weekday</label>
+            <input
+              type="text"
+              name="weekday"
+              id="weekday"
+              required
+              value={this.state.weekday}
+              onChange={this.handleChange}
+            />
 
-        <div>
-          {this.state.selectedDay ? (
-            <p>Bookings for: {this.state.selectedDay.toDateString()}</p>
-          ) : (
-            <p>Please select a day.</p>
+            <label htmlFor="open">Open? </label>
+            <input
+              type="checkbox"
+              name="open"
+              id="open"
+              checked={this.state.open}
+              onChange={this.handleCheckboxChange}
+            />
+          </div>
+
+          {this.state.open && (
+            <div>
+              <label htmlFor="opentime">Opening time: </label>
+              <input
+                type="time"
+                name="opentime"
+                id="opentime"
+                min="08:00"
+                max="23:30"
+                step="900"
+                required
+                value={this.state.opentime}
+                onChange={this.handleChange}
+              />
+              <label htmlFor="closetime">Closing time: </label>
+              <input
+                type="time"
+                name="closetime"
+                id="closetime"
+                min="08:00"
+                max="23:30"
+                step="900"
+                required
+                value={this.state.closetime}
+                onChange={this.handleChange}
+              />
+            </div>
           )}
-          <DayPicker
-            onDayClick={this.handleDayClick}
-            selectedDays={this.state.selectedDay}
-          />
-        </div>
+
+          <button type="submit">Submit</button>
+        </form>
       </React.Fragment>
     );
   }

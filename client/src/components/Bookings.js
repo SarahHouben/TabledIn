@@ -49,8 +49,6 @@ export default class Bookings extends Component {
     // })
   };
 
-
-
   render() {
     let defaultYear = new Date().getFullYear();
     let defaultYearString = defaultYear.toString();
@@ -102,18 +100,20 @@ export default class Bookings extends Component {
             <section>
               <div>
                 <p>Date: {[...booking.date].splice(0, 10).join("")}</p>
-
-                <p>Time: REPLACE LATER</p>
-                {/* <p>Time: {booking.timeslot}</p> */}
-                <p>Table: REPLACE LATER</p>
-                {/* <p>Table: {booking.tablenumber}</p> */}
+                <p>
+                  Time:{" "}
+                  {booking.timeslot.slice(0, 2) +
+                    ":" +
+                    booking.timeslot.slice(2)}
+                </p>
+                <p>Table: {booking.tablenumber}</p>
               </div>
               <div>
                 <p>
                   Guest: {booking.visitorname} Amount: {booking.visitorcount}
                 </p>
                 <p>
-                  Contact: {booking.visitorphone}, {booking.visitoremail}
+                  Contact: {booking.visitorphone} {booking.visitoremail}
                 </p>
               </div>
               <div>
