@@ -1,11 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import axios from "axios";
 
 export default class BookingForm extends Component {
-
-
   constructor(props) {
     super(props);
     this.handleDayClick = this.handleDayClick.bind(this);
@@ -16,14 +15,14 @@ export default class BookingForm extends Component {
       name: "",
       phone: "",
       email: "",
-      message: ""
+      message: "",
+      success: ""
     };
   }
 
   // Function for datepicker
   handleDayClick(day) {
     this.setState({ selectedDay: day });
-    // console.log(day);
   }
 
   handleChange = event => {
@@ -37,8 +36,11 @@ export default class BookingForm extends Component {
     });
   };
 
+  //Handle Submit with message functionality
   handleSubmit = event => {
     event.preventDefault();
+
+    let success = "Created booking";
 
     axios
       .post("/api/bookings", {
@@ -49,14 +51,42 @@ export default class BookingForm extends Component {
         phone: this.state.phone,
         email: this.state.email
       })
-      .then(() => {
-        console.log("created booking");
-        this.props.history.push("/");
+      .then(data => {
+        if (data.message) {
+          this.setState({
+            message: data.message
+          });
+        } else {
+          console.log("created booking");
+          this.setState({
+            success: success
+          });
+        }
       })
       .catch(err => {
         console.log(err);
       });
   };
+  // handleSubmit = event => {
+  //   event.preventDefault();
+
+  //   axios
+  //     .post("/api/bookings", {
+  //       selectedDay: this.state.selectedDay,
+  //       guestnumber: this.state.guestnumber,
+  //       arrivaltime: this.state.arrivaltime,
+  //       name: this.state.name,
+  //       phone: this.state.phone,
+  //       email: this.state.email
+  //     })
+  //     .then(() => {
+  //       console.log("created booking");
+  //       this.props.history.push("/");
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
   render() {
     return (
@@ -67,9 +97,7 @@ export default class BookingForm extends Component {
 
           <div>
             {this.state.selectedDay ? (
-              <p>
-                Date of booking: {this.state.selectedDay.toLocaleDateString()}
-              </p>
+              <p>Date of booking: {this.state.selectedDay.toDateString()}</p>
             ) : (
               <p>Please select a day.</p>
             )}
@@ -131,6 +159,7 @@ export default class BookingForm extends Component {
             />
           </div>
           {this.state.message && <p>{this.state.message}</p>}
+          {this.state.success && <p>{this.state.success}</p>}
           <button type="Submit">submit</button>
         </form>
       </React.Fragment>

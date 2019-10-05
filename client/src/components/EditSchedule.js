@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
+import axios from "axios";
 
 export default class EditSchedule extends Component {
   constructor(props) {
     super(props);
     this.handleDayClick = this.handleDayClick.bind(this);
     this.state = {
-      selectedDay: undefined,
+      selectedDay: undefined
       //ADD ANY OTHER INITIAL STATES HERE
     };
   }
@@ -16,7 +17,6 @@ export default class EditSchedule extends Component {
   handleDayClick(day) {
     this.setState({ selectedDay: day });
   }
-
 
   //USE THIS FOR THE AXIOS ROUTE TO GET THE DATA FOR THE SCHEDULES IF YOU WANT
   // getData = () => {
@@ -41,16 +41,14 @@ export default class EditSchedule extends Component {
   //   this.getData();
   // };
 
-
   render() {
     return (
       <React.Fragment>
+        <h3>Edit / Add DayReports - change this title</h3>
 
-      <h3>Edit / Add DayReports - change this title</h3>
-        
-      <div>
+        <div>
           {this.state.selectedDay ? (
-            <p>Bookings for: {this.state.selectedDay.toLocaleDateString()}</p>
+            <p>Bookings for: {this.state.selectedDay.toDateString()}</p>
           ) : (
             <p>Please select a day.</p>
           )}
@@ -60,6 +58,7 @@ export default class EditSchedule extends Component {
           />
         </div>
 
+        
       </React.Fragment>
     );
   }

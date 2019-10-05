@@ -122,7 +122,7 @@ export default class Bookings extends Component {
 
         <div>
           {this.state.selectedDay ? (
-            <p>Bookings for: {this.state.selectedDay.toLocaleDateString()}</p>
+           <p>Bookings for: {this.state.selectedDay.toDateString()}</p>
           ) : (
             <p>Please select a day.</p>
           )}
