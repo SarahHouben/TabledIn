@@ -91,5 +91,7 @@ app.use("/api/restaurants", restaurantRoutes);
 const bookingRoutes = require("./routes/bookings");
 app.use("/api/bookings", bookingRoutes);
 
+const plannerRoutes = require("./routes/planner");
+app.use("/api/planner", plannerRoutes);
 
 module.exports = app;

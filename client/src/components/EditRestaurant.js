@@ -91,6 +91,7 @@ export default class EditRestaurant extends Component {
       () => console.log("updated state", this.state)
     );
   };
+  
   //get values from checkboxes and update states of weekdays with them
   handleCheckboxChange = event => {
     const { weekdays } = { ...this.state };

@@ -4,11 +4,12 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import RestaurantForm from "./components/RestaurantForm";
-import BookingForm from "./components/BookingForm";
-import Bookings from "./components/Bookings";
-import EditRestaurant from "./components/EditRestaurant";
 import ShowRestaurant from "./components/ShowRestaurant";
-import EditPlanner from "./components/EditPlanner.js";
+import EditRestaurant from "./components/EditRestaurant";
+import Bookings from "./components/Bookings";
+import BookingForm from "./components/BookingForm";
+import Planner from "./components/Planner";
+import EditPlanner from "./components/EditPlanner";
 import "./App.scss";
 
 class App extends React.Component {
@@ -84,6 +85,14 @@ class App extends React.Component {
           <Route
             exact
             path="/planner"
+            render={props => {
+              if (this.state.user) return <Planner {...props} />;
+              else return <Redirect to="/login" />;
+            }}
+          />
+                    <Route
+            exact
+            path="/planner/edit"
             render={props => {
               if (this.state.user) return <EditPlanner {...props} />;
               else return <Redirect to="/login" />;
