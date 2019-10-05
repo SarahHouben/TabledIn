@@ -18,7 +18,6 @@ export default class EditPlanner extends Component {
     };
   }
 
-
   // Function for datepicker
   handleDayClick(day) {
     this.setState({ selectedDay: day });
@@ -49,8 +48,6 @@ export default class EditPlanner extends Component {
   }
 
   render() {
-
-    
     return (
       <React.Fragment>
         <h3>Search for Schedules</h3>
@@ -67,19 +64,15 @@ export default class EditPlanner extends Component {
           />
         </div>
 
-        <div>
-          {this.state.open ? <p>Open</p> : <p>Closed</p>}
-          <p>
-            {" "}
-            Opening time:
-            {this.state.openingtime}
-          </p>
-          <p>
-            {" "}
-            Closing time:
-            {this.state.closingtime}
-          </p>
-        </div>
+        {this.state._id ? (
+          <div>
+            {this.state.open ? <p>Open</p> : <p>Closed</p>}
+            {this.state.open && <p>Opening time: {this.state.openingtime}</p>}
+            {this.state.open && <p>Closing time: {this.state.closingtime}</p>}
+          </div>
+        ) : (
+          <p>No schedule found.</p>
+        )}
 
         {this.state._id ? (
           <Link to="/planner/edit">
