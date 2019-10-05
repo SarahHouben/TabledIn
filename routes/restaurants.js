@@ -12,7 +12,6 @@ router.post("/", (req, res) => {
   const tablenumber = req.body.tablenumber;
   const tables = req.body.tables;
   const openingtimes = req.body.openingtimes;
- 
 
   // map the timeslots array with the openingtimes in combined
   let combined = timeslots.map(timeSlotObj => {
@@ -80,22 +79,24 @@ router.put("/", (req, res) => {
   const openingtimes = req.body.openingtimes;
 
   // map the timeslots array with the openingtimes in combined
-  let combined = timeslots.map(timeSlotObj => {
-    let businessTime = openingtimes[timeSlotObj.day];
-    if (businessTime && businessTime.opentime) {
-      for (let key in timeSlotObj.timeslots) {
-        let timeNum = Number(key);
-        let openingTime = businessTime.opentime;
-        let closingTime = businessTime.closetime;
+  let combined = timeslots
+    .map(timeSlotObj => {
+      let businessTime = openingtimes[timeSlotObj.day];
+      if (businessTime && businessTime.opentime) {
+        for (let key in timeSlotObj.timeslots) {
+          let timeNum = Number(key);
+          let openingTime = businessTime.opentime;
+          let closingTime = businessTime.closetime;
 
-        if (timeNum < closingTime && timeNum > openingTime)
-          timeSlotObj.timeslots[key] = true;
-      }
-      return timeSlotObj;
-    } else return timeSlotObj;
-  }).catch(err => {
-    res.json(err);
-  });;
+          if (timeNum < closingTime && timeNum > openingTime)
+            timeSlotObj.timeslots[key] = true;
+        }
+        return timeSlotObj;
+      } else return timeSlotObj;
+    })
+    .catch(err => {
+      res.json(err);
+    });
 
   const filter = { owner: user };
   Restaurant.findOneAndUpdate(

@@ -100,18 +100,27 @@ export default class Bookings extends Component {
     });
 
     const bookingItems = filteredBookings.map(booking => {
+      //format time for displaying
+      let hours = "";
+      let minutes = "";
+      if (booking.timeslot.length === 3) {
+        hours = booking.timeslot.slice(0, 1);
+        minutes = booking.timeslot.slice(1);
+      }
+      if (booking.timeslot.length === 4) {
+        hours = booking.timeslot.slice(0, 2);
+        minutes = booking.timeslot.slice(2);
+      }
+
+      let bookingTime = hours + ":" + minutes;
+
       return (
         <ul key={booking._id}>
           <li>
             <section>
               <div>
                 <p>Date: {[...booking.date].splice(0, 10).join("")}</p>
-                <p>
-                  Time:{" "}
-                  {booking.timeslot.slice(0, 2) +
-                    ":" +
-                    booking.timeslot.slice(2)}
-                </p>
+                <p>Time: {bookingTime}</p>
                 <p>Table: {booking.tablenumber}</p>
               </div>
               <div>
