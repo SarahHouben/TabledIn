@@ -207,8 +207,6 @@ router.get("/", (req, res) => {
     .catch(err => {
       res.json(err);
     });
-
-
   })
 });
 //CHECK BOOKING AVAILABILITY FUNCTION

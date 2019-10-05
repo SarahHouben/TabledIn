@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
-// import axios from "axios";
+import axios from "axios";
 
 export default class EditPlanner extends Component {
   constructor(props) {
@@ -17,6 +17,17 @@ export default class EditPlanner extends Component {
   // Function for datepicker
   handleDayClick(day) {
     this.setState({ selectedDay: day });
+
+    axios
+      .post("/api/planner", {
+        selectedDay: this.state.selectedDay
+      })
+      .then(data => {
+        console.log("posted date");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   //USE THIS FOR THE AXIOS ROUTE TO GET THE DATA FOR THE SCHEDULES IF YOU WANT
@@ -39,10 +50,8 @@ export default class EditPlanner extends Component {
   // };
 
   // componentDidMount = () => {
-  //   this.getData();
+  // this.getData();
   // };
-
-
 
   render() {
     return (
@@ -61,7 +70,6 @@ export default class EditPlanner extends Component {
           />
         </div>
 
-        
         <Link to="/planner/edit">
           <button>Add schedule</button>
         </Link>
