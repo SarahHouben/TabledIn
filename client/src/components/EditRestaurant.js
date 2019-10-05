@@ -170,7 +170,7 @@ export default class EditRestaurant extends Component {
       <div>
         <h3>Update the information for {this.state.name}</h3>
 
-        <React.Fragment>
+
           <form onSubmit={this.handleSubmit}>
             <h3>General information: </h3>
             <div>
@@ -358,7 +358,12 @@ export default class EditRestaurant extends Component {
             />
             <button type="submit">Submit</button>
           </form>
-        </React.Fragment>
+
+{/* <label htmlFor="logo">Upload Logo</label>
+          <input type="file" onChange={this.fileChangedHandler}/>
+<button onClick={this.uploadHandler}>Upload!</button> */}
+
+
       </div>
     );
   }
