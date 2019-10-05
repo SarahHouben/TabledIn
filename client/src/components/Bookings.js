@@ -41,6 +41,16 @@ export default class Bookings extends Component {
     this.getData();
   };
 
+  deleteBooking = () => {
+    console.log("DELETE BOOKING FUNCTION IS CALLED");
+    // const id = booking._id
+    // axios.delete(`/api/bookings/${id}`).then(() => {
+    //   this.props.history.push("/bookings");
+    // })
+  };
+
+
+
   render() {
     let defaultYear = new Date().getFullYear();
     let defaultYearString = defaultYear.toString();
@@ -108,6 +118,20 @@ export default class Bookings extends Component {
               </div>
               <div>
                 <button>Edit</button>
+
+                <button
+                  onClick={e => {
+                    if (
+                      window.confirm(
+                        "Are you sure you wish to delete this booking?"
+                      )
+                    )
+                      this.deleteBooking(e);
+                  }}
+                >
+                  Delete
+                </button>
+
                 <button>Delete</button>
               </div>
             </section>
@@ -122,7 +146,7 @@ export default class Bookings extends Component {
 
         <div>
           {this.state.selectedDay ? (
-           <p>Bookings for: {this.state.selectedDay.toDateString()}</p>
+            <p>Bookings for: {this.state.selectedDay.toDateString()}</p>
           ) : (
             <p>Please select a day.</p>
           )}
@@ -140,7 +164,7 @@ export default class Bookings extends Component {
           )}
         </div>
 
-        <Link to="/addbooking">
+        <Link to="/booking/add">
           <button>Add booking</button>
         </Link>
       </div>

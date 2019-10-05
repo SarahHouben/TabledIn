@@ -6,32 +6,34 @@ const { Restaurant } = require("../models/Restaurant");
 const Table = require("../models/Table");
 const addMinutes = require("date-fns/addMinutes");
 
-// POST /api/bookings
-// create a new `booking` resource
-router.post("/", (req, res) => {
-  const selectedDay = req.body.selectedDay;
-  const guestnumber = req.body.guestnumber;
-  const arrivaltime = req.body.arrivaltime;
-  const name = req.body.name;
-  const phone = req.body.phone;
-  const email = req.body.email;
-  const owner = req.user._id;
-  const dayIndex = new Date(selectedDay).getDay();
-  function getWeekDay(date) {
-    //Create an array containing each day, starting with Sunday.
-    var weekdays = new Array(
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    );
 
-    //Return the element that corresponds to that index.
-    return weekdays[dayIndex].toLowerCase();
-  }
+// POST /api/bookings
+// create a new booking resource
+router.post("/", (req, res) => {
+ const selectedDay = req.body.selectedDay;
+ const guestnumber = req.body.guestnumber;
+ const arrivaltime = req.body.arrivaltime;
+ const name = req.body.name;
+ const phone = req.body.phone;
+ const email = req.body.email;
+ const owner = req.user._id;
+ const dayIndex = new Date(selectedDay).getDay() - 1;
+ console.log('date i get from fe',selectedDay);
+ console.log('day INDEX',dayIndex);
+ function getWeekDay(date) {
+   //Create an array containing each day, starting with Sunday.
+   var weekdays = new Array(
+     "Sunday",
+     "Monday",
+     "Tuesday",
+     "Wednesday",
+     "Thursday",
+     "Friday",
+     "Saturday"
+   );
+   //Return the element that corresponds to that index.
+   return weekdays[(dayIndex+1)].toLowerCase();
+ }
   const day = getWeekDay(selectedDay);
   const resTime = Number(arrivaltime.replace(":", ""));
 

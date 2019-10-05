@@ -8,7 +8,7 @@ import BookingForm from "./components/BookingForm";
 import Bookings from "./components/Bookings";
 import EditRestaurant from "./components/EditRestaurant";
 import ShowRestaurant from "./components/ShowRestaurant";
-import EditSchedule from "./components/EditSchedule";
+import EditPlanner from "./components/EditPlanner.js";
 import "./App.scss";
 
 class App extends React.Component {
@@ -59,7 +59,7 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/addbooking"
+            path="/booking/add"
             render={props => {
               if (this.state.user) return <BookingForm {...props} />;
               else return <Redirect to="/login" />;
@@ -83,9 +83,9 @@ class App extends React.Component {
           />
           <Route
             exact
-            path="/schedule"
+            path="/planner"
             render={props => {
-              if (this.state.user) return <EditSchedule {...props} />;
+              if (this.state.user) return <EditPlanner {...props} />;
               else return <Redirect to="/login" />;
             }}
           />

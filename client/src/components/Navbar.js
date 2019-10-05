@@ -24,7 +24,7 @@ const Navbar = props => {
         {props.user ? (
           <>
             <li>
-              <Link to="/schedule">Planner</Link>
+              <Link to="/planner">Planner</Link>
             </li>
             <li>
               <Link to="/restaurant/show">Restaurant Info</Link>

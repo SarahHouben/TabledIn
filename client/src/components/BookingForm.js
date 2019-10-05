@@ -52,11 +52,12 @@ export default class BookingForm extends Component {
         email: this.state.email
       })
       .then(data => {
+        console.log("######### DATA MESSAGE:", data.message);
         if (data.message) {
           this.setState({
             message: data.message
           });
-        } else {
+        } else if (!data.message) {
           console.log("created booking");
           this.setState({
             success: success
@@ -115,7 +116,7 @@ export default class BookingForm extends Component {
               id="guestnumber"
               value={this.state.guestnumber}
               onChange={this.handleChange}
-              min="0"
+              min="1"
             />
             <label htmlFor="arrivaltime">Time: </label>
             <input
@@ -138,6 +139,7 @@ export default class BookingForm extends Component {
               type="text"
               name="name"
               id="name"
+              required
               value={this.state.name}
               onChange={this.handleChange}
             />
@@ -162,6 +164,10 @@ export default class BookingForm extends Component {
           {this.state.success && <p>{this.state.success}</p>}
           <button type="Submit">submit</button>
         </form>
+
+        <Link to="/">
+          <button>Home</button>
+        </Link>
       </React.Fragment>
     );
   }
