@@ -150,6 +150,7 @@ export default class RestaurantForm extends Component {
               type="text"
               name="name"
               id="name"
+              required
               value={this.state.name}
               onChange={this.handleChange}
             />
@@ -159,6 +160,7 @@ export default class RestaurantForm extends Component {
               type="text"
               name="address"
               id="address"
+              required
               value={this.state.address}
               onChange={this.handleChange}
             />
@@ -312,7 +314,8 @@ export default class RestaurantForm extends Component {
             id="tablenumber"
             value={this.state.tablenumber}
             onChange={this.handleChange}
-            min="0"
+            min="1"
+            required
           />
           {/* render TableForm with amount of TableRows equal to number of tables */}
           <TableForm

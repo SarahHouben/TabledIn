@@ -31,20 +31,23 @@ editSchedule() {
 
 
 
-
   // Function for datepicker
   handleDayClick(day) {
     this.setState({ selectedDay: day });
 // console.log(this.state.selectedDay)
     axios
       .post("/api/planner", {
-        selectedDay: this.state.selectedDay
+        selectedDay: day
       })
       .then(response => {
         console.log(response);
         if (response.data.message) {
           this.setState({
-            message: response.data.message
+            message: response.data.message,
+            open: false,
+            openingtime: "",
+            closingtime: "",
+            _id: ""
           });
         } else {
           this.setState({
@@ -62,8 +65,6 @@ editSchedule() {
   }
 
   render() {
-
-    
     return (
       <React.Fragment>
         <h3>Search for Schedules</h3>
@@ -80,19 +81,15 @@ editSchedule() {
           />
         </div>
 
-        <div>
-          {this.state.open ? <p>Open</p> : <p>Closed</p>}
-          <p>
-            {" "}
-            Opening time:
-            {this.state.openingtime}
-          </p>
-          <p>
-            {" "}
-            Closing time:
-            {this.state.closingtime}
-          </p>
-        </div>
+        {this.state._id ? (
+          <div>
+            {this.state.open ? <p>Open</p> : <p>Closed</p>}
+            {this.state.open && <p>Opening time: {this.state.openingtime}</p>}
+            {this.state.open && <p>Closing time: {this.state.closingtime}</p>}
+          </div>
+        ) : (
+          <p>No schedule found.</p>
+        )}
 
         {this.state._id ? (
           <Link to="/planner/edit">

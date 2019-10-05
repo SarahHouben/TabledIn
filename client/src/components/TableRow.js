@@ -45,6 +45,7 @@ export default class TableRow extends Component {
           name="num"
           id="num"
           value={this.state.num}
+          required
           onChange={this.handleChange}
         />
 

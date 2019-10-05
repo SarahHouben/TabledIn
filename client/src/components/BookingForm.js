@@ -52,16 +52,21 @@ export default class BookingForm extends Component {
         email: this.state.email
       })
       .then(data => {
-        console.log("######### DATA MESSAGE:", data.message);
-        if (data.message) {
+        if (data.data.message) {
           this.setState({
-            message: data.message
+            message: data.data.message,
+            success: ""
           });
-        } else if (!data.message) {
-          console.log("created booking");
+        } else if (!data.data.message) {
           this.setState({
             success: success,
-            message: ''
+            message: "",
+            selectedDay: undefined,
+            guestnumber: 0,
+            arrivaltime: "",
+            name: "",
+            phone: "",
+            email: ""
           });
         }
       })

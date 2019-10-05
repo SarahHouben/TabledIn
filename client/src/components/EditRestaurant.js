@@ -91,7 +91,7 @@ export default class EditRestaurant extends Component {
       () => console.log("updated state", this.state)
     );
   };
-  
+
   //get values from checkboxes and update states of weekdays with them
   handleCheckboxChange = event => {
     const { weekdays } = { ...this.state };
@@ -168,20 +168,20 @@ export default class EditRestaurant extends Component {
   render() {
     return (
       <div>
-        <h3>Edit restaurant here</h3>
+        <h3>Update the information for {this.state.name}</h3>
 
-        <React.Fragment>
+
           <form onSubmit={this.handleSubmit}>
             <h3>General information: </h3>
             <div>
-              <label htmlFor="name">Restaurant name: </label>
+              {/* <label htmlFor="name">Restaurant name: </label>
               <input
                 type="text"
                 name="name"
                 id="name"
                 value={this.state.name}
                 onChange={this.handleChange}
-              />
+              /> */}
 
               <label htmlFor="address">Address: </label>
               <input
@@ -358,7 +358,12 @@ export default class EditRestaurant extends Component {
             />
             <button type="submit">Submit</button>
           </form>
-        </React.Fragment>
+
+{/* <label htmlFor="logo">Upload Logo</label>
+          <input type="file" onChange={this.fileChangedHandler}/>
+<button onClick={this.uploadHandler}>Upload!</button> */}
+
+
       </div>
     );
   }
