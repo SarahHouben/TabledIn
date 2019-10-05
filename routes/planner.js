@@ -9,17 +9,20 @@ router.post("/", (req, res) => {
 
   const user = req.user._id;
   Restaurant.findOne({ owner: user }).then(restaurant => {
-    DayReport.find({
+    DayReport.findOne({
       $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
     })
       .then(dayreport => {
-        console.log(dayreport);
-        res.json(dayreport);
+        if (!dayreport) {
+          return res.json({ message: "No schedule found for this day." });
+        }
+        return res.json(dayreport);
       })
       .catch(err => {
         res.json(err);
       });
   });
 });
+
 
 module.exports = router;

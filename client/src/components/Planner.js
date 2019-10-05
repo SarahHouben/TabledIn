@@ -9,8 +9,9 @@ export default class EditPlanner extends Component {
     super(props);
     this.handleDayClick = this.handleDayClick.bind(this);
     this.state = {
-      selectedDay: undefined
-      //ADD ANY OTHER INITIAL STATES HERE
+      selectedDay: undefined,
+      open: true,
+      message: ""
     };
   }
 
@@ -22,36 +23,24 @@ export default class EditPlanner extends Component {
       .post("/api/planner", {
         selectedDay: this.state.selectedDay
       })
-      .then(data => {
-        console.log("posted date");
+      .then(response => {
+         console.log(response);
+        if (response.data.message) {
+          this.setState({
+            message: response.data.message
+          });
+        } else {
+          this.setState({
+            open: response.data.open,
+            message: ""
+          });
+        }
       })
       .catch(err => {
         console.log(err);
       });
   }
-
-  //USE THIS FOR THE AXIOS ROUTE TO GET THE DATA FOR THE SCHEDULES IF YOU WANT
-  // getData = () => {
-  //   axios
-  //     .get("/api/planner")
-  //     .then(response => {
-  //        console.log("RESPONSE: ", response);
-  //       this.setState({
-  //         dayreport: response.data
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       // handle err.response depending on err.response.status
-  //       if (err.response.status === 404) {
-  //         this.setState({ error: "Not found" });
-  //       }
-  //     });
-  // };
-
-  // componentDidMount = () => {
-  // this.getData();
-  // };
+  
 
   render() {
     return (
@@ -69,7 +58,7 @@ export default class EditPlanner extends Component {
             selectedDays={this.state.selectedDay}
           />
         </div>
-
+        <p>{this.state.message}</p>
         <Link to="/planner/edit">
           <button>Add schedule</button>
         </Link>
