@@ -86,8 +86,8 @@ export default class ShowRestaurant extends Component {
         <h4>Opening times</h4>
         <ul>
           <li>Monday:</li>
-          {!this.state.weekdays.monday && <p>Closed</p>}
-          {this.state.weekdays.monday && <p>Open</p>}
+
+          {this.state.weekdays.monday ? <p>Open</p> : <p>Closed</p>}
           {this.state.weekdays.monday && (
             <p>Opens: {this.state.openingtimes.monday.opentime}</p>
           )}
@@ -96,8 +96,7 @@ export default class ShowRestaurant extends Component {
           )}
 
           <li>Tuesday</li>
-          {!this.state.weekdays.tuesday && <p>Closed</p>}
-          {this.state.weekdays.tuesday && <p>Open</p>}
+          {this.state.weekdays.tuesday ? <p>Open</p> : <p>Closed</p>}
           {this.state.weekdays.tuesday && (
             <p>Opens: {this.state.openingtimes.tuesday.opentime}</p>
           )}
@@ -106,8 +105,7 @@ export default class ShowRestaurant extends Component {
           )}
 
           <li>Wednesday</li>
-          {!this.state.weekdays.wednesday && <p>Closed</p>}
-          {this.state.weekdays.wednesday && <p>Open</p>}
+          {this.state.weekdays.wednesday ? <p>Open</p> : <p>Closed</p>}
           {this.state.weekdays.wednesday && (
             <p>Opens: {this.state.openingtimes.wednesday.opentime}</p>
           )}
@@ -116,8 +114,7 @@ export default class ShowRestaurant extends Component {
           )}
 
           <li>Thursday</li>
-          {!this.state.weekdays.thursday && <p>Closed</p>}
-          {this.state.weekdays.thursday && <p>Open</p>}
+          {this.state.weekdays.thursday ? <p>Open</p> : <p>Closed</p>}
           {this.state.weekdays.thursday && (
             <p>Opens: {this.state.openingtimes.thursday.opentime}</p>
           )}
@@ -126,8 +123,7 @@ export default class ShowRestaurant extends Component {
           )}
 
           <li>Friday</li>
-          {!this.state.weekdays.friday && <p>Closed</p>}
-          {this.state.weekdays.friday && <p>Open</p>}
+          {this.state.weekdays.friday ? <p>Open</p> : <p>Closed</p>}
           {this.state.weekdays.friday && (
             <p>Opens: {this.state.openingtimes.friday.opentime}</p>
           )}
@@ -136,8 +132,7 @@ export default class ShowRestaurant extends Component {
           )}
 
           <li>Saturday</li>
-          {!this.state.weekdays.saturday && <p>Closed</p>}
-          {this.state.weekdays.saturday && <p>Open</p>}
+          {this.state.weekdays.saturday ? <p>Open</p> : <p>Closed</p>}
           {this.state.weekdays.saturday && (
             <p>Opens: {this.state.openingtimes.saturday.opentime}</p>
           )}
@@ -146,8 +141,7 @@ export default class ShowRestaurant extends Component {
           )}
 
           <li>Sunday</li>
-          {!this.state.weekdays.sunday && <p>Closed</p>}
-          {this.state.weekdays.sunday && <p>Open</p>}
+          {this.state.weekdays.sunday ? <p>Open</p> : <p>Closed</p>}
           {this.state.weekdays.sunday && (
             <p>Opens: {this.state.openingtimes.sunday.opentime}</p>
           )}
@@ -160,11 +154,10 @@ export default class ShowRestaurant extends Component {
         <p>Number of tables: {this.state.tablenumber}</p>
         <table>
           <thead>
-          <tr>
-            <th>Table Id</th>
-            <th>Capacity</th>
-
-          </tr>
+            <tr>
+              <th>Table Id</th>
+              <th>Capacity</th>
+            </tr>
           </thead>
           <tbody>{tableItems}</tbody>
         </table>
@@ -176,4 +169,3 @@ export default class ShowRestaurant extends Component {
     );
   }
 }
-
