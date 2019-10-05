@@ -41,7 +41,7 @@ router.post("/", (req, res) => {
     .then(restaurant => {
       //Checking if there is day report for specific restaurant and creating dayreport if there is none
       DayReport.findOne({
-        $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
+        $and: [{ date: selectedDay }, { restaurant: restaurant._id }],
       }).then(find => {
         //if there is a dayreport created it finds tables for that capacity and selected date
         if (find && find.open) {
@@ -49,8 +49,8 @@ router.post("/", (req, res) => {
             $and: [
               { tablecapacity: { $gt: guestnumber - 1 } },
               { dayreport: find._id },
-              { date: selectedDay }
-            ]
+              { date: selectedDay },
+            ],
           })
             .then(tables => {
               //Filters available tables for given timeslots and sorts by lowest capacity(that can fit
@@ -116,7 +116,7 @@ router.post("/", (req, res) => {
                     visitoremail: email,
                     tablenumber: table.tablenumber,
                     restaurant: restaurant._id,
-                    timeslot: resTime
+                    timeslot: resTime,
                   })
                     .then(booking => {
                       console.log("booking created");
@@ -129,7 +129,7 @@ router.post("/", (req, res) => {
               } else {
                 console.log("No free tables. Pick another time.");
                 res.json({
-                  message: "No free tables. Pick another time."
+                  message: "No free tables. Pick another time.",
                 });
               }
             })
@@ -150,7 +150,7 @@ router.post("/", (req, res) => {
               weekdays: restaurant.weekdays,
               tables: restaurant.tables,
               openingtime: restaurant.openingtime[day].opentime,
-              closingtime: restaurant.openingtime[day].closetime
+              closingtime: restaurant.openingtime[day].closetime,
             })
               .then(dayReport => {
                 //Day report creates tables for that day with timeslots coresponding
@@ -161,7 +161,7 @@ router.post("/", (req, res) => {
                     tablecapacity: el.cap,
                     tablenumber: el.num,
                     timeslots: dayReport.timeslots[dayIndex].timeslots,
-                    date: dayReport.date
+                    date: dayReport.date,
                   });
                 });
               })
@@ -184,7 +184,8 @@ router.post("/", (req, res) => {
           );
           res.json({
             //Maybe fire loading popup ?????
-            message: "Dayreport created,click one more time to make reservation"
+            message:
+              "Dayreport created,click one more time to make reservation",
           });
         }
       });
