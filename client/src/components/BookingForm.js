@@ -60,7 +60,8 @@ export default class BookingForm extends Component {
         } else if (!data.message) {
           console.log("created booking");
           this.setState({
-            success: success
+            success: success,
+            message: ''
           });
         }
       })

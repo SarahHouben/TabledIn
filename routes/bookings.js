@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
   //Finding users restaurant
   Restaurant.findOne(
     { owner: owner },
-    { tables: 1, timeslots: 1, weekdays: 1 }
+    { tables: 1, timeslots: 1, weekdays: 1,openingtime: 1 }
   ).then(restaurant => {
     //Checking if there is day report for specific restaurant and creating dayreport if there is none
 
@@ -148,6 +148,7 @@ router.post("/", (req, res) => {
         //and creates the day report.
         // console.log(find)
         if (restaurant.weekdays[day] && !find) {
+          // console.log(restaurant)
           DayReport.create({
             restaurant: restaurant._id,
             open: true,
@@ -155,6 +156,8 @@ router.post("/", (req, res) => {
             timeslots: restaurant.timeslots,
             weekdays: restaurant.weekdays,
             tables: restaurant.tables,
+            openingtime: restaurant.openingtime[day].opentime,
+            closingtime: restaurant.openingtime[day].closetime
           })
             .then(dayReport => {
               //Day report creates tables for that day with timeslots coresponding
