@@ -124,7 +124,7 @@ router.post("/", (req, res) => {
                   timeslot: resTime,
                 })
                   .then(booking => {
-                    console.log('booking created' ,booking)
+                    console.log('booking created')
                     res.json(booking);
                   })
                   .catch(err => {
@@ -185,9 +185,7 @@ router.post("/", (req, res) => {
         res.json({
           //Maybe fire loading popup ?????
           message: "Dayreport created,click one more time to make reservation",
-        }).catch(err => {
-          res.json(err);
-        });;
+        })
       }
     });
   }).catch(err => {
