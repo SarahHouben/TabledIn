@@ -145,6 +145,9 @@ export default class RestaurantForm extends Component {
         <form onSubmit={this.handleSubmit} className="rest-form-form">
           <h3>General information </h3>
           <div className="rest-form-info-div">
+          <div>
+            
+          </div>
             <label htmlFor="name">Restaurant name: </label>
             <input
               type="text"

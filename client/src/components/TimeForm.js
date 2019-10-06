@@ -45,9 +45,10 @@ export default class TimeForm extends Component {
 
   render() {
     return (
-      <div>
+      <div   className="time-input">
         <label htmlFor="opentime">Opens:</label>
         <input
+      
           type="time"
           name="opentime"
           id="opentime"
