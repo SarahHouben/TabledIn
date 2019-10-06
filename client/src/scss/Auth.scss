@@ -44,36 +44,36 @@
 
   padding: 2vh 2vw;
 
-  input {
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid rgba(8, 65, 92, 0.7);
+  // input {
+  //   padding: 5px;
+  //   margin: 5px;
+  //   border: 1px solid rgba(8, 65, 92, 0.7);
 
-    border-radius: 5px;
+  //   border-radius: 5px;
 
-    text-align: center;
-  }
+  //   text-align: center;
+  // }
 
-  button {
-    margin: 15px 15px 5px 15px;
-    padding: 5px 20px;
-    border-radius: 5px;
-    border: none;
-    background-color: #3da0d8;
-    color: white;
-    cursor: pointer;
-    box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s ease 0s;
-  }
+  // button {
+  //   margin: 15px 15px 5px 15px;
+  //   padding: 5px 20px;
+  //   border-radius: 5px;
+  //   border: none;
+  //   background-color: #3da0d8;
+  //   color: white;
+  //   cursor: pointer;
+  //   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+  //   transition: all 0.4s ease 0s;
+  // }
 
-  button:hover {
-    background-color: #08415c;
-    font-weight: 600;
-    transition: all 0.4s ease 0s;
-  }
+  // button:hover {
+  //   background-color: #08415c;
+  //   font-weight: 600;
+  //   transition: all 0.4s ease 0s;
+  // }
 }
 
-.auth-message {
-  color: #bf3513;
-  padding: 5px 0;
-}
+// .auth-message {
+//   color: #bf3513;
+//   padding-top: 5px;
+// }

@@ -166,7 +166,7 @@ export default class BookingForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          {this.state.message && <p>{this.state.message}</p>}
+          {this.state.message && <p className="auth-message">{this.state.message}</p>}
           {this.state.success && <p>{this.state.success}</p>}
           <button type="Submit">submit</button>
         </form>

@@ -38,12 +38,11 @@ export default class TableForm extends Component {
     axios
       .get("/api/restaurants")
       .then(response => {
-        
         if (response.data) {
           this.setState(
             {
               tables: response.data.tables
-            },
+            }
             // () => console.log(this.state)
           );
         }

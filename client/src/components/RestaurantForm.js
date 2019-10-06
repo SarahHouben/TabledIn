@@ -50,7 +50,6 @@ export default class RestaurantForm extends Component {
   setOpeningTime = (name, value, weekday) => {
     //valute that we get from time form is a string and we need it as a number in DB
     let valueInt = Number(value.replace(":", ""));
-    // console.log("------VALUEINT:", valueInt);
     this.setState(
       {
         openingtimes: {
@@ -141,10 +140,11 @@ export default class RestaurantForm extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <form onSubmit={this.handleSubmit}>
-          <h3>General information: </h3>
-          <div>
+      <>
+        <h2 className="rest-form-header">Restaurant Information</h2>
+        <form onSubmit={this.handleSubmit} className="rest-form-form">
+          <h3>General information </h3>
+          <div className="rest-form-info-div">
             <label htmlFor="name">Restaurant name: </label>
             <input
               type="text"
@@ -183,8 +183,8 @@ export default class RestaurantForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <h3>Opening times: </h3>
-          <div>
+          <h3>Opening times </h3>
+          <div className="rest-form-time-div">
             <div>
               <p>Monday</p>
               <label htmlFor="monday">Open? </label>
@@ -306,46 +306,29 @@ export default class RestaurantForm extends Component {
             </div>
           </div>
 
-          <h3>Seating information: </h3>
-          <label htmlFor="tablenumber">Number of tables: </label>
-          <input
-            type="number"
-            name="tablenumber"
-            id="tablenumber"
-            value={this.state.tablenumber}
-            onChange={this.handleChange}
-            min="1"
-            required
-          />
-          {/* render TableForm with amount of TableRows equal to number of tables */}
-          <TableForm
-            tableAmount={this.state.tablenumber}
-            tablesStage2A={this.tablesStage2B}
-          />
+          <h3>Seating</h3>
+          <div className="rest-form-table-div">
+          <div className="rest-form-table-tnumber">
+            <label htmlFor="tablenumber">Number of tables: </label>
+            <input
+              type="number"
+              name="tablenumber"
+              id="tablenumber"
+              value={this.state.tablenumber}
+              onChange={this.handleChange}
+              min="1"
+              required
+            />
+          </div>
+            {/* render TableForm with amount of TableRows equal to number of tables */}
+            <TableForm
+              tableAmount={this.state.tablenumber}
+              tablesStage2A={this.tablesStage2B}
+            />
+          </div>
           <button type="submit">Submit</button>
         </form>
-      </React.Fragment>
+      </>
     );
   }
 }
-
-// let dayArray = [{"name": "monday"},{"name": "tuesday"},{"name": "wednesday"},{"name": "thursday"},{"name": "friday"},{"name": "saturday"},{"name": "sunday"}]
-
-// const week = dayArray.map(day => {
-//    console.log(week);
-//   return (
-
-//     <div>
-//     <p>{day.name}</p>
-//     <label htmlFor={day.name}>Open? </label>
-//     <input
-//       type="checkbox"
-//       name={day.name}
-//       id={day.name}
-//       checked={`this.state.weekdays.${day.name}`}
-//       onChange={this.handleCheckboxChange}
-//     />
-//     {`this.state.weekdays.${day.name}` && <TimeForm  weekday={`this.state.weekdays.${day.name}`}/>}
-//   </div>
-//   );
-// });

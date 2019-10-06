@@ -47,6 +47,7 @@ h2 {
 h3 {
   font-family: "Raleway", sans-serif;
   margin: 0;
+  color: #3da0d8;
 }
 
 h4 {
@@ -66,6 +67,43 @@ a {
 
 button {
   font-family: "Source Sans Pro", sans-serif;
+}
+
+//#####  GENERAL STYLING FOR FORM (DELETE ON AUTH SCSS)
+
+input {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid rgba(8, 65, 92, 0.7);
+  border-radius: 5px;
+  text-align: center;
+}
+
+form {
+  button {
+    margin: 15px 15px 5px 15px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3da0d8;
+    color: white;
+    cursor: pointer;
+    box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease 0s;
+  }
+
+  button:hover {
+    background-color: #08415c;
+    font-weight: 600;
+    transition: all 0.4s ease 0s;
+  }
+}
+
+//#####  GENERAL STYLING FOR ERROR MESSAGE  - (DELETE ON AUTH SCSS)
+
+.auth-message {
+  color: #bf3513;
+  padding-top: 5px;
 }
 
 code {
