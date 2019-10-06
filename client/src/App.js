@@ -50,7 +50,7 @@ class App extends React.Component {
         <SideDrawer click={this.backdropClickHandler} show={this.state.sideDrawerOpen} user={this.state.user} setUser={this.setUser}/>
         {backdrop}
 
-        <main style={{ marginTop: "64px" }}>
+        <main>
           <Switch>
             <Route
               exact

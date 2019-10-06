@@ -7,27 +7,64 @@ html {
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  overflow: visible;
+
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
 }
 
+#root {
+  min-height: 100vh;
+}
+.App {
+  min-height: 100vh;
+}
+
+main {
+  min-height: 100vh;
+  padding-top: 56px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(173, 216, 230, 0.1);
+}
+
 h1 {
   font-family: "Raleway", sans-serif;
+  margin: 0;
+  color: #08415c;
 }
 
 h2 {
   font-family: "Raleway", sans-serif;
+  margin: 0;
+  color: #08415c;
 }
 
 h3 {
   font-family: "Raleway", sans-serif;
+  margin: 0;
 }
 
 h4 {
   font-family: "Raleway", sans-serif;
+  margin: 0;
 }
 
 p {
+  font-family: "Source Sans Pro", sans-serif;
+  margin: 0;
+  color: rgb(3, 16, 22);
+}
+
+a {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+button {
   font-family: "Source Sans Pro", sans-serif;
 }
 
