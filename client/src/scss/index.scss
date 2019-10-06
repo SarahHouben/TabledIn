@@ -79,24 +79,58 @@ input {
   text-align: center;
 }
 
-form {
-  button {
-    margin: 15px 15px 5px 15px;
-    padding: 5px 20px;
-    border-radius: 5px;
-    border: none;
-    background-color: #3da0d8;
-    color: white;
-    cursor: pointer;
-    box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s ease 0s;
-  }
+//#####  GENERAL STYLING BUTTONS
 
-  button:hover {
-    background-color: #08415c;
-    font-weight: 600;
-    transition: all 0.4s ease 0s;
-  }
+button {
+  margin: 15px 15px 5px 15px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.4s ease 0s;
+}
+
+//#####  GENERAL STYLING FOR SUBMIT BUTTON
+
+.edit-button {
+  border: none;
+  background-color: #5bcae8;
+  color: white;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.edit-button:hover {
+  background-color: #08415c;
+  font-weight: 600;
+  transition: all 0.4s ease 0s;
+}
+
+//#####  GENERAL STYLING FOR DELETE BUTTON
+
+.delete-button {
+  border: none;
+  background-color: #bf3513;
+  color: white;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.delete-button:hover {
+  background-color: #8b270e;
+  font-weight: 600;
+  transition: all 0.4s ease 0s;
+}
+
+//#####  GENERAL STYLING FOR CANCEL BUTTON
+
+.cancel-button {
+  border: none;
+  color: gray;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.cancel-button:hover {
+  // background-color: #cfc5c2;
+  font-weight: 600;
+  transition: all 0.4s ease 0s;
 }
 
 //#####  GENERAL STYLING FOR ERROR MESSAGE  - (DELETE ON AUTH SCSS)

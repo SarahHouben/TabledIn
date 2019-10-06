@@ -133,12 +133,13 @@ export default class Bookings extends Component {
 
               <div>
                 <button
+                className="delete-button"
                   onClick={e => {
                     this.showModal();
                   }}
                 >
                   {" "}
-                  Delete with Modal{" "}
+                  Delete{" "}
                 </button>
               </div>
             </section>
@@ -183,7 +184,7 @@ export default class Bookings extends Component {
         </div>
 
         <Link to="/booking/add">
-          <button>Add booking</button>
+          <button className="edit-button">Add booking</button>
         </Link>
       </div>
     );

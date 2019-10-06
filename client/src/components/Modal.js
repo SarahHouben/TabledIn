@@ -18,16 +18,16 @@ export default class Modal extends Component {
     return (
       <div className="modal-background">
         <div className="modal" id="modal">
-          <h2>Confirmation required</h2>
-          <div className="content">{this.props.children}</div>
+          <h3>Confirmation required</h3>
+          <div className="modal-content">{this.props.children}</div>
           <div className="actions">
             <button
-              className="toggle-button delete"
+              className="delete-button"
               onClick={(this.onClose, this.onClickParentFunction)}
             >
               Yes, delete
             </button>
-            <button className="toggle-button cancel" onClick={this.onClose}>
+            <button className="cancel-button" onClick={this.onClose}>
               No, cancel
             </button>
           </div>

@@ -40,7 +40,7 @@ export default class BookingForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    let success = "Created booking";
+    let success = "Created booking.";
 
     axios
       .post("/api/bookings", {
@@ -166,14 +166,19 @@ export default class BookingForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          {this.state.message && <p className="auth-message">{this.state.message}</p>}
-          {this.state.success && <p>{this.state.success}</p>}
-          <button type="Submit">submit</button>
-        </form>
+          {this.state.message && (
+            <p className="auth-message">{this.state.message}</p>
+          )}
+          {this.state.success && (
+            <p>
+              {this.state.success} <Link to="/">Back to home.</Link>
+            </p>
+          )}
 
-        <Link to="/">
-          <button>Home</button>
-        </Link>
+          <button className="edit-button" type="Submit">
+            Submit
+          </button>
+        </form>
       </React.Fragment>
     );
   }

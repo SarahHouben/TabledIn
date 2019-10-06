@@ -76,14 +76,24 @@ export default class ShowRestaurant extends Component {
 
     return (
       <div>
-        <h1>Information for {this.state.name}</h1>
+        <h2 className="rest-form-header">Information for {this.state.name}</h2>
 
-        <h4>Contact details</h4>
-        <p>Email: {this.state.email}</p>
-        <p>Phone: {this.state.phone}</p>
-        <p>Address: {this.state.address}</p>
+        <h3>General information </h3>
+        <em></em>
+        <p>
+          <strong>Address: </strong>
+          {this.state.address}
+        </p>
+        <p>
+          <strong>Email: </strong>
+          {this.state.email}
+        </p>
+        <p>
+          <strong>Phone: </strong>
+          {this.state.phone}
+        </p>
 
-        <h4>Opening times</h4>
+        <h3>Opening times</h3>
         <ul>
           <li>Monday:</li>
 
@@ -150,20 +160,20 @@ export default class ShowRestaurant extends Component {
           )}
         </ul>
 
-        <h4>Seating information</h4>
+        <h3>Seating</h3>
         <p>Number of tables: {this.state.tablenumber}</p>
         <table>
           <thead>
             <tr>
               <th>Table Id</th>
-              <th>Capacity</th>
+              <th>Guest number</th>
             </tr>
           </thead>
           <tbody>{tableItems}</tbody>
         </table>
 
         <Link to="/restaurant/edit">
-          <button>Edit information</button>
+          <button className="edit-button">Edit Info</button>
         </Link>
       </div>
     );

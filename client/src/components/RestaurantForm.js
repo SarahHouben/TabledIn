@@ -145,7 +145,6 @@ export default class RestaurantForm extends Component {
         <form onSubmit={this.handleSubmit} className="rest-form-form">
           <h3>General information </h3>
           <div className="rest-form-info-div">
-        
             <label htmlFor="name">Restaurant name: </label>
             <input
               type="text"
@@ -184,8 +183,8 @@ export default class RestaurantForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          
-          <h3>Opening times </h3>
+
+          <h3>Opening times</h3>
           <div className="rest-form-time-div">
             <div>
               <p>Monday</p>
@@ -310,25 +309,27 @@ export default class RestaurantForm extends Component {
 
           <h3>Seating</h3>
           <div className="rest-form-table-div">
-          <div className="rest-form-table-tnumber">
-            <label htmlFor="tablenumber">Number of tables: </label>
-            <input
-              type="number"
-              name="tablenumber"
-              id="tablenumber"
-              value={this.state.tablenumber}
-              onChange={this.handleChange}
-              min="1"
-              required
-            />
-          </div>
+            <div className="rest-form-table-tnumber">
+              <label htmlFor="tablenumber">Number of tables: </label>
+              <input
+                type="number"
+                name="tablenumber"
+                id="tablenumber"
+                value={this.state.tablenumber}
+                onChange={this.handleChange}
+                min="1"
+                required
+              />
+            </div>
             {/* render TableForm with amount of TableRows equal to number of tables */}
             <TableForm
               tableAmount={this.state.tablenumber}
               tablesStage2A={this.tablesStage2B}
             />
           </div>
-          <button type="submit">Submit</button>
+          <button className="edit-button" type="submit">
+            Submit
+          </button>
         </form>
       </>
     );
