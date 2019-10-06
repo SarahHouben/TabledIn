@@ -70,7 +70,7 @@ export default class EditPlanner extends Component {
     let openString = this.state.openingtime.toString();
 
     if (openString.length === 3) {
-      hours = openString.slice(0, 1);
+      hours = "0" + openString.slice(0, 1);
       minutes = openString.slice(1);
     }
     if (openString.length === 4) {

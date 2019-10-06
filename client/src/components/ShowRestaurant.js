@@ -31,12 +31,35 @@ export default class ShowRestaurant extends Component {
     }
   };
 
+  convertTime = time => {
+    let t = time.toString();
+    if (t.length === 3) {
+      let tEnd = t.slice(t.length - 2);
+      let tStart = "0" + t.substr(0, 1) + ":";
+      t = tStart + tEnd;
+    } else {
+      let tEnd = t.slice(t.length - 2);
+      let tStart = t.substr(0, 2) + ":";
+      t = tStart + tEnd;
+    }
+    return t;
+  };
+
+
   getData = () => {
     axios
       .get("/api/restaurants")
       .then(response => {
-        // console.log(response);
         if (response) {
+          Object.keys(response.data.openingtime).forEach(key => {
+            response.data.openingtime[key].opentime = this.convertTime(
+              response.data.openingtime[key].opentime
+            );
+            response.data.openingtime[key].closetime = this.convertTime(
+              response.data.openingtime[key].closetime
+            );
+          });
+
           this.setState({
             name: response.data.name,
             address: response.data.address,
