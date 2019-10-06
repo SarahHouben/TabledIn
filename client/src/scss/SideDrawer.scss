@@ -1,0 +1,52 @@
+.side-drawer {
+  height: 100%;
+  background: #3da0d8;
+  box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60%;
+  max-width: 400px;
+  z-index: 200;
+  transform: translateX(-120%);
+  transition: transform 0.3s ease-out;
+
+  ul {
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 3rem;
+  }
+
+  li {
+    margin: 0.5rem 0;
+  }
+
+  a {
+    color: #ffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: #08415c;
+  }
+
+  a:active {
+    color: #08415c;
+  }
+}
+
+.side-drawer.open {
+  transform: translateX(0);
+}
+
+@media (min-width: 769px) {
+  .side-drawer {
+    display: none;
+  }
+}

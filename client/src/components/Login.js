@@ -43,33 +43,41 @@ export default class Login extends Component {
   render() {
     return (
       <>
-        <h1>Welcome to TabledIn</h1>
-        <h2>Login</h2>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor="username">Username: </label>
-            <input
-              type="text"
-              name="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-              id="username"
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              id="password"
-            />
-          </div>
-          {this.state.message && <p>{this.state.message}</p>}
-          <button type="submit">Login</button>
-        </form>
-        Or <Link to="/signup">Sign up</Link>
+        <div className="auth-div__top">
+          <h1>TabledIn</h1>
+          <p>Manage your reservations.</p>
+          <p>Adapt your opening times.</p>
+          <p>Let your customers find you with Google AI.</p>
+        </div>
+        <div className="auth-div__bottom">
+          <h2>Login</h2>
+          <form className="auth-form" onSubmit={this.handleSubmit}>
+    
+              <input
+              placeholder="Username"
+                type="text"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                id="username"
+              />
+         
+              <input
+              placeholder="Password"
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                id="password"
+              />
+            
+            {this.state.message && <p>{this.state.message}</p>}
+            <button type="submit">Login</button>
+          </form>
+          <p>
+            ...or <Link to="/signup">sign up</Link>
+          </p>
+        </div>
       </>
     );
   }

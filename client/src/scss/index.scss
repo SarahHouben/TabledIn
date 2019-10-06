@@ -1,40 +1,74 @@
-* {
-  padding: 0;
-  margin: 0;
+@import url("https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&display=swap");
+
+html {
+  height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  min-height: 100vh;
+  overflow: visible;
+
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+}
+
+#root {
+  min-height: 100vh;
+}
+.App {
+  min-height: 100vh;
+}
+
+main {
+  min-height: 100vh;
+  padding-top: 56px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(173, 216, 230, 0.1);
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  color: #08415c;
+}
+
+h2 {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  color: #08415c;
+}
+
+h3 {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+}
+
+h4 {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+}
+
+p {
+  font-family: "Source Sans Pro", sans-serif;
+  margin: 0;
+  color: rgb(3, 16, 22);
+}
+
+a {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+button {
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-// ######## Navbar  ################
-nav {
-  background-color: #283e4a;
-
-  ul {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    list-style: none;
-
-    a {
-      text-decoration: none;
-      color: #c7d1d8;
-    }
-  }
-
-  li {
-    padding: 10px 30px;
-  }
 }
