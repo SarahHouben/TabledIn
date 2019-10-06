@@ -3,7 +3,7 @@
   left: 0;
   top: 0;
   width: 100%;
-  background: lightblue;
+  background: #add8e6;
   height: 56px;
 }
 
@@ -12,7 +12,9 @@
   display: flex;
   align-items: center;
   padding: 0 1rem;
+}
 
+.toolbar__navigation-items {
   a {
     color: white;
     text-decoration: none;
@@ -20,14 +22,16 @@
     display: flex;
     align-items: center;
     padding: 0 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
   }
 
   a:hover {
-    color: orange;
+    color: #3da0d8;
   }
 
   a:active {
-    color: orange;
+    color: #3da0d8;
   }
 }
 
@@ -38,16 +42,19 @@
 }
 
 .toolbar__logo {
-  margin-left: 1rem;
+  margin-left: 1rem !important;
   display: flex;
   align-items: center;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  filter: drop-shadow(2px 0px 7px #ffff);
+  background: -webkit-linear-gradient(#58c9e9, #3ea5dc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(px 0px 7px #ffff);
 }
 
-.toolbar__logo {
-  color: white;
-  text-decoration: none;
-  font-size: 1.5rem;
-}
 
 .spacer {
   flex: 1;

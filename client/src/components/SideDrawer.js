@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../services/api";
-// import "../scss/SideDrawer.scss";
 
 //Logout function
 const handleLogout = props => {

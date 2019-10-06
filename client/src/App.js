@@ -14,6 +14,7 @@ import Planner from "./components/Planner";
 import EditPlanner from "./components/EditPlanner";
 import "./scss/App.scss";
 
+
 class App extends React.Component {
   state = {
     user: this.props.user,

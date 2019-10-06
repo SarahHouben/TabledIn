@@ -19,12 +19,12 @@ const Toolbar = props => {
         <div className="toolbar__toggle-button">
           <DrawerToggleButton click={props.drawerClickHandler} />
         </div>
-        <div className="toolbar__logo">
-          <Link to="/">
-            <img className="nav-logo" src="/logo192.png" alt="TabledIn-Logo" />{" "}
-            TabledIn
-          </Link>
-        </div>
+
+        <Link className="toolbar__logo" to="/">
+          <img className="nav-logo" src="/logo192.png" alt="TabledIn-Logo" />{" "}
+          TabledIn
+        </Link>
+
         <div className="spacer" />
         <div className="toolbar__navigation-items">
           <ul>
