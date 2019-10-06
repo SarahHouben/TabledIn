@@ -12,6 +12,7 @@ router.post("/", (req, res) => {
   const tablenumber = req.body.tablenumber;
   const tables = req.body.tables;
   const openingtimes = req.body.openingtimes;
+  console.log(openingtimes);
 
   // map the timeslots array with the openingtimes in combined
   let combined = timeslots.map(timeSlotObj => {
@@ -43,7 +44,7 @@ router.post("/", (req, res) => {
     owner: owner
   })
     .then(restaurant => {
-      console.log(restaurant);
+      // console.log(restaurant);
       res.json(restaurant);
     })
     .catch(err => {

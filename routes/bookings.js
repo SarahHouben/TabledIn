@@ -226,6 +226,7 @@ router.get("/", (req, res) => {
 router.delete("/:id", (req, res) => {
   Booking.findByIdAndDelete(req.params.id)
     .then(() => {
+      console.log('Deleted booking')
       res.json({ message: "Deleted booking" });
     })
     .catch(err => {

@@ -1,32 +1,53 @@
 import React, { Component } from "react";
-
+import DayPicker from "react-day-picker";
+import "react-day-picker/lib/style.css";
+import axios from "axios";
 export default class EditPlanner extends Component {
-  state = {
-    open: false,
-    opentime: "",
-    closetime: ""
-  };
-
+  constructor(props) {
+    super(props);
+    this.handleDayClick = this.handleDayClick.bind(this);
+    this.state = {
+      selectedDay: undefined,
+      open: false,
+      opentime: "",
+      closetime: "",
+    };
+  }
   //get values from text inputs and update state of weekday, opentime, closetime
-
+  handleDayClick(day) {
+    this.setState({ selectedDay: day });
+  }
   handleChange = event => {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
   //get values from checkbox and update state of "open"
   handleCheckboxChange = event => {
     const check = event.target.checked;
-    
+
     this.setState({ open: check });
   };
 
   //Function to be called when submitting the form
   handleSubmit = event => {
     event.preventDefault();
+    axios
+      .post("/api/planner/edit", {
+        selectedDay: this.state.selectedDay,
+        open: this.state.open,
+        opentime: this.state.opentime,
+        closetime: this.state.closetime,
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -35,14 +56,9 @@ export default class EditPlanner extends Component {
         <h3>Create new schedule</h3>
         <form onSubmit={this.handleSubmit}>
           <div>
-            <label htmlFor="weekday">Weekday</label>
-            <input
-              type="text"
-              name="weekday"
-              id="weekday"
-              required
-              value={this.state.weekday}
-              onChange={this.handleChange}
+            <DayPicker
+              onDayClick={this.handleDayClick}
+              selectedDays={this.state.selectedDay}
             />
 
             <label htmlFor="open">Open? </label>
