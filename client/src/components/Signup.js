@@ -51,47 +51,45 @@ export default class Signup extends Component {
           <h1>TabledIn</h1>
           <p>Manage your reservations.</p>
           <p>Adapt your opening times.</p>
-          <p>Let your customers find you with Google AI.</p>
+          <p>Let customers find you with Google AI.</p>
         </div>
         <div className="auth-div__bottom">
           <h2>Signup</h2>
           <form className="auth-form" onSubmit={this.handleSubmit}>
-  
-              <input
-                placeholder="Username"
-                type="text"
-                name="username"
-                value={this.state.username}
-                required
-                onChange={this.handleChange}
-                id="username"
-              />
-            
-         
-              <input
-                placeholder="Email"
-                type="text"
-                name="email"
-                value={this.state.email}
-                required
-                onChange={this.handleChange}
-                id="email"
-              />
-           
-              <input
-                placeholder="Password"
-                type="password"
-                name="password"
-                required
-                value={this.state.password}
-                onChange={this.handleChange}
-                id="password"
-              />
-       
-            {this.state.message && <p>{this.state.message}</p>}
-            <button  type="submit">
-              Signup
-            </button>
+            <input
+              placeholder="Username"
+              type="text"
+              name="username"
+              value={this.state.username}
+              required
+              onChange={this.handleChange}
+              id="username"
+            />
+
+            <input
+              placeholder="Email"
+              type="text"
+              name="email"
+              value={this.state.email}
+              required
+              onChange={this.handleChange}
+              id="email"
+            />
+
+            <input
+              placeholder="Password"
+              type="password"
+              name="password"
+              required
+              value={this.state.password}
+              onChange={this.handleChange}
+              id="password"
+            />
+
+            {this.state.message && (
+              <p className="auth-message">{this.state.message}</p>
+            )}
+            <button type="submit">Signup</button>
           </form>
           <p>
             ...or <Link to="/login">log in</Link>
