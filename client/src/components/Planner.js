@@ -40,7 +40,7 @@ editSchedule() {
         selectedDay: day
       })
       .then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.data.message) {
           this.setState({
             message: response.data.message,
@@ -65,6 +65,38 @@ editSchedule() {
   }
 
   render() {
+    //format openingtime for displaying
+    let hours = "";
+    let minutes = "";
+    let openString = this.state.openingtime.toString();
+
+    if (openString.length === 3) {
+      hours = openString.slice(0, 1);
+      minutes = openString.slice(1);
+    }
+    if (openString.length === 4) {
+      hours = openString.slice(0, 2);
+      minutes = openString.slice(2);
+    }
+
+    let openingTime = hours + ":" + minutes;
+
+    //format closingtime for displaying
+    let closehours = "";
+    let closeminutes = "";
+    let closeString = this.state.closingtime.toString();
+
+    if (closeString.length === 3) {
+      closehours = closeString.slice(0, 1);
+      closeminutes = closeString.slice(1);
+    }
+    if (closeString.length === 4) {
+      closehours = closeString.slice(0, 2);
+      closeminutes = closeString.slice(2);
+    }
+
+    let closingTime = closehours + ":" + closeminutes;
+
     return (
       <React.Fragment>
         <h3>Search for Schedules</h3>
@@ -84,8 +116,8 @@ editSchedule() {
         {this.state._id ? (
           <div>
             {this.state.open ? <p>Open</p> : <p>Closed</p>}
-            {this.state.open && <p>Opening time: {this.state.openingtime}</p>}
-            {this.state.open && <p>Closing time: {this.state.closingtime}</p>}
+            {this.state.open && <p>Opening time: {openingTime}</p>}
+            {this.state.open && <p>Closing time: {closingTime}</p>}
           </div>
         ) : (
           <p>No schedule found.</p>

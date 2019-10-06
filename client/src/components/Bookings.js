@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
+import Modal from "./Modal";
+
 import axios from "axios";
 
 export default class Bookings extends Component {
@@ -10,9 +12,17 @@ export default class Bookings extends Component {
     this.handleDayClick = this.handleDayClick.bind(this);
     this.state = {
       selectedDay: undefined,
-      bookings: []
+      bookings: [],
+      show: false
     };
   }
+
+  //function to toggle modal
+  showModal = () => {
+    this.setState({
+      show: !this.state.show
+    });
+  };
 
   // Function for datepicker
   handleDayClick(day) {
@@ -47,6 +57,7 @@ export default class Bookings extends Component {
   };
 
   render() {
+    //get default Date
     let defaultYear = new Date().getFullYear();
     let defaultYearString = defaultYear.toString();
     let defaultYearMonth = "";
@@ -89,18 +100,27 @@ export default class Bookings extends Component {
     });
 
     const bookingItems = filteredBookings.map(booking => {
+      //format time for displaying
+      let hours = "";
+      let minutes = "";
+      if (booking.timeslot.length === 3) {
+        hours = booking.timeslot.slice(0, 1);
+        minutes = booking.timeslot.slice(1);
+      }
+      if (booking.timeslot.length === 4) {
+        hours = booking.timeslot.slice(0, 2);
+        minutes = booking.timeslot.slice(2);
+      }
+
+      let bookingTime = hours + ":" + minutes;
+
       return (
         <ul key={booking._id}>
           <li>
             <section>
               <div>
                 <p>Date: {[...booking.date].splice(0, 10).join("")}</p>
-                <p>
-                  Time:{" "}
-                  {booking.timeslot.slice(0, 2) +
-                    ":" +
-                    booking.timeslot.slice(2)}
-                </p>
+                <p>Time: {bookingTime}</p>
                 <p>Table: {booking.tablenumber}</p>
               </div>
               <div>
@@ -113,17 +133,27 @@ export default class Bookings extends Component {
 
               <div>
                 <button
-                  onClick={e =>
-                    window.confirm(
-                      "Are you sure you wish to delete this item?"
-                    ) && this.deleteBooking(booking._id)
-                  }
+                  onClick={e => {
+                    this.showModal();
+                  }}
                 >
-                  Delete
+                  {" "}
+                  Delete with Modal{" "}
                 </button>
               </div>
             </section>
           </li>
+          <Modal
+            onClose={this.showModal}
+            show={this.state.show}
+            deleteBooking={this.deleteBooking}
+            bookingID={booking._id}
+            onClickFunction={() => {
+              this.deleteBooking(booking._id);
+            }}
+          >
+            Are you sure you wish to delete this booking?
+          </Modal>
         </ul>
       );
     });

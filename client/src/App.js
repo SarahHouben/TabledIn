@@ -10,7 +10,7 @@ import Bookings from "./components/Bookings";
 import BookingForm from "./components/BookingForm";
 import Planner from "./components/Planner";
 import EditPlanner from "./components/EditPlanner";
-import "./App.scss";
+import "./scss/App.scss";
 
 class App extends React.Component {
   state = {
@@ -90,7 +90,7 @@ class App extends React.Component {
               else return <Redirect to="/login" />;
             }}
           />
-                    <Route
+          <Route
             exact
             path="/planner/edit"
             render={props => {
