@@ -44,6 +44,13 @@ class App extends React.Component {
       });
   };
 
+  //set date to undefined
+  onChange = () => {
+    this.setState({
+      selectedDay: undefined
+    });
+  } 
+
   drawerToggleClickHandler = () => {
     this.setState(prevState => {
       return { sideDrawerOpen: !prevState.sideDrawerOpen };
@@ -163,6 +170,7 @@ class App extends React.Component {
                       changeDate={this.changeDate}
                       selectedDay={this.state.selectedDay}
                       editSchedule={this.editSchedule}
+                      onDateChange={this.onChange}
                     />
                   );
                 else return <Redirect to="/login" />;

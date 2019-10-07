@@ -18,6 +18,7 @@ export default class EditPlanner extends Component {
   //get values from text inputs and update state of weekday, opentime, closetime
   handleDayClick(day) {
     this.props.changeDate(day);
+    this.setState({ success: "" });
   }
 
   handleChange = event => {
@@ -63,7 +64,9 @@ export default class EditPlanner extends Component {
             closetime: ""
           });
         }
+        this.props.onDateChange();
       })
+
       .catch(err => {
         console.log(err);
       });
