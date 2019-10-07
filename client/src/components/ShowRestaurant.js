@@ -9,6 +9,8 @@ export default class ShowRestaurant extends Component {
     address: "",
     phone: "",
     email: "",
+    logo: "",
+    menu: "",
     weekdays: {
       monday: false,
       tuesday: false,
@@ -67,7 +69,9 @@ export default class ShowRestaurant extends Component {
             weekdays: response.data.weekdays,
             tablenumber: response.data.tablenumber,
             tables: response.data.tables,
-            openingtimes: response.data.openingtime
+            openingtimes: response.data.openingtime,
+            menu: response.data.menu,
+            logo: response.data.logo
           });
         }
       })
@@ -99,6 +103,20 @@ export default class ShowRestaurant extends Component {
     return (
       <div>
         <h2 className="rest-form-header">Information for {this.state.name}</h2>
+        <div>
+          <img
+            className="rest-show-logo"
+            src={this.state.logo}
+            alt={this.state.name}
+          />
+
+          <button>
+            {/* <a download={this.state.menu}>View Menu</a> */}
+            <a href={this.state.menu} download="Menu" target="_blank">
+              View Menu
+            </a>
+          </button>
+        </div>
 
         <h3 className="rest-show-info-h3">General information</h3>
         <div className="rest-show-info-div">

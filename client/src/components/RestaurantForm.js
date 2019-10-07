@@ -9,8 +9,8 @@ export default class RestaurantForm extends Component {
     address: "",
     phone: "",
     email: "",
-    menu: null,
-    logo: null,
+    menu: "",
+    logo: "",
     weekdays: {
       monday: false,
       tuesday: false,
@@ -35,7 +35,6 @@ export default class RestaurantForm extends Component {
 
   //UPLOAD MENU (PDF)
   fileChangedHandlerMenu = event => {
-    console.log("LOOK HERE MENU", event.target.files[0]);
     const menuFile = event.target.files[0];
 
     const uploadData = new FormData();
@@ -44,7 +43,6 @@ export default class RestaurantForm extends Component {
     axios.post("/api/add-image/menu", uploadData).then(response => {
       const menu = response.data.secure_url;
       this.setState({ menu: menu });
-      console.log(this.state);
     });
   };
 
@@ -89,8 +87,8 @@ export default class RestaurantForm extends Component {
             [name]: valueInt
           }
         }
-      },
-      () => console.log("updated state", this.state)
+      }
+      // () => console.log("updated state", this.state)
     );
   };
 
