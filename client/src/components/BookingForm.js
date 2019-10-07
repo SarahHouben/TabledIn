@@ -40,7 +40,7 @@ export default class BookingForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    let success = "Created booking";
+    let success = "Created booking.";
 
     axios
       .post("/api/bookings", {
@@ -74,31 +74,12 @@ export default class BookingForm extends Component {
         console.log(err);
       });
   };
-  // handleSubmit = event => {
-  //   event.preventDefault();
-
-  //   axios
-  //     .post("/api/bookings", {
-  //       selectedDay: this.state.selectedDay,
-  //       guestnumber: this.state.guestnumber,
-  //       arrivaltime: this.state.arrivaltime,
-  //       name: this.state.name,
-  //       phone: this.state.phone,
-  //       email: this.state.email
-  //     })
-  //     .then(() => {
-  //       console.log("created booking");
-  //       this.props.history.push("/");
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
+ 
   render() {
     return (
       <React.Fragment>
-        <h1>Make a booking</h1>
+        <h2 className="rest-form-header">Add a Booking</h2>
+
         <form onSubmit={this.handleSubmit}>
           <h3>Booking Details</h3>
 
@@ -166,14 +147,19 @@ export default class BookingForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          {this.state.message && <p>{this.state.message}</p>}
-          {this.state.success && <p>{this.state.success}</p>}
-          <button type="Submit">submit</button>
-        </form>
+          {this.state.message && (
+            <p className="auth-message">{this.state.message}</p>
+          )}
+          {this.state.success && (
+            <p>
+              {this.state.success} <Link to="/">Back to home.</Link>
+            </p>
+          )}
 
-        <Link to="/">
-          <button>Home</button>
-        </Link>
+          <button className="edit-button" type="Submit">
+            Submit
+          </button>
+        </form>
       </React.Fragment>
     );
   }

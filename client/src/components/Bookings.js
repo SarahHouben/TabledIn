@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import Modal from "./Modal";
-
 import axios from "axios";
 
 export default class Bookings extends Component {
@@ -29,6 +28,7 @@ export default class Bookings extends Component {
     this.setState({ selectedDay: day });
   }
 
+  //get all bookings
   getData = () => {
     axios
       .get("/api/bookings")
@@ -38,7 +38,6 @@ export default class Bookings extends Component {
         });
       })
       .catch(err => {
-        // handle err.response depending on err.response.status
         if (err.response.status === 404) {
           this.setState({ error: "Not found" });
         }
@@ -49,9 +48,9 @@ export default class Bookings extends Component {
     this.getData();
   };
 
+  //delete selected booking
   deleteBooking = id => {
     axios.delete(`/api/bookings/${id}`).then(res => {
-      // console.log(res);
       this.getData();
     });
   };
@@ -104,7 +103,7 @@ export default class Bookings extends Component {
       let hours = "";
       let minutes = "";
       if (booking.timeslot.length === 3) {
-        hours = booking.timeslot.slice(0, 1);
+        hours = "0" + booking.timeslot.slice(0, 1);
         minutes = booking.timeslot.slice(1);
       }
       if (booking.timeslot.length === 4) {
@@ -133,12 +132,13 @@ export default class Bookings extends Component {
 
               <div>
                 <button
+                  className="delete-button"
                   onClick={e => {
                     this.showModal();
                   }}
                 >
                   {" "}
-                  Delete with Modal{" "}
+                  Delete{" "}
                 </button>
               </div>
             </section>
@@ -160,7 +160,8 @@ export default class Bookings extends Component {
 
     return (
       <div>
-        <h3>Your bookings</h3>
+        {/* <h3>Your bookings</h3> */}
+        <h2 className="rest-form-header">Your Bookings</h2>
 
         <div>
           {this.state.selectedDay ? (
@@ -183,7 +184,7 @@ export default class Bookings extends Component {
         </div>
 
         <Link to="/booking/add">
-          <button>Add booking</button>
+          <button className="edit-button">Add booking</button>
         </Link>
       </div>
     );

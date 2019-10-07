@@ -31,12 +31,34 @@ export default class ShowRestaurant extends Component {
     }
   };
 
+  convertTime = time => {
+    let t = time.toString();
+    if (t.length === 3) {
+      let tEnd = t.slice(t.length - 2);
+      let tStart = "0" + t.substr(0, 1) + ":";
+      t = tStart + tEnd;
+    } else {
+      let tEnd = t.slice(t.length - 2);
+      let tStart = t.substr(0, 2) + ":";
+      t = tStart + tEnd;
+    }
+    return t;
+  };
+
   getData = () => {
     axios
       .get("/api/restaurants")
       .then(response => {
-        // console.log(response);
         if (response) {
+          Object.keys(response.data.openingtime).forEach(key => {
+            response.data.openingtime[key].opentime = this.convertTime(
+              response.data.openingtime[key].opentime
+            );
+            response.data.openingtime[key].closetime = this.convertTime(
+              response.data.openingtime[key].closetime
+            );
+          });
+
           this.setState({
             name: response.data.name,
             address: response.data.address,
@@ -76,18 +98,30 @@ export default class ShowRestaurant extends Component {
 
     return (
       <div>
-        <h1>Information for {this.state.name}</h1>
+        <h2 className="rest-form-header">Information for {this.state.name}</h2>
 
-        <h4>Contact details</h4>
-        <p>Email: {this.state.email}</p>
-        <p>Phone: {this.state.phone}</p>
-        <p>Address: {this.state.address}</p>
+        <h3 className="rest-show-info-h3">General information</h3>
+        <div className="rest-show-info-div">
+          <p>
+            <strong>Address: </strong>
+            {this.state.address}
+          </p>
+          <p>
+            <strong>Email: </strong>
+            {this.state.email}
+          </p>
+          <p>
+            <strong>Phone: </strong>
+            {this.state.phone}
+          </p>
+        </div>
 
-        <h4>Opening times</h4>
-        <ul>
-          <li>Monday:</li>
-
-          {this.state.weekdays.monday ? <p>Open</p> : <p>Closed</p>}
+        <h3 className="rest-show-info-h3">Opening times</h3>
+        <ul className="rest-show-info-ul">
+          <li>
+            <strong>Monday:</strong>
+            {this.state.weekdays.monday ? <p>Open</p> : <p>Closed</p>}
+          </li>
           {this.state.weekdays.monday && (
             <p>Opens: {this.state.openingtimes.monday.opentime}</p>
           )}
@@ -95,8 +129,10 @@ export default class ShowRestaurant extends Component {
             <p>Closes: {this.state.openingtimes.monday.closetime}</p>
           )}
 
-          <li>Tuesday</li>
-          {this.state.weekdays.tuesday ? <p>Open</p> : <p>Closed</p>}
+          <li>
+            <strong>Tuesday</strong>
+            {this.state.weekdays.tuesday ? <p>Open</p> : <p>Closed</p>}
+          </li>
           {this.state.weekdays.tuesday && (
             <p>Opens: {this.state.openingtimes.tuesday.opentime}</p>
           )}
@@ -104,8 +140,10 @@ export default class ShowRestaurant extends Component {
             <p>Closes: {this.state.openingtimes.tuesday.closetime}</p>
           )}
 
-          <li>Wednesday</li>
-          {this.state.weekdays.wednesday ? <p>Open</p> : <p>Closed</p>}
+          <li>
+            <strong>Wednesday</strong>
+            {this.state.weekdays.wednesday ? <p>Open</p> : <p>Closed</p>}
+          </li>
           {this.state.weekdays.wednesday && (
             <p>Opens: {this.state.openingtimes.wednesday.opentime}</p>
           )}
@@ -113,8 +151,10 @@ export default class ShowRestaurant extends Component {
             <p>Closes: {this.state.openingtimes.wednesday.closetime}</p>
           )}
 
-          <li>Thursday</li>
-          {this.state.weekdays.thursday ? <p>Open</p> : <p>Closed</p>}
+          <li>
+            <strong>Thursday</strong>
+            {this.state.weekdays.thursday ? <p>Open</p> : <p>Closed</p>}
+          </li>
           {this.state.weekdays.thursday && (
             <p>Opens: {this.state.openingtimes.thursday.opentime}</p>
           )}
@@ -122,8 +162,10 @@ export default class ShowRestaurant extends Component {
             <p>Closes: {this.state.openingtimes.thursday.closetime}</p>
           )}
 
-          <li>Friday</li>
-          {this.state.weekdays.friday ? <p>Open</p> : <p>Closed</p>}
+          <li>
+            <strong>Friday</strong>
+            {this.state.weekdays.friday ? <p>Open</p> : <p>Closed</p>}
+          </li>
           {this.state.weekdays.friday && (
             <p>Opens: {this.state.openingtimes.friday.opentime}</p>
           )}
@@ -131,8 +173,10 @@ export default class ShowRestaurant extends Component {
             <p>Closes: {this.state.openingtimes.friday.closetime}</p>
           )}
 
-          <li>Saturday</li>
-          {this.state.weekdays.saturday ? <p>Open</p> : <p>Closed</p>}
+          <li>
+            <strong>Saturday</strong>
+            {this.state.weekdays.saturday ? <p>Open</p> : <p>Closed</p>}
+          </li>
           {this.state.weekdays.saturday && (
             <p>Opens: {this.state.openingtimes.saturday.opentime}</p>
           )}
@@ -140,8 +184,10 @@ export default class ShowRestaurant extends Component {
             <p>Closes: {this.state.openingtimes.saturday.closetime}</p>
           )}
 
-          <li>Sunday</li>
-          {this.state.weekdays.sunday ? <p>Open</p> : <p>Closed</p>}
+          <li>
+            <strong>Sunday</strong>
+            {this.state.weekdays.sunday ? <p>Open</p> : <p>Closed</p>}
+          </li>
           {this.state.weekdays.sunday && (
             <p>Opens: {this.state.openingtimes.sunday.opentime}</p>
           )}
@@ -150,20 +196,20 @@ export default class ShowRestaurant extends Component {
           )}
         </ul>
 
-        <h4>Seating information</h4>
+        <h3 className="rest-show-info-h3">Seating</h3>
         <p>Number of tables: {this.state.tablenumber}</p>
         <table>
           <thead>
             <tr>
               <th>Table Id</th>
-              <th>Capacity</th>
+              <th>Guest number</th>
             </tr>
           </thead>
           <tbody>{tableItems}</tbody>
         </table>
 
         <Link to="/restaurant/edit">
-          <button>Edit information</button>
+          <button className="edit-button">Edit Info</button>
         </Link>
       </div>
     );

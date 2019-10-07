@@ -45,9 +45,10 @@ export default class TimeForm extends Component {
 
   render() {
     return (
-      <>
-        <label htmlFor="opentime">Opening time: </label>
+      <div   className="time-input">
+        <label htmlFor="opentime">Opens:</label>
         <input
+      
           type="time"
           name="opentime"
           id="opentime"
@@ -58,7 +59,7 @@ export default class TimeForm extends Component {
           value={this.state.openingtimes.opentime}
           onChange={this.handleChange}
         />
-        <label htmlFor="closetime">Closing time: </label>
+        <label htmlFor="closetime">Closes:</label>
         <input
           type="time"
           name="closetime"
@@ -70,7 +71,7 @@ export default class TimeForm extends Component {
           value={this.state.openingtimes.closetime}
           onChange={this.handleChange}
         />
-      </>
+      </div>
     );
   }
 }

@@ -38,9 +38,10 @@ export default class TableRow extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <label htmlFor="num">Table Id: </label>
         <input
+        className="table-list-id"
           type="text"
           name="num"
           id="num"
@@ -49,8 +50,9 @@ export default class TableRow extends Component {
           onChange={this.handleChange}
         />
 
-        <label htmlFor="cap">Seats how many people?</label>
+        <label htmlFor="cap">Guest number:</label>
         <input
+        className="table-list-number"
           type="number"
           name="cap"
           id="cap"
@@ -58,7 +60,7 @@ export default class TableRow extends Component {
           onChange={this.handleChange}
           min="1"
         />
-      </React.Fragment>
+      </div>
     );
   }
 }

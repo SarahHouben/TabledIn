@@ -1,0 +1,67 @@
+.rest-form-header {
+  padding: 4vh 0 2vh 0;
+}
+
+.rest-form-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4vh;
+}
+
+.rest-form-info-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+
+  input {
+    width: 150%;
+  }
+}
+
+.rest-form-time-div {
+  padding: 10px 30px 15px 30px;
+  width: 240px;
+
+  p {
+    font-weight: 700;
+  }
+}
+
+.rest-form-table-div {
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.rest-form-table-tnumber {
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 30px;
+  }
+}
+
+.table-list-id {
+  width: 30px;
+  margin-right: 15px;
+}
+
+.table-list-number {
+  width: 30px;
+}
+
+@media (min-width: 760px) {
+  .time-input {
+    width: 120%;
+  }
+}

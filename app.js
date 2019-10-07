@@ -13,6 +13,8 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 
+// REQUIRE CORS
+
 mongoose
   .connect("mongodb://localhost/tabledin", { useNewUrlParser: true })
   .then(x => {
@@ -94,4 +96,7 @@ app.use("/api/bookings", bookingRoutes);
 const plannerRoutes = require("./routes/planner");
 app.use("/api/planner", plannerRoutes);
 
+//IMAGE UPLOAD ROUTE
+// const plannerRoutes = require("./routes/planner");
+// app.use("/api/planner", plannerRoutes);
 module.exports = app;
