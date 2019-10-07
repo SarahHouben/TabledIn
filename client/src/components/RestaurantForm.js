@@ -3,12 +3,16 @@ import TimeForm from "./TimeForm";
 import TableForm from "./TableForm";
 import axios from "axios";
 
+
+
 export default class RestaurantForm extends Component {
   state = {
     name: "",
     address: "",
     phone: "",
     email: "",
+    menu: "",
+    logo: "",
     weekdays: {
       monday: false,
       tuesday: false,
@@ -180,6 +184,24 @@ export default class RestaurantForm extends Component {
               name="email"
               id="email"
               value={this.state.email}
+              onChange={this.handleChange}
+            />
+
+<label htmlFor="logo">Upload Logo: </label>
+            <input
+              type="file"
+              name="logo"
+              id="logo"
+              value={this.state.logo}
+              onChange={this.handleChange}
+            />
+
+                <label htmlFor="menu">Upload Menu (PDF): </label>
+            <input
+              type="file"
+              name="menu"
+              id="menu"
+              value={this.state.menu}
               onChange={this.handleChange}
             />
           </div>

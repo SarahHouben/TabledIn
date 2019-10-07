@@ -104,7 +104,7 @@ const restaurantSchema = new Schema(
     logo: {
       type: String,
       default:
-        "https://res.cloudinary.com/dmlqhwwfc/image/upload/v1568703809/GreenSpace/default_user_image_gubmhl.png" // replace with our logo
+        "https://res.cloudinary.com/dmlqhwwfc/image/upload/v1570446767/TabledIn/tabledin_logo.png"
     },
     dayreports: [
       {

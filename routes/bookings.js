@@ -4,7 +4,6 @@ const Booking = require("../models/Booking");
 const DayReport = require("../models/DayReport");
 const { Restaurant } = require("../models/Restaurant");
 const Table = require("../models/Table");
-const addMinutes = require("date-fns/addMinutes");
 
 // POST /api/bookings
 // create a new booking resource
