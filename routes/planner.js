@@ -136,7 +136,7 @@ router.post("/edit", (req, res) => {
       }
     }).then(()=>{
       console.log('Day report created');
-      res.json({message: 'Day report created'})
+      // res.json({message: 'Day report created'})
     }).catch(err =>{
       res.json(err)
     });
