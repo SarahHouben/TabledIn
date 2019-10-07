@@ -16,7 +16,9 @@ const flash = require("connect-flash");
 // REQUIRE CORS
 
 mongoose
-.connect(process.env.MONGODB_URI || "mongodb://localhost/tabledin", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/tabledin", {
+    useNewUrlParser: true
+  })
   // .connect("mongodb://localhost/tabledin", { useNewUrlParser: true })
   .then(x => {
     console.log(
@@ -52,7 +54,7 @@ app.use(
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 hbs.registerHelper("ifUndefined", (value, options) => {
@@ -100,4 +102,12 @@ app.use("/api/planner", plannerRoutes);
 //IMAGE UPLOAD ROUTE
 // const plannerRoutes = require("./routes/planner");
 // app.use("/api/planner", plannerRoutes);
+
+// '####' DEPLOYMENT
+
+app.use((req, res) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/client/build/index.html");
+});
+
 module.exports = app;
