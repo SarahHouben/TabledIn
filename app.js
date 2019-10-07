@@ -47,7 +47,7 @@ app.use(
   })
 );
 
-// might leave, not sure
+// CORS -  REQUIRED FOR CLOUDINARY might leave, not sure
 app.use(
   cors({
     origin: ["http://localhost:3000"]
@@ -103,8 +103,5 @@ app.use("/api/planner", plannerRoutes);
 
 const upload = require("./routes/file-upload");
 app.use("/api/add-image", upload);
-// const fileuploadRoutes = require("./routes/file-upload");
-// app.use('/api', require('./routes/file-upload'));
-// app.use('/api', require('./routes/file-upload'));
 
 module.exports = app;
