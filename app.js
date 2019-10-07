@@ -8,7 +8,7 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
-
+const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
@@ -44,6 +44,13 @@ app.use(
     src: path.join(__dirname, "public"),
     dest: path.join(__dirname, "public"),
     sourceMap: true
+  })
+);
+
+// might leave, not sure
+app.use(
+  cors({
+    origin: ["http://localhost:3000"]
   })
 );
 
@@ -94,6 +101,8 @@ app.use("/api/bookings", bookingRoutes);
 const plannerRoutes = require("./routes/planner");
 app.use("/api/planner", plannerRoutes);
 
+const upload = require("./routes/file-upload");
+app.use("/api/add-image", upload);
 // const fileuploadRoutes = require("./routes/file-upload");
 // app.use('/api', require('./routes/file-upload'));
 // app.use('/api', require('./routes/file-upload'));

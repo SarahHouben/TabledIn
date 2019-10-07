@@ -3,16 +3,14 @@ import TimeForm from "./TimeForm";
 import TableForm from "./TableForm";
 import axios from "axios";
 
-
-
 export default class RestaurantForm extends Component {
   state = {
     name: "",
     address: "",
     phone: "",
     email: "",
-    menu: "",
-    logo: "",
+    menu: null,
+    logo: null,
     weekdays: {
       monday: false,
       tuesday: false,
@@ -33,6 +31,38 @@ export default class RestaurantForm extends Component {
       saturday: {},
       sunday: {}
     }
+  };
+
+  //UPLOAD MENU (PDF)
+  fileChangedHandlerMenu = event => {
+    console.log("LOOK HERE", event.target.files[0]);
+    const menuFile = event.target.files[0];
+
+    const uploadData = new FormData();
+    uploadData.append("menu", menuFile);
+
+    axios.post("/api/add-image/menu", uploadData).then(response => {
+      const menu = response.data.secure_url;
+      this.setState({ menu: menu });
+    });
+  };
+
+  //UPLOAD LOGO (IMG formats)
+  fileChangedHandlerLogo = event => {
+    this.setState({ logo: event.target.files[0] });
+  };
+
+  fileChangedHandlerMenu = event => {
+    console.log("LOOK HERE", event.target.files[0]);
+    const logoFile = event.target.files[0];
+
+    const uploadData = new FormData();
+    uploadData.append("logo", logoFile);
+
+    axios.post("/api/add-image/logo", uploadData).then(response => {
+      const logo = response.data.secure_url;
+      this.setState({ logo: logo });
+    });
   };
 
   // get values from text-inputs and update state with them
@@ -111,6 +141,20 @@ export default class RestaurantForm extends Component {
   //POST results of form to create / update restaurant document
   handleSubmit = (event, str) => {
     event.preventDefault();
+    // event.persist();
+
+    // const logo = event.target.imageUrl.logo
+    // const menu = event.target.imageUrl.menu
+    // const uploadData = new FormData();
+    // uploadData.append("imageUrl", menu);
+    // uploadData.append("imageUrl", logo);
+
+    // axios.post("/api/add-image", uploadData).then((response) => {
+    //   this.setState({
+    //     logo: response.data.secure_url,
+    //     menu: response.data.secure_url,
+    //   })
+    // })
 
     const {
       name,
@@ -120,7 +164,9 @@ export default class RestaurantForm extends Component {
       weekdays,
       tablenumber,
       tables,
-      openingtimes
+      openingtimes,
+      menu,
+      logo
     } = this.state;
 
     axios
@@ -132,7 +178,9 @@ export default class RestaurantForm extends Component {
         weekdays,
         tablenumber,
         tables,
-        openingtimes
+        openingtimes,
+        menu,
+        logo
       })
       .then(data => {
         this.props.history.push("/");
@@ -187,22 +235,20 @@ export default class RestaurantForm extends Component {
               onChange={this.handleChange}
             />
 
-<label htmlFor="logo">Upload Logo: </label>
+            <label htmlFor="logo">Upload Logo: </label>
             <input
               type="file"
               name="logo"
               id="logo"
-              value={this.state.logo}
-              onChange={this.handleChange}
+              onChange={this.fileChangedHandlerLogo}
             />
 
-                <label htmlFor="menu">Upload Menu (PDF): </label>
+            <label htmlFor="menu">Upload Menu (PDF): </label>
             <input
               type="file"
               name="menu"
               id="menu"
-              value={this.state.menu}
-              onChange={this.handleChange}
+              onChange={this.fileChangedHandlerMenu}
             />
           </div>
 
