@@ -159,8 +159,8 @@ export default class Bookings extends Component {
     });
 
     return (
-      <div>
-        {/* <h3>Your bookings</h3> */}
+      <div className="booking-show-div">
+      
         <h2 className="rest-form-header">Your Bookings</h2>
 
         <Link to="/booking/add">
