@@ -16,7 +16,8 @@ const flash = require("connect-flash");
 // REQUIRE CORS
 
 mongoose
-  .connect("mongodb://localhost/tabledin", { useNewUrlParser: true })
+.connect(process.env.MONGODB_URI || "mongodb://localhost/tabledin", { useNewUrlParser: true })
+  // .connect("mongodb://localhost/tabledin", { useNewUrlParser: true })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
