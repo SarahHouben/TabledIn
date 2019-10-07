@@ -163,6 +163,10 @@ export default class Bookings extends Component {
         {/* <h3>Your bookings</h3> */}
         <h2 className="rest-form-header">Your Bookings</h2>
 
+        <Link to="/booking/add">
+          <button className="edit-button">Add booking</button>
+        </Link>
+
         <div>
           {this.state.selectedDay ? (
             <p>Bookings for: {this.state.selectedDay.toDateString()}</p>
@@ -183,9 +187,9 @@ export default class Bookings extends Component {
           )}
         </div>
 
-        <Link to="/booking/add">
+        {/* <Link to="/booking/add">
           <button className="edit-button">Add booking</button>
-        </Link>
+        </Link> */}
       </div>
     );
   }

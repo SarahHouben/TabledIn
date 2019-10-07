@@ -8,12 +8,10 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
-
+const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
-
-// REQUIRE CORS
 
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/tabledin", {
@@ -49,6 +47,13 @@ app.use(
     src: path.join(__dirname, "public"),
     dest: path.join(__dirname, "public"),
     sourceMap: true
+  })
+);
+
+// CORS -  REQUIRED FOR CLOUDINARY might leave, not sure
+app.use(
+  cors({
+    origin: ["http://localhost:3000"]
   })
 );
 
@@ -99,15 +104,7 @@ app.use("/api/bookings", bookingRoutes);
 const plannerRoutes = require("./routes/planner");
 app.use("/api/planner", plannerRoutes);
 
-//IMAGE UPLOAD ROUTE
-// const plannerRoutes = require("./routes/planner");
-// app.use("/api/planner", plannerRoutes);
-
-// '####' DEPLOYMENT
-
-app.use((req, res) => {
-  // If no routes match, send them the React HTML.
-  res.sendFile(__dirname + "/client/build/index.html");
-});
+const upload = require("./routes/file-upload");
+app.use("/api/add-image", upload);
 
 module.exports = app;
