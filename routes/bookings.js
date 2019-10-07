@@ -4,7 +4,7 @@ const Booking = require("../models/Booking");
 const DayReport = require("../models/DayReport");
 const { Restaurant } = require("../models/Restaurant");
 const Table = require("../models/Table");
-const addMinutes = require("date-fns/addMinutes");
+
 
 // POST /api/bookings
 // create a new booking resource
@@ -319,5 +319,6 @@ router.delete("/:id", (req, res) => {
       res.json(err);
     });
 });
-
+const restaurantIds = Restaurant.find({_id:1})
+console.log(restaurantIds);
 module.exports = router;
