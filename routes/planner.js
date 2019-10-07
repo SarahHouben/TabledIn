@@ -68,12 +68,21 @@ router.delete("/", (req, res) => {
 // Crating new dayReport with tables that have timeslots coresponding
 //with dayReport open/close times.
 router.post("/edit", (req, res) => {
+  if(!req.body.selectedDay){
+    console.log('You need to select the date')
+    res.json({message:'You need to select the date'});
+  }else{
   const user = req.user._id;
   const { selectedDay, open, opentime, closetime } = req.body;
   const trimOpenTime = Number(opentime.replace(":", ""));
   const trimCloseTime = Number(closetime.replace(":", ""));
   const dayIndex = new Date(selectedDay).getDay() - 1;
+  
   const day = getWeekDay(dayIndex);
+
+  
+   console.log(req.body.selectedDay)
+  
   const openingtime = {
     [day]: { opentime: trimOpenTime, closetime: trimCloseTime },
   };
@@ -132,6 +141,6 @@ router.post("/edit", (req, res) => {
       res.json(err)
     });
   });
-});
+}});
 
 module.exports = router;
