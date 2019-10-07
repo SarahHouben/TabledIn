@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
 
   Restaurant.findOne({ owner: user }).then(restaurant => {
     DayReport.findOne({
-      $and: [{ date: selectedDay }, { restaurant: restaurant._id }],
+      $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
     })
       .then(dayreport => {
         if (!dayreport) {
@@ -45,16 +45,16 @@ router.delete("/", (req, res) => {
 
   Restaurant.findOne({ owner: user }).then(restaurant => {
     DayReport.findOneAndDelete({
-      $and: [{ date: selectedDay }, { restaurant: restaurant._id }],
+      $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
     }).then(dayreport => {
       Table.deleteMany({
-        $and: [{ date: selectedDay }, { dayreport: dayreport._id }],
+        $and: [{ date: selectedDay }, { dayreport: dayreport._id }]
       }).then(tables => {
         Booking.deleteMany({
-          $and: [{ date: selectedDay }, { restaurant: restaurant._id }],
+          $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
         })
           .then(done => {
-            console.log('Succesfully deleted')
+            console.log("Succesfully deleted");
             res.json({ message: "Succesfully deleted" });
           })
           .catch(err => {
@@ -68,79 +68,82 @@ router.delete("/", (req, res) => {
 // Crating new dayReport with tables that have timeslots coresponding
 //with dayReport open/close times.
 router.post("/edit", (req, res) => {
-  if(!req.body.selectedDay){
-    console.log('You need to select the date')
-    res.json({message:'You need to select the date'});
-  }else{
-  const user = req.user._id;
-  const { selectedDay, open, opentime, closetime } = req.body;
-  const trimOpenTime = Number(opentime.replace(":", ""));
-  const trimCloseTime = Number(closetime.replace(":", ""));
-  const dayIndex = new Date(selectedDay).getDay() - 1;
-  
-  const day = getWeekDay(dayIndex);
+  console.log("REQ.BODY:", req.body);
+  if (!req.body.selectedDay) {
+    console.log("You need to select the date");
+    res.json({ message: "You need to select the date" });
+  } else {
+    const user = req.user._id;
+    const { selectedDay, open, opentime, closetime } = req.body;
+    const trimOpenTime = Number(opentime.replace(":", ""));
+    const trimCloseTime = Number(closetime.replace(":", ""));
+    const dayIndex = new Date(selectedDay).getDay() - 1;
 
-  
-   console.log(req.body.selectedDay)
-  
-  const openingtime = {
-    [day]: { opentime: trimOpenTime, closetime: trimCloseTime },
-  };
-  const opendays = {
-    monday: {},
-    tuesday: {},
-    wednesday: {},
-    thursday: {},
-    friday: {},
-    saturday: {},
-    sunday: {},
-  };
-  const openingtimes = Object.assign(opendays, openingtime);
+    const day = getWeekDay(dayIndex);
 
-  let combined = timeslots.map(timeSlotObj => {
-    let businessTime = openingtimes[timeSlotObj.day];
-     
-    if (businessTime.opentime) {
-      for (let key in timeSlotObj.timeslots) {
-        let timeNum = Number(key);
-        let openingTime = businessTime.opentime;
-        let closingTime = businessTime.closetime;
-        if (timeNum < closingTime && timeNum > openingTime)
-          timeSlotObj.timeslots[key] = true;
-      }
-      return timeSlotObj;
-    } else return timeSlotObj;
-  });
+    //  console.log(req.body.selectedDay)
 
-  Restaurant.findOne({ owner: user }).then(restaurant => {
-    DayReport.create({
-      restaurant: restaurant._id,
-      open: open,
-      date: selectedDay,
-      timeslots: combined,
-      weekdays: restaurant.weekdays,
-      tables: restaurant.tables,
-      openingtime: trimOpenTime,
-      closingtime: trimCloseTime,
-    }).then(dayreport => {
-      if (dayreport.open) {
-        dayreport.tables.map(el => {
-          Table.create({
-            dayreport: dayreport._id,
-            tablecapacity: el.cap,
-            tablenumber: el.num,
-            timeslots: dayreport.timeslots[dayIndex].timeslots,
-            date: dayreport.date,
-          });
-        });
-      }
-    }).then(()=>{
-      console.log('Day report created');
-      // res.json({message: 'Day report created'})
-    }).catch(err =>{
-      res.json(err)
+    const openingtime = {
+      [day]: { opentime: trimOpenTime, closetime: trimCloseTime }
+    };
+    const opendays = {
+      monday: {},
+      tuesday: {},
+      wednesday: {},
+      thursday: {},
+      friday: {},
+      saturday: {},
+      sunday: {}
+    };
+    const openingtimes = Object.assign(opendays, openingtime);
+
+    let combined = timeslots.map(timeSlotObj => {
+      let businessTime = openingtimes[timeSlotObj.day];
+
+      if (businessTime.opentime) {
+        for (let key in timeSlotObj.timeslots) {
+          let timeNum = Number(key);
+          let openingTime = businessTime.opentime;
+          let closingTime = businessTime.closetime;
+          if (timeNum < closingTime && timeNum > openingTime)
+            timeSlotObj.timeslots[key] = true;
+        }
+        return timeSlotObj;
+      } else return timeSlotObj;
     });
-  });
-}});
+
+    Restaurant.findOne({ owner: user }).then(restaurant => {
+      DayReport.create({
+        restaurant: restaurant._id,
+        open: open,
+        date: selectedDay,
+        timeslots: combined,
+        weekdays: restaurant.weekdays,
+        tables: restaurant.tables,
+        openingtime: trimOpenTime,
+        closingtime: trimCloseTime
+      })
+        .then(dayreport => {
+          if (dayreport.open) {
+            dayreport.tables.map(el => {
+              Table.create({
+                dayreport: dayreport._id,
+                tablecapacity: el.cap,
+                tablenumber: el.num,
+                timeslots: dayreport.timeslots[dayIndex].timeslots,
+                date: dayreport.date
+              });
+            });
+          }
+        })
+        .then(() => {
+          res.json({});
+        })
+        .catch(err => {
+          res.json(err);
+        });
+    });
+  }
+});
 
 module.exports = router;

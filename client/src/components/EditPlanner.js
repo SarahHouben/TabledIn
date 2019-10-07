@@ -18,8 +18,8 @@ export default class EditPlanner extends Component {
   //get values from text inputs and update state of weekday, opentime, closetime
   handleDayClick(day) {
     this.props.changeDate(day);
-    // this.setState({ selectedDay: day });
   }
+
   handleChange = event => {
     const { name, value } = event.target;
 
@@ -30,35 +30,39 @@ export default class EditPlanner extends Component {
 
   //get values from checkbox and update state of "open"
   handleCheckboxChange = event => {
-    // const check = event.target.checked;
-
     this.setState({ open: !this.state.open });
   };
-
-  // handleCheckboxChangeClosed = event => {
-  //   const check = event.target.checked;
-
-  //   this.setState({ open: check });
-  // };
 
   //Function to be called when submitting the form
   handleSubmit = event => {
     event.preventDefault();
-
+    // console.log(this.state);
+    console.log("PROPS SELECTED DAY: ", this.props.selectedDay);
     let success = "Created schedule.";
 
     axios
       .post("/api/planner/edit", {
-        selectedDay: this.state.selectedDay,
+        selectedDay: this.props.selectedDay,
         open: this.state.open,
         opentime: this.state.opentime,
         closetime: this.state.closetime
       })
       .then(res => {
-        console.log(res);
-        this.setState({
-          success: success
-        });
+        if (res.data.message) {
+          this.setState({
+            message: res.data.message,
+            success: ""
+          });
+        } else if (!res.data.message) {
+          this.setState({
+            success: success,
+            message: "",
+            selectedDay: undefined,
+            open: false,
+            opentime: "",
+            closetime: ""
+          });
+        }
       })
       .catch(err => {
         console.log(err);
@@ -66,7 +70,7 @@ export default class EditPlanner extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <React.Fragment>
         <h2 className="rest-form-header">Add new Schedule</h2>
@@ -131,7 +135,9 @@ export default class EditPlanner extends Component {
               />
             </div>
           )}
-
+          {this.state.message && (
+            <p className="auth-message">{this.state.message}</p>
+          )}
           {this.state.success && (
             <p>
               {this.state.success} <Link to="/planner">Back to Planner.</Link>
