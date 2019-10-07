@@ -6,3 +6,89 @@
   text-align: center;
 }
 
+.booking-show-div-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 15px 2vh 10px;
+}
+
+.booking-form-header {
+  text-align: center;
+}
+
+.add-booking-button {
+  border: none;
+  background-color: #add8e6;
+  color: #08415c;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.1);
+  margin-left: 20px;
+  padding: 5px 20px;
+}
+
+.add-booking-button:hover {
+  background-color: #08415c;
+  color: white;
+  font-weight: 600;
+  transition: all 0.4s ease 0s;
+}
+
+.booking-show-div-daypicker {
+  padding-top: 10px;
+
+  p {
+    color: #3da0d8;
+    font-weight: 700;
+  }
+}
+
+.booking-show-div-noBooking {
+  color: #bf3513;
+  font-weight: 700;
+}
+
+.booking-show-div-bookings {
+  padding: 0 20px 2vh 20px;
+  list-style: none;
+  overflow: scroll;
+  height: 30vh;
+  margin-bottom: 80px;
+}
+
+// #### Booking Cards
+
+.bookings-list {
+  display: flex;
+  margin: 0 10px 10px 10px;
+  padding: 5px;
+  border: 1px solid #08415c;
+  border-radius: 8px;
+  min-height: 90px;
+  background-color: rgba(255, 255, 255, 0.7);
+  align-items: flex-start;
+  justify-content: space-around;
+  min-width: 300px;
+}
+
+.bookings-list-left {
+  text-align: left;
+  min-width: 80px;
+  min-height: 90px;
+
+  p {
+    padding: 5px 0;
+  }
+}
+
+.bookings-list-middle {
+  text-align: left;
+  min-height: 90px;
+
+  p {
+    padding: 5px 0;
+  }
+}
+
+.bookings-list-middle-text {
+  font-size: 0.7rem;
+}
