@@ -31,6 +31,9 @@ const Toolbar = props => {
             {props.user ? (
               <>
                 <li>
+                  <Link to="/booking/add">Add Booking</Link>
+                </li>
+                <li>
                   <Link to="/planner">Planner</Link>
                 </li>
                 <li>
