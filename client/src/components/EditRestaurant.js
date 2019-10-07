@@ -353,7 +353,7 @@ export default class EditRestaurant extends Component {
               tablesStage2A={this.tablesStage2B}
             />
           </div>
-          <button type="submit">Submit</button>
+          <button className="edit-button" type="submit">Submit</button>
         </form>
       </>
     );

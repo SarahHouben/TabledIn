@@ -98,7 +98,8 @@ export default class BookingForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1>Make a booking</h1>
+        <h2 className="rest-form-header">Add a Booking</h2>
+
         <form onSubmit={this.handleSubmit}>
           <h3>Booking Details</h3>
 

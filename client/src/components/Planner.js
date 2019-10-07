@@ -98,7 +98,8 @@ export default class EditPlanner extends Component {
 
     return (
       <React.Fragment>
-        <h3>Search for Schedules</h3>
+
+        <h2 className="rest-form-header">Search for Schedule</h2>
 
         <div>
           {this.state.selectedDay ? (

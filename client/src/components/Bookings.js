@@ -133,7 +133,7 @@ export default class Bookings extends Component {
 
               <div>
                 <button
-                className="delete-button"
+                  className="delete-button"
                   onClick={e => {
                     this.showModal();
                   }}
@@ -161,7 +161,8 @@ export default class Bookings extends Component {
 
     return (
       <div>
-        <h3>Your bookings</h3>
+        {/* <h3>Your bookings</h3> */}
+        <h2 className="rest-form-header">Your Bookings</h2>
 
         <div>
           {this.state.selectedDay ? (

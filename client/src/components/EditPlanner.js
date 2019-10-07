@@ -10,7 +10,7 @@ export default class EditPlanner extends Component {
       selectedDay: undefined,
       open: false,
       opentime: "",
-      closetime: "",
+      closetime: ""
     };
   }
   //get values from text inputs and update state of weekday, opentime, closetime
@@ -21,7 +21,7 @@ export default class EditPlanner extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -40,7 +40,7 @@ export default class EditPlanner extends Component {
         selectedDay: this.state.selectedDay,
         open: this.state.open,
         opentime: this.state.opentime,
-        closetime: this.state.closetime,
+        closetime: this.state.closetime
       })
       .then(res => {
         console.log(res);
@@ -53,7 +53,7 @@ export default class EditPlanner extends Component {
   render() {
     return (
       <React.Fragment>
-        <h3>Create new schedule</h3>
+        <h2 className="rest-form-header">Add new Schedule</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
             <DayPicker
@@ -100,7 +100,7 @@ export default class EditPlanner extends Component {
             </div>
           )}
 
-          <button type="submit">Submit</button>
+          <button className="edit-button" type="submit">Submit</button>
         </form>
       </React.Fragment>
     );
