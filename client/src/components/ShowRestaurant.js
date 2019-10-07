@@ -101,9 +101,10 @@ export default class ShowRestaurant extends Component {
     });
 
     return (
-      <div>
+      <div className="rest-show-div">
         <h2 className="rest-form-header">Information for {this.state.name}</h2>
-        <div>
+
+        <div className="rest-show-upload-div">
           <img
             className="rest-show-logo"
             src={this.state.logo}
@@ -137,94 +138,98 @@ export default class ShowRestaurant extends Component {
         <h3 className="rest-show-info-h3">Opening times</h3>
         <ul className="rest-show-info-ul">
           <li>
-            <strong>Monday:</strong>
-            {this.state.weekdays.monday ? <p>Open</p> : <p>Closed</p>}
+            <strong className="rest-show-info-monday">Monday:</strong>
+            {!this.state.weekdays.monday && <p>Closed</p>}
+            {this.state.weekdays.monday && (
+              <p>{this.state.openingtimes.monday.opentime} -</p>
+            )}
+            {this.state.weekdays.monday && (
+              <p>{this.state.openingtimes.monday.closetime}</p>
+            )}
           </li>
-          {this.state.weekdays.monday && (
-            <p>Opens: {this.state.openingtimes.monday.opentime}</p>
-          )}
-          {this.state.weekdays.monday && (
-            <p>Closes: {this.state.openingtimes.monday.closetime}</p>
-          )}
 
           <li>
-            <strong>Tuesday</strong>
-            {this.state.weekdays.tuesday ? <p>Open</p> : <p>Closed</p>}
+            <strong className="rest-show-info-tuesday">Tuesday:</strong>
+            {!this.state.weekdays.tuesday && <p>Closed</p>}
+            {this.state.weekdays.tuesday && (
+              <p>{this.state.openingtimes.tuesday.opentime} -</p>
+            )}
+            {this.state.weekdays.tuesday && (
+              <p>{this.state.openingtimes.tuesday.closetime}</p>
+            )}
           </li>
-          {this.state.weekdays.tuesday && (
-            <p>Opens: {this.state.openingtimes.tuesday.opentime}</p>
-          )}
-          {this.state.weekdays.tuesday && (
-            <p>Closes: {this.state.openingtimes.tuesday.closetime}</p>
-          )}
 
           <li>
-            <strong>Wednesday</strong>
-            {this.state.weekdays.wednesday ? <p>Open</p> : <p>Closed</p>}
+            <strong className="rest-show-info-wednesday">Wednesday:</strong>
+            {!this.state.weekdays.wednesday && <p>Closed</p>}
+            {this.state.weekdays.wednesday && (
+              <p>{this.state.openingtimes.wednesday.opentime} -</p>
+            )}
+            {this.state.weekdays.wednesday && (
+              <p>{this.state.openingtimes.wednesday.closetime}</p>
+            )}
           </li>
-          {this.state.weekdays.wednesday && (
-            <p>Opens: {this.state.openingtimes.wednesday.opentime}</p>
-          )}
-          {this.state.weekdays.wednesday && (
-            <p>Closes: {this.state.openingtimes.wednesday.closetime}</p>
-          )}
 
           <li>
-            <strong>Thursday</strong>
-            {this.state.weekdays.thursday ? <p>Open</p> : <p>Closed</p>}
+            <strong className="rest-show-info-thursday">Thursday:</strong>
+            {!this.state.weekdays.thursday && <p>Closed</p>}
+            {this.state.weekdays.thursday && (
+              <p>{this.state.openingtimes.thursday.opentime} -</p>
+            )}
+            {this.state.weekdays.thursday && (
+              <p>{this.state.openingtimes.thursday.closetime}</p>
+            )}
           </li>
-          {this.state.weekdays.thursday && (
-            <p>Opens: {this.state.openingtimes.thursday.opentime}</p>
-          )}
-          {this.state.weekdays.thursday && (
-            <p>Closes: {this.state.openingtimes.thursday.closetime}</p>
-          )}
 
           <li>
-            <strong>Friday</strong>
-            {this.state.weekdays.friday ? <p>Open</p> : <p>Closed</p>}
+            <strong className="rest-show-info-friday">Friday:</strong>
+            {!this.state.weekdays.friday && <p>Closed</p>}
+            {this.state.weekdays.friday && (
+              <p>{this.state.openingtimes.friday.opentime} -</p>
+            )}
+            {this.state.weekdays.friday && (
+              <p>{this.state.openingtimes.friday.closetime}</p>
+            )}
           </li>
-          {this.state.weekdays.friday && (
-            <p>Opens: {this.state.openingtimes.friday.opentime}</p>
-          )}
-          {this.state.weekdays.friday && (
-            <p>Closes: {this.state.openingtimes.friday.closetime}</p>
-          )}
 
           <li>
-            <strong>Saturday</strong>
-            {this.state.weekdays.saturday ? <p>Open</p> : <p>Closed</p>}
+            <strong className="rest-show-info-saturday">Saturday:</strong>
+            {!this.state.weekdays.saturday && <p>Closed</p>}
+            {this.state.weekdays.saturday && (
+              <p>{this.state.openingtimes.saturday.opentime} -</p>
+            )}
+            {this.state.weekdays.saturday && (
+              <p>{this.state.openingtimes.saturday.closetime}</p>
+            )}
           </li>
-          {this.state.weekdays.saturday && (
-            <p>Opens: {this.state.openingtimes.saturday.opentime}</p>
-          )}
-          {this.state.weekdays.saturday && (
-            <p>Closes: {this.state.openingtimes.saturday.closetime}</p>
-          )}
 
           <li>
-            <strong>Sunday</strong>
-            {this.state.weekdays.sunday ? <p>Open</p> : <p>Closed</p>}
+            <strong className="rest-show-info-sunday">Sunday:</strong>
+            {!this.state.weekdays.sunday && <p>Closed</p>}
+            {this.state.weekdays.sunday && (
+              <p>{this.state.openingtimes.sunday.opentime} -</p>
+            )}
+            {this.state.weekdays.sunday && (
+              <p>{this.state.openingtimes.sunday.closetime}</p>
+            )}
           </li>
-          {this.state.weekdays.sunday && (
-            <p>Opens: {this.state.openingtimes.sunday.opentime}</p>
-          )}
-          {this.state.weekdays.sunday && (
-            <p>Closes: {this.state.openingtimes.sunday.closetime}</p>
-          )}
         </ul>
 
         <h3 className="rest-show-info-h3">Seating</h3>
-        <p>Number of tables: {this.state.tablenumber}</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Table Id</th>
-              <th>Guest number</th>
-            </tr>
-          </thead>
-          <tbody>{tableItems}</tbody>
-        </table>
+        <div className="rest-show-table-div">
+          <p>
+            Number of tables: <strong>{this.state.tablenumber}</strong>
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Table Id</th>
+                <th>Guest number</th>
+              </tr>
+            </thead>
+            <tbody>{tableItems}</tbody>
+          </table>
+        </div>
 
         <Link to="/restaurant/edit">
           <button className="edit-button">Edit Info</button>

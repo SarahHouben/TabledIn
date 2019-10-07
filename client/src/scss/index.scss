@@ -104,29 +104,7 @@ button {
   transition: all 0.4s ease 0s;
 }
 
-//#####  GENERAL STYLING FOR VIEW MENU BUTTON
 
-.view-button {
-  border: none;
-  background-color: #3DA0D8;
-  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
-
-  a {
-    font-weight: 600;
-    color: white;
-  }
-}
-
-.view-button:hover {
-  background-color: #5bcae8;
-  font-weight: 600;
-  transition: all 0.4s ease 0s;
-
-  a {
-    text-decoration: none;
-    color: white;
-  }
-}
 
 //#####  GENERAL STYLING FOR DELETE BUTTON
 
