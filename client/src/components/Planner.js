@@ -2,37 +2,49 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
+import Modal from "./Modal";
 import axios from "axios";
 
 export default class EditPlanner extends Component {
   constructor(props) {
     super(props);
     this.handleDayClick = this.handleDayClick.bind(this);
-    this.editSchedule = this.editSchedule.bind(this);
+    //this.editSchedule = this.editSchedule.bind(this);
     this.state = {
       selectedDay: undefined,
       open: false,
       message: "",
       openingtime: "",
       closingtime: "",
-      _id: ""
+      _id: "",
+      show: false
     };
   }
-  editSchedule() {
-    // console.log(this.state.selectedDay)
-    axios
-      .delete("/api/planner", { data: { selectedDay: this.state.selectedDay } })
-      .then(res => {
-        // console.log('fired' res)
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+
+  //function to toggle modal
+  showModal = () => {
+    this.setState({
+      show: !this.state.show
+    });
+  };
+
+  //deletes old schedule so that new schedule can be created for that day
+  // editSchedule() {
+  //   // console.log(this.state.selectedDay)
+  //   axios
+  //     .delete("/api/planner", { data: { selectedDay: this.state.selectedDay } })
+  //     .then(res => {
+  //       // console.log('fired' res)
+  //       this.props.history.push("/planner/edit");
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   // Function for datepicker
   handleDayClick(day) {
-    this.setState({ selectedDay: day });
+    this.props.changeDate(day);
     // console.log(this.state.selectedDay)
     axios
       .post("/api/planner", {
@@ -98,18 +110,17 @@ export default class EditPlanner extends Component {
 
     return (
       <React.Fragment>
-
         <h2 className="rest-form-header">Search for Schedule</h2>
 
         <div>
-          {this.state.selectedDay ? (
-            <p>Schedule for: {this.state.selectedDay.toDateString()}</p>
+          {this.props.selectedDay ? (
+            <p>Schedule for: {this.props.selectedDay.toDateString()}</p>
           ) : (
             <p>Please select a day.</p>
           )}
           <DayPicker
             onDayClick={this.handleDayClick}
-            selectedDays={this.state.selectedDay}
+            selectedDays={this.props.selectedDay}
           />
         </div>
 
@@ -124,11 +135,29 @@ export default class EditPlanner extends Component {
         )}
 
         {this.state._id ? (
-          <Link to="/planner/edit">
-            <button className="edit-button" onClick={this.editSchedule}>
-              Edit schedule
+          <div>
+            <button
+              className="edit-button"
+              // onClick={this.editSchedule}
+              onClick={e => {
+                this.showModal();
+              }}
+            >
+              Change schedule
             </button>
-          </Link>
+
+            <Modal
+              onClose={this.showModal}
+              show={this.state.show}
+              deleteSchedule={this.editSchedule}
+              onClickFunction={() => {
+                this.props.editSchedule(this.props);
+              }}
+            >
+              Changing the schedule will delete all previous bookings for this
+              date. Proceed?
+            </Modal>
+          </div>
         ) : (
           <Link to="/planner/edit">
             <button className="edit-button">Add schedule</button>

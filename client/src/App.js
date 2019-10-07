@@ -12,13 +12,36 @@ import Bookings from "./components/Bookings";
 import BookingForm from "./components/BookingForm";
 import Planner from "./components/Planner";
 import EditPlanner from "./components/EditPlanner";
-import "./scss/App.scss";
+import axios from "axios";
 
+import "./scss/App.scss";
 
 class App extends React.Component {
   state = {
     user: this.props.user,
-    sideDrawerOpen: false
+    sideDrawerOpen: false,
+    selectedDay: undefined
+  };
+
+  changeDate = data => {
+    this.setState({
+      selectedDay: data
+    });
+  };
+
+  editSchedule = (props) => {
+    // console.log(this.state.selectedDay)
+    axios
+      .delete("/api/planner", { data: { selectedDay: this.state.selectedDay } })
+      .then(res => {
+        // console.log('fired' res)
+        props.history.push("/planner/edit");
+        // this.props.history.push("/planner/edit");
+        //<Redirect to="/planner/edit" />;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   drawerToggleClickHandler = () => {
@@ -38,7 +61,6 @@ class App extends React.Component {
   };
 
   render() {
-
     let backdrop;
     if (this.state.sideDrawerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler} />;
@@ -46,8 +68,17 @@ class App extends React.Component {
 
     return (
       <div className="App" style={{ height: "100%" }}>
-        <Toolbar drawerClickHandler={this.drawerToggleClickHandler} user={this.state.user} setUser={this.setUser}/>
-        <SideDrawer click={this.backdropClickHandler} show={this.state.sideDrawerOpen} user={this.state.user} setUser={this.setUser}/>
+        <Toolbar
+          drawerClickHandler={this.drawerToggleClickHandler}
+          user={this.state.user}
+          setUser={this.setUser}
+        />
+        <SideDrawer
+          click={this.backdropClickHandler}
+          show={this.state.sideDrawerOpen}
+          user={this.state.user}
+          setUser={this.setUser}
+        />
         {backdrop}
 
         <main>
@@ -109,7 +140,15 @@ class App extends React.Component {
               exact
               path="/planner"
               render={props => {
-                if (this.state.user) return <Planner {...props} />;
+                if (this.state.user)
+                  return (
+                    <Planner
+                      {...props}
+                      changeDate={this.changeDate}
+                      selectedDay={this.state.selectedDay}
+                      editSchedule={this.editSchedule}
+                    />
+                  );
                 else return <Redirect to="/login" />;
               }}
             />
@@ -117,7 +156,15 @@ class App extends React.Component {
               exact
               path="/planner/edit"
               render={props => {
-                if (this.state.user) return <EditPlanner {...props} />;
+                if (this.state.user)
+                  return (
+                    <EditPlanner
+                      {...props}
+                      changeDate={this.changeDate}
+                      selectedDay={this.state.selectedDay}
+                      editSchedule={this.editSchedule}
+                    />
+                  );
                 else return <Redirect to="/login" />;
               }}
             />

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import Modal from "./Modal";
-
 import axios from "axios";
 
 export default class Bookings extends Component {
@@ -29,6 +28,7 @@ export default class Bookings extends Component {
     this.setState({ selectedDay: day });
   }
 
+  //get all bookings
   getData = () => {
     axios
       .get("/api/bookings")
@@ -38,7 +38,6 @@ export default class Bookings extends Component {
         });
       })
       .catch(err => {
-        // handle err.response depending on err.response.status
         if (err.response.status === 404) {
           this.setState({ error: "Not found" });
         }
@@ -49,9 +48,9 @@ export default class Bookings extends Component {
     this.getData();
   };
 
+  //delete selected booking
   deleteBooking = id => {
     axios.delete(`/api/bookings/${id}`).then(res => {
-      // console.log(res);
       this.getData();
     });
   };

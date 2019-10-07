@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import axios from "axios";
@@ -10,12 +11,14 @@ export default class EditPlanner extends Component {
       selectedDay: undefined,
       open: false,
       opentime: "",
-      closetime: ""
+      closetime: "",
+      success: ""
     };
   }
   //get values from text inputs and update state of weekday, opentime, closetime
   handleDayClick(day) {
-    this.setState({ selectedDay: day });
+    this.props.changeDate(day);
+    // this.setState({ selectedDay: day });
   }
   handleChange = event => {
     const { name, value } = event.target;
@@ -27,14 +30,23 @@ export default class EditPlanner extends Component {
 
   //get values from checkbox and update state of "open"
   handleCheckboxChange = event => {
-    const check = event.target.checked;
+    // const check = event.target.checked;
 
-    this.setState({ open: check });
+    this.setState({ open: !this.state.open });
   };
+
+  // handleCheckboxChangeClosed = event => {
+  //   const check = event.target.checked;
+
+  //   this.setState({ open: check });
+  // };
 
   //Function to be called when submitting the form
   handleSubmit = event => {
     event.preventDefault();
+
+    let success = "Created schedule.";
+
     axios
       .post("/api/planner/edit", {
         selectedDay: this.state.selectedDay,
@@ -44,6 +56,9 @@ export default class EditPlanner extends Component {
       })
       .then(res => {
         console.log(res);
+        this.setState({
+          success: success
+        });
       })
       .catch(err => {
         console.log(err);
@@ -51,22 +66,39 @@ export default class EditPlanner extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
         <h2 className="rest-form-header">Add new Schedule</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
+            {this.props.selectedDay ? (
+              <p>Schedule for: {this.props.selectedDay.toDateString()}</p>
+            ) : (
+              <p>Please select a day.</p>
+            )}
             <DayPicker
               onDayClick={this.handleDayClick}
-              selectedDays={this.state.selectedDay}
+              selectedDays={this.props.selectedDay}
             />
+          </div>
 
+          <div>
             <label htmlFor="open">Open? </label>
             <input
               type="checkbox"
               name="open"
               id="open"
               checked={this.state.open}
+              onChange={this.handleCheckboxChange}
+            />
+
+            <label htmlFor="open">Closed? </label>
+            <input
+              type="checkbox"
+              name="open"
+              id="open"
+              checked={!this.state.open}
               onChange={this.handleCheckboxChange}
             />
           </div>
@@ -100,7 +132,15 @@ export default class EditPlanner extends Component {
             </div>
           )}
 
-          <button className="edit-button" type="submit">Submit</button>
+          {this.state.success && (
+            <p>
+              {this.state.success} <Link to="/planner">Back to Planner.</Link>
+            </p>
+          )}
+
+          <button className="edit-button" type="submit">
+            Submit
+          </button>
         </form>
       </React.Fragment>
     );

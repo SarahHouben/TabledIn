@@ -74,27 +74,7 @@ export default class BookingForm extends Component {
         console.log(err);
       });
   };
-  // handleSubmit = event => {
-  //   event.preventDefault();
-
-  //   axios
-  //     .post("/api/bookings", {
-  //       selectedDay: this.state.selectedDay,
-  //       guestnumber: this.state.guestnumber,
-  //       arrivaltime: this.state.arrivaltime,
-  //       name: this.state.name,
-  //       phone: this.state.phone,
-  //       email: this.state.email
-  //     })
-  //     .then(() => {
-  //       console.log("created booking");
-  //       this.props.history.push("/");
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
+ 
   render() {
     return (
       <React.Fragment>
