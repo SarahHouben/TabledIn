@@ -110,7 +110,7 @@ export default class ShowRestaurant extends Component {
             alt={this.state.name}
           />
 
-          <button>
+          <button className="view-button">
             {/* <a download={this.state.menu}>View Menu</a> */}
             <a href={this.state.menu} download="Menu" target="_blank">
               View Menu
