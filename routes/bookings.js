@@ -14,6 +14,8 @@ router.post("/", (req, res) => {
   const name = req.body.name;
   const phone = req.body.phone;
   const email = req.body.email;
+  const dialogflow = req.body.dialogflow;
+  const webapp = req.body.webapp;
   const owner = req.user._id;
   const dayIndex = new Date(selectedDay).getDay() - 1;
   function getWeekDay(date) {
@@ -40,7 +42,7 @@ router.post("/", (req, res) => {
     .then(restaurant => {
       //Checking if there is day report for specific restaurant and creating dayreport if there is none
       DayReport.findOne({
-        $and: [{ date: selectedDay }, { restaurant: restaurant._id }],
+        $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
       }).then(find => {
         //if there is a dayreport created it finds tables for that capacity and selected date
         if (find && find.open) {
@@ -48,8 +50,8 @@ router.post("/", (req, res) => {
             $and: [
               { tablecapacity: { $gt: guestnumber - 1 } },
               { dayreport: find._id },
-              { date: selectedDay },
-            ],
+              { date: selectedDay }
+            ]
           })
             .then(tables => {
               //Filters available tables for given timeslots and sorts by lowest capacity(that can fit
@@ -120,6 +122,8 @@ router.post("/", (req, res) => {
                     tablenumber: table.tablenumber,
                     restaurant: restaurant._id,
                     timeslot: resTime,
+                    dialogflow: dialogflow,
+                    webapp: webapp
                   })
                     .then(booking => {
                       console.log("booking created");
@@ -132,7 +136,7 @@ router.post("/", (req, res) => {
               } else {
                 console.log("No free tables. Pick another time.");
                 res.json({
-                  message: "No free tables. Pick another time.",
+                  message: "No free tables. Pick another time."
                 });
               }
             })
@@ -151,7 +155,7 @@ router.post("/", (req, res) => {
               weekdays: restaurant.weekdays,
               tables: restaurant.tables,
               openingtime: restaurant.openingtime[day].opentime,
-              closingtime: restaurant.openingtime[day].closetime,
+              closingtime: restaurant.openingtime[day].closetime
             })
               .then(dayReport => {
                 //Day report creates tables for that day with timeslots coresponding
@@ -162,20 +166,20 @@ router.post("/", (req, res) => {
                     tablecapacity: el.cap,
                     tablenumber: el.num,
                     timeslots: dayReport.timeslots[dayIndex].timeslots,
-                    date: dayReport.date,
+                    date: dayReport.date
                   });
                 });
               })
               .then(() => {
                 DayReport.findOne({
-                  $and: [{ date: selectedDay }, { restaurant: restaurant._id }],
+                  $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
                 }).then(find => {
                   Table.find({
                     $and: [
                       { tablecapacity: { $gt: guestnumber - 1 } },
                       { dayreport: find._id },
-                      { date: selectedDay },
-                    ],
+                      { date: selectedDay }
+                    ]
                   }).then(tables => {
                     const availableTables = tables
                       .filter(table => {
@@ -206,7 +210,7 @@ router.post("/", (req, res) => {
                     ) {
                       console.log("Restaurant is closed at selected time");
                       res.json({
-                        message: "Restaurant is closed at selected time",
+                        message: "Restaurant is closed at selected time"
                       });
                     } else if (availableTables.length > 0) {
                       let timeSlotArray = Object.keys(
@@ -254,6 +258,8 @@ router.post("/", (req, res) => {
                           tablenumber: table.tablenumber,
                           restaurant: restaurant._id,
                           timeslot: resTime,
+                          webapp: webapp,
+                          dialogflow: dialogflow
                         })
                           .then(booking => {
                             console.log("booking created");
@@ -266,7 +272,7 @@ router.post("/", (req, res) => {
                     } else {
                       console.log("No free tables. Pick another time.");
                       res.json({
-                        message: "No free tables. Pick another time.",
+                        message: "No free tables. Pick another time."
                       });
                     }
                   });

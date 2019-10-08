@@ -16,7 +16,9 @@ export default class BookingForm extends Component {
       phone: "",
       email: "",
       message: "",
-      success: ""
+      success: "",
+      dialogflow: false,
+      webapp: false
     };
   }
 
@@ -49,7 +51,9 @@ export default class BookingForm extends Component {
         arrivaltime: this.state.arrivaltime,
         name: this.state.name,
         phone: this.state.phone,
-        email: this.state.email
+        email: this.state.email,
+        dialogflow: false,
+        webapp: true
       })
       .then(data => {
         if (data.data.message) {
@@ -66,7 +70,9 @@ export default class BookingForm extends Component {
             arrivaltime: "",
             name: "",
             phone: "",
-            email: ""
+            email: "",
+            dialogflow: false,
+            webapp: false
           });
         }
       })
