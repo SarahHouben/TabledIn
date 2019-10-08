@@ -28,20 +28,6 @@ export default class EditPlanner extends Component {
     });
   };
 
-  //deletes old schedule so that new schedule can be created for that day
-  // editSchedule() {
-  //   // console.log(this.state.selectedDay)
-  //   axios
-  //     .delete("/api/planner", { data: { selectedDay: this.state.selectedDay } })
-  //     .then(res => {
-  //       // console.log('fired' res)
-  //       this.props.history.push("/planner/edit");
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
-
   // Function for datepicker
   handleDayClick(day) {
     this.props.changeDate(day);
@@ -160,7 +146,7 @@ export default class EditPlanner extends Component {
           </div>
         ) : (
           <Link to="/planner/edit">
-            <button className="edit-button">Add schedule</button>
+            <button className="add-booking-button schedule-button">Add schedule</button>
           </Link>
         )}
       </React.Fragment>

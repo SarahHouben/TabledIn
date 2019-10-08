@@ -49,7 +49,7 @@ export default class EditRestaurant extends Component {
           tables: response.data.tables,
           openingtimes: response.data.openingtime,
           menu: response.data.menu,
-          logo: response.data.logo
+          logo: response.data.logo || "https://res.cloudinary.com/dmlqhwwfc/image/upload/v1570446767/TabledIn/tabledin_logo.png"
         });
       })
       .catch(err => {

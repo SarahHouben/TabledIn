@@ -124,7 +124,7 @@ export default class Bookings extends Component {
               </div>
 
               <div className="bookings-list-middle">
-                <p>{[...booking.date].splice(0, 10).join("")}</p>
+                {/* <p>{[...booking.date].splice(0, 10).join("")}</p> */}
                 <p>{bookingTime}</p>
                 <p>Table {booking.tablenumber}</p>
               </div>
