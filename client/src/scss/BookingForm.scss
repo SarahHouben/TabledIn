@@ -1,0 +1,45 @@
+.booking-form-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px 4vh 20px;
+  // padding-bottom: 4vh;
+  text-align: center;
+}
+
+.booking-form-div-daypicker {
+  padding-top: 10px;
+
+  p {
+    color: rgb(3, 16, 22);
+    font-weight: 700;
+  }
+}
+
+.booking-form-div-guestinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.booking-form-guests {
+  padding: 10px 0;
+  input {
+    width: 40px;
+  }
+}
+
+.booking-form-guest-header {
+  padding: 10px 0;
+}
+
+.booking-form-div-guestdetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+
+  input {
+    min-width: 200px;
+  }
+}

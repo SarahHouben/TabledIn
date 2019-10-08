@@ -98,7 +98,7 @@ export default class EditPlanner extends Component {
       <React.Fragment>
         <h2 className="rest-form-header">Search for Schedule</h2>
 
-        <div>
+        <div className="booking-show-div-daypicker">
           {this.props.selectedDay ? (
             <p>Schedule for: {this.props.selectedDay.toDateString()}</p>
           ) : (

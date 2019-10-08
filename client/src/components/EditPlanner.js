@@ -78,7 +78,7 @@ export default class EditPlanner extends Component {
       <React.Fragment>
         <h2 className="rest-form-header">Add new Schedule</h2>
         <form onSubmit={this.handleSubmit}>
-          <div>
+          <div className="booking-form-div-daypicker">
             {this.props.selectedDay ? (
               <p>Schedule for: {this.props.selectedDay.toDateString()}</p>
             ) : (
