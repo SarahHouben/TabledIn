@@ -114,13 +114,12 @@ export default class Bookings extends Component {
       let bookingTime = hours + ":" + minutes;
 
       return (
-        <>
-          <li key={booking._id} className="bookings-list-li">
+        <div key={booking._id}>
+          <li className="bookings-list-li">
             <div className="bookings-list-div">
               <div className="bookings-list-left">
                 <p>{booking.visitorname}</p>
                 <p>Guests: {booking.visitorcount}</p>
-                {/* {booking.visitorphone && <p>{booking.visitorphone} </p>} */}
               </div>
 
               <div className="bookings-list-middle">
@@ -139,7 +138,12 @@ export default class Bookings extends Component {
                   {" "}
                   Delete{" "}
                 </button>
-                <img src="/logo192.png" alt="TabledIn-Logo" />
+                {booking.webapp && (
+                  <img src="/logo192.png" alt="TabledIn-Logo" />
+                )}
+                {booking.dialogflow && (
+                  <img src="/Google_icon_coloured.png" alt="TabledIn-Logo" />
+                )}
               </div>
             </div>
             <div className="bookings-list-bottom">
@@ -158,7 +162,7 @@ export default class Bookings extends Component {
           >
             Are you sure you wish to delete this booking?
           </Modal>
-        </>
+        </div>
       );
     });
 

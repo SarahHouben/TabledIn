@@ -10,6 +10,8 @@ const bookingSchema = new Schema(
     visitorcount: Number,
     visitorphone: String,
     visitoremail: String,
+    dialogflow: Boolean,
+    webapp: Boolean,
     restaurant: { type: Schema.Types.ObjectId, ref: "User" }
   },
   {
