@@ -95,7 +95,7 @@ export default class EditPlanner extends Component {
     let closingTime = closehours + ":" + closeminutes;
 
     return (
-      <React.Fragment>
+      <div className="booking-show-div">
         <h2 className="rest-form-header">Search for Schedule</h2>
 
         <div className="booking-show-div-daypicker">
@@ -111,20 +111,20 @@ export default class EditPlanner extends Component {
         </div>
 
         {this.state._id ? (
-          <div>
-            {this.state.open ? <p>Open</p> : <p>Closed</p>}
-            {this.state.open && <p>Opening time: {openingTime}</p>}
-            {this.state.open && <p>Closing time: {closingTime}</p>}
+          <div className="schedule-message-div">
+            {this.state.open ? <p className="schedule-message-top">Open</p> : <p className="schedule-message-top">Closed</p>}
+            {this.state.open && <p>{openingTime} - {closingTime}</p>}
           </div>
         ) : (
-          <p>No schedule found.</p>
+          <div className="no-schedule-message-div">
+          <p className="no-schedule-message-p">No schedule found.</p>
+          </div>
         )}
 
         {this.state._id ? (
           <div>
             <button
-              className="edit-button"
-              // onClick={this.editSchedule}
+              className="edit-button edit-schedule-button"
               onClick={e => {
                 this.showModal();
               }}
@@ -146,10 +146,10 @@ export default class EditPlanner extends Component {
           </div>
         ) : (
           <Link to="/planner/edit">
-            <button className="add-booking-button schedule-button">Add schedule</button>
+            <button className="add-schedule-button">Add schedule</button>
           </Link>
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }

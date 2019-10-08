@@ -55,9 +55,7 @@ export default class BookingForm extends Component {
         if (data.data.message) {
           this.setState({
             message: data.data.message,
-            success: "",
-            selectedDay: undefined,
-            arrivaltime: ""
+            success: ""
           });
         } else if (!data.data.message) {
           this.setState({
@@ -158,7 +156,7 @@ export default class BookingForm extends Component {
             <p className="auth-message">{this.state.message}</p>
           )}
           {this.state.success && (
-            <p>
+            <p className="success-message">
               {this.state.success} <Link to="/">Back to home.</Link>
             </p>
           )}

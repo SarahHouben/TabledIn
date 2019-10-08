@@ -104,10 +104,7 @@ button {
   transition: all 0.4s ease 0s;
 }
 
-.schedule-button {
-  margin: 15px 15px 5px 15px;
-  padding: 5px 20px;
-}
+
 
 //#####  GENERAL STYLING FOR DELETE BUTTON
 
@@ -137,7 +134,6 @@ button {
 }
 
 .cancel-button:hover {
-  // background-color: #cfc5c2;
   font-weight: 600;
   transition: all 0.4s ease 0s;
 }
@@ -147,6 +143,23 @@ button {
 .auth-message {
   color: #bf3513;
   padding-top: 5px;
+  font-weight: 600;
+}
+
+//#####  GENERAL STYLING FOR SUCCESS MESSAGE
+
+.success-message {
+  color: #3da0d8;
+  padding-top: 5px;
+  font-weight: 600;
+
+  a {
+    color: #3da0d8;
+  }
+
+  a:hover {
+    color: #08415c;
+  }
 }
 
 code {

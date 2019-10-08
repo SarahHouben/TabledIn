@@ -49,7 +49,9 @@ export default class EditRestaurant extends Component {
           tables: response.data.tables,
           openingtimes: response.data.openingtime,
           menu: response.data.menu,
-          logo: response.data.logo || "https://res.cloudinary.com/dmlqhwwfc/image/upload/v1570446767/TabledIn/tabledin_logo.png"
+          logo:
+            response.data.logo ||
+            "https://res.cloudinary.com/dmlqhwwfc/image/upload/v1570446767/TabledIn/tabledin_logo.png"
         });
       })
       .catch(err => {
@@ -178,8 +180,6 @@ export default class EditRestaurant extends Component {
       tables,
       openingtimes
     } = this.state;
-
-    let intOpeningTime = 
 
     axios
       .put("/api/restaurants", {

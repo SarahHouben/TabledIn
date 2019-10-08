@@ -142,7 +142,7 @@ export default class EditPlanner extends Component {
             <p className="auth-message">{this.state.message}</p>
           )}
           {this.state.success && (
-            <p>
+            <p className="success-message">
               {this.state.success} <Link to="/planner">Back to Planner.</Link>
             </p>
           )}
