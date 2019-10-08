@@ -179,6 +179,8 @@ export default class EditRestaurant extends Component {
       openingtimes
     } = this.state;
 
+    let intOpeningTime = 
+
     axios
       .put("/api/restaurants", {
         name,

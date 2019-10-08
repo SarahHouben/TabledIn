@@ -55,7 +55,9 @@ export default class BookingForm extends Component {
         if (data.data.message) {
           this.setState({
             message: data.data.message,
-            success: ""
+            success: "",
+            selectedDay: undefined,
+            arrivaltime: ""
           });
         } else if (!data.data.message) {
           this.setState({
@@ -81,7 +83,7 @@ export default class BookingForm extends Component {
         <h2 className="rest-form-header">Add a Booking</h2>
 
         <form onSubmit={this.handleSubmit} className="booking-form-form">
-          <h3>Booking Details</h3>
+          <h3 className="booking-form-daypicker-header">Booking Details</h3>
 
           <div className="booking-form-div-daypicker">
             {this.state.selectedDay ? (
