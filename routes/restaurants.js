@@ -8,11 +8,12 @@ router.post("/", (req, res) => {
   const address = req.body.address;
   const phone = req.body.phone;
   const email = req.body.email;
+  const logo = req.body.logo;
+  const menu = req.body.menu;
   const weekdays = req.body.weekdays;
   const tablenumber = req.body.tablenumber;
   const tables = req.body.tables;
   const openingtimes = req.body.openingtimes;
-
 
   // map the timeslots array with the openingtimes in combined
   let combined = timeslots.map(timeSlotObj => {
@@ -36,6 +37,8 @@ router.post("/", (req, res) => {
     address: address,
     phone: phone,
     email: email,
+    logo: logo,
+    menu: menu,
     weekdays: weekdays,
     tablenumber: tablenumber,
     tables: tables,
@@ -74,28 +77,28 @@ router.put("/", (req, res) => {
   const address = req.body.address;
   const phone = req.body.phone;
   const email = req.body.email;
+  const logo = req.body.logo;
+  const menu = req.body.menu;
   const weekdays = req.body.weekdays;
   const tablenumber = req.body.tablenumber;
   const tables = req.body.tables;
   const openingtimes = req.body.openingtimes;
 
   // map the timeslots array with the openingtimes in combined
-  let combined = timeslots
-    .map(timeSlotObj => {
-      let businessTime = openingtimes[timeSlotObj.day];
-      if (businessTime && businessTime.opentime) {
-        for (let key in timeSlotObj.timeslots) {
-          let timeNum = Number(key);
-          let openingTime = businessTime.opentime;
-          let closingTime = businessTime.closetime;
+  let combined = timeslots.map(timeSlotObj => {
+    let businessTime = openingtimes[timeSlotObj.day];
+    if (businessTime && businessTime.opentime) {
+      for (let key in timeSlotObj.timeslots) {
+        let timeNum = Number(key);
+        let openingTime = businessTime.opentime;
+        let closingTime = businessTime.closetime;
 
-          if (timeNum < closingTime && timeNum > openingTime)
-            timeSlotObj.timeslots[key] = true;
-        }
-        return timeSlotObj;
-      } else return timeSlotObj;
-    })
-    
+        if (timeNum < closingTime && timeNum > openingTime)
+          timeSlotObj.timeslots[key] = true;
+      }
+      return timeSlotObj;
+    } else return timeSlotObj;
+  });
 
   const filter = { owner: user };
   Restaurant.findOneAndUpdate(
@@ -105,6 +108,8 @@ router.put("/", (req, res) => {
       address: address,
       phone: phone,
       email: email,
+      logo: logo,
+      menu: menu,
       weekdays: weekdays,
       tablenumber: tablenumber,
       tables: tables,

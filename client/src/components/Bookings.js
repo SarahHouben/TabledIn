@@ -114,34 +114,42 @@ export default class Bookings extends Component {
       let bookingTime = hours + ":" + minutes;
 
       return (
-        <ul key={booking._id}>
-          <li>
-            <section>
-              <div>
-                <p>Date: {[...booking.date].splice(0, 10).join("")}</p>
-                <p>Time: {bookingTime}</p>
-                <p>Table: {booking.tablenumber}</p>
-              </div>
-              <div>
-                <p>
-                  Guest: {booking.visitorname} Amount: {booking.visitorcount}
-                </p>
-                {booking.visitoremail && <p>Email: {booking.visitoremail} </p>}
-                {booking.visitorphone && <p>Phone: {booking.visitorphone} </p>}
-              </div>
+        <>
+          <li key={booking._id} className="bookings-list">
+            {/* <section> */}
+            <div className="bookings-list-left">
+              <p>{[...booking.date].splice(0, 10).join("")}</p>
+              <p>{bookingTime}</p>
+              <p>Table: {booking.tablenumber}</p>
+            </div>
 
-              <div>
-                <button
-                  className="delete-button"
-                  onClick={e => {
-                    this.showModal();
-                  }}
-                >
-                  {" "}
-                  Delete{" "}
-                </button>
-              </div>
-            </section>
+            <div className="bookings-list-middle">
+              <p>{booking.visitorname}</p>
+              <p>Amount: {booking.visitorcount}</p>
+              {booking.visitorphone && (
+                <p className="bookings-list-middle-text">
+                  {booking.visitorphone}{" "}
+                </p>
+              )}
+              {booking.visitoremail && (
+                <p className="bookings-list-middle-text">
+                  {booking.visitoremail}{" "}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <button
+                className="delete-button"
+                onClick={e => {
+                  this.showModal();
+                }}
+              >
+                {" "}
+                Delete{" "}
+              </button>
+            </div>
+            {/* </section> */}
           </li>
           <Modal
             onClose={this.showModal}
@@ -154,16 +162,20 @@ export default class Bookings extends Component {
           >
             Are you sure you wish to delete this booking?
           </Modal>
-        </ul>
+        </>
       );
     });
 
     return (
-      <div>
-        {/* <h3>Your bookings</h3> */}
-        <h2 className="rest-form-header">Your Bookings</h2>
+      <div className="booking-show-div">
+        <div className="booking-show-div-header">
+          <h2 className="booking-form-header">Your Bookings</h2>
+          <Link to="/booking/add">
+            <button className="add-booking-button">Add booking</button>
+          </Link>
+        </div>
 
-        <div>
+        <div className="booking-show-div-daypicker">
           {this.state.selectedDay ? (
             <p>Bookings for: {this.state.selectedDay.toDateString()}</p>
           ) : (
@@ -175,17 +187,15 @@ export default class Bookings extends Component {
           />
         </div>
 
-        <div>
+        <ul className="booking-show-div-bookings">
           {bookingItems && bookingItems.length ? (
             bookingItems
           ) : (
-            <p>No bookings for this date</p>
+            <p className="booking-show-div-noBooking">
+              No bookings for this date
+            </p>
           )}
-        </div>
-
-        <Link to="/booking/add">
-          <button className="edit-button">Add booking</button>
-        </Link>
+        </ul>
       </div>
     );
   }

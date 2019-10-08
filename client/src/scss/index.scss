@@ -82,8 +82,7 @@ input {
 //#####  GENERAL STYLING BUTTONS
 
 button {
-  margin: 15px 15px 5px 15px;
-  padding: 5px 20px;
+  
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.4s ease 0s;
@@ -96,13 +95,18 @@ button {
   background-color: #5bcae8;
   color: white;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  margin: 15px 15px 5px 15px;
+  padding: 5px 20px;
 }
 
 .edit-button:hover {
   background-color: #08415c;
   font-weight: 600;
   transition: all 0.4s ease 0s;
+  
 }
+
+
 
 //#####  GENERAL STYLING FOR DELETE BUTTON
 
@@ -111,6 +115,8 @@ button {
   background-color: #bf3513;
   color: white;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  margin: 15px 15px 5px 15px;
+  padding: 5px 20px;
 }
 
 .delete-button:hover {
@@ -125,6 +131,8 @@ button {
   border: none;
   color: gray;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  margin: 15px 15px 5px 15px;
+  padding: 5px 20px;
 }
 
 .cancel-button:hover {

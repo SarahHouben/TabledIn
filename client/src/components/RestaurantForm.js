@@ -9,6 +9,8 @@ export default class RestaurantForm extends Component {
     address: "",
     phone: "",
     email: "",
+    menu: "",
+    logo: "",
     weekdays: {
       monday: false,
       tuesday: false,
@@ -29,6 +31,32 @@ export default class RestaurantForm extends Component {
       saturday: {},
       sunday: {}
     }
+  };
+
+  //UPLOAD MENU (PDF)
+  fileChangedHandlerMenu = event => {
+    const menuFile = event.target.files[0];
+
+    const uploadData = new FormData();
+    uploadData.append("menu", menuFile);
+
+    axios.post("/api/add-image/menu", uploadData).then(response => {
+      const menu = response.data.secure_url;
+      this.setState({ menu: menu });
+    });
+  };
+
+  //UPLOAD LOGO
+  fileChangedHandlerLogo = event => {
+    const logoFile = event.target.files[0];
+
+    const uploadData = new FormData();
+    uploadData.append("logo", logoFile);
+
+    axios.post("/api/add-image/logo", uploadData).then(response => {
+      const logo = response.data.secure_url;
+      this.setState({ logo: logo });
+    });
   };
 
   // get values from text-inputs and update state with them
@@ -59,8 +87,8 @@ export default class RestaurantForm extends Component {
             [name]: valueInt
           }
         }
-      },
-      () => console.log("updated state", this.state)
+      }
+      // () => console.log("updated state", this.state)
     );
   };
 
@@ -116,7 +144,9 @@ export default class RestaurantForm extends Component {
       weekdays,
       tablenumber,
       tables,
-      openingtimes
+      openingtimes,
+      menu,
+      logo
     } = this.state;
 
     axios
@@ -128,7 +158,9 @@ export default class RestaurantForm extends Component {
         weekdays,
         tablenumber,
         tables,
-        openingtimes
+        openingtimes,
+        menu,
+        logo
       })
       .then(data => {
         this.props.history.push("/");
@@ -181,6 +213,22 @@ export default class RestaurantForm extends Component {
               id="email"
               value={this.state.email}
               onChange={this.handleChange}
+            />
+
+            <label htmlFor="logo">Upload Logo (PNG, JPEG): </label>
+            <input
+              type="file"
+              name="logo"
+              id="logo"
+              onChange={this.fileChangedHandlerLogo}
+            />
+
+            <label htmlFor="menu">Upload Menu (PDF): </label>
+            <input
+              type="file"
+              name="menu"
+              id="menu"
+              onChange={this.fileChangedHandlerMenu}
             />
           </div>
 

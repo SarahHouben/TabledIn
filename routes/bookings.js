@@ -4,7 +4,10 @@ const Booking = require("../models/Booking");
 const DayReport = require("../models/DayReport");
 const { Restaurant } = require("../models/Restaurant");
 const Table = require("../models/Table");
+<<<<<<< HEAD
 
+=======
+>>>>>>> development
 
 // POST /api/bookings
 // create a new booking resource

@@ -9,6 +9,8 @@ export default class EditRestaurant extends Component {
     address: "",
     phone: "",
     email: "",
+    menu: "",
+    logo: "",
     weekdays: {
       monday: false,
       tuesday: false,
@@ -31,6 +33,7 @@ export default class EditRestaurant extends Component {
     }
   };
 
+  //get Restaurant Data
   getData = () => {
     axios
       .get("/api/restaurants")
@@ -44,7 +47,9 @@ export default class EditRestaurant extends Component {
           weekdays: response.data.weekdays,
           tablenumber: response.data.tablenumber,
           tables: response.data.tables,
-          openingtimes: response.data.openingtime
+          openingtimes: response.data.openingtime,
+          menu: response.data.menu,
+          logo: response.data.logo
         });
       })
       .catch(err => {
@@ -58,6 +63,32 @@ export default class EditRestaurant extends Component {
 
   componentDidMount = () => {
     this.getData();
+  };
+
+  //UPLOAD MENU (PDF)
+  fileChangedHandlerMenu = event => {
+    const menuFile = event.target.files[0];
+
+    const uploadData = new FormData();
+    uploadData.append("menu", menuFile);
+
+    axios.post("/api/add-image/menu", uploadData).then(response => {
+      const menu = response.data.secure_url;
+      this.setState({ menu: menu });
+    });
+  };
+
+  //UPLOAD LOGO
+  fileChangedHandlerLogo = event => {
+    const logoFile = event.target.files[0];
+
+    const uploadData = new FormData();
+    uploadData.append("logo", logoFile);
+
+    axios.post("/api/add-image/logo", uploadData).then(response => {
+      const logo = response.data.secure_url;
+      this.setState({ logo: logo });
+    });
   };
 
   handleChange = event => {
@@ -132,7 +163,7 @@ export default class EditRestaurant extends Component {
     );
   };
 
-  handleSubmit = (event, str) => {
+  handleSubmit = event => {
     event.preventDefault();
 
     const {
@@ -140,6 +171,8 @@ export default class EditRestaurant extends Component {
       address,
       phone,
       email,
+      logo,
+      menu,
       weekdays,
       tablenumber,
       tables,
@@ -152,6 +185,8 @@ export default class EditRestaurant extends Component {
         address,
         phone,
         email,
+        logo,
+        menu,
         weekdays,
         tablenumber,
         tables,
@@ -200,6 +235,22 @@ export default class EditRestaurant extends Component {
               id="email"
               value={this.state.email}
               onChange={this.handleChange}
+            />
+
+            <label htmlFor="logo">Change Logo (PNG, JPEG): </label>
+            <input
+              type="file"
+              name="logo"
+              id="logo"
+              onChange={this.fileChangedHandlerLogo}
+            />
+
+            <label htmlFor="menu">Upload new Menu (PDF): </label>
+            <input
+              type="file"
+              name="menu"
+              id="menu"
+              onChange={this.fileChangedHandlerMenu}
             />
           </div>
 
@@ -353,7 +404,9 @@ export default class EditRestaurant extends Component {
               tablesStage2A={this.tablesStage2B}
             />
           </div>
-          <button className="edit-button" type="submit">Submit</button>
+          <button className="edit-button" type="submit">
+            Submit
+          </button>
         </form>
       </>
     );

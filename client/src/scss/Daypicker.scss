@@ -1,0 +1,16 @@
+.DayPicker-Caption > div {
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+  background-color: #5bcae8;
+  border-radius: 8px;
+}
+
+.DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  position: relative;
+  background-color: #5bcae8;
+  border-radius: 8px;
+  color: #f0f8ff;
+}

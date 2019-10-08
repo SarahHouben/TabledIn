@@ -24,6 +24,11 @@ const SideDrawer = props => {
         {props.user ? (
           <>
             <li>
+              <Link to="/booking/add" onClick={props.click}>
+                Add Booking
+              </Link>
+            </li>
+            <li>
               <Link to="/planner" onClick={props.click}>
                 Planner
               </Link>
