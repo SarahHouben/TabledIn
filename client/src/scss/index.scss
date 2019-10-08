@@ -104,8 +104,6 @@ button {
   transition: all 0.4s ease 0s;
 }
 
-
-
 //#####  GENERAL STYLING FOR DELETE BUTTON
 
 .delete-button {
@@ -165,4 +163,14 @@ button {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@media (max-width: 320px) {
+  label {
+    font-size: 0.9rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
 }
