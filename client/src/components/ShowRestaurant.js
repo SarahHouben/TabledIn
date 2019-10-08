@@ -126,10 +126,15 @@ export default class ShowRestaurant extends Component {
 
         <h3 className="rest-show-info-h3">General information</h3>
         <div className="rest-show-info-div">
-          <p>
+
+        <div className="rest-show-info-div-address">
+          <p className="address-p">
             <strong>Address: </strong>
-            {this.state.address}
+            {/* {this.state.address} */}
           </p>
+          <p>{this.state.address}</p>
+
+        </div>
           <p>
             <strong>Email: </strong>
             {this.state.email}

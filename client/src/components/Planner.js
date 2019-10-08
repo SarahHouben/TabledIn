@@ -95,7 +95,7 @@ export default class EditPlanner extends Component {
     let closingTime = closehours + ":" + closeminutes;
 
     return (
-      <div className="booking-show-div">
+      <div className="booking-show-div planner-overall">
         <h2 className="rest-form-header">Search for Schedule</h2>
 
         <div className="booking-show-div-daypicker">

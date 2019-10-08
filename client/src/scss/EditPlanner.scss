@@ -1,0 +1,24 @@
+.schedule-time-div {
+  min-height: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.schedule-form-checkbox-div {
+  display: flex;
+  padding-bottom: 10px;
+
+  label {
+    color: rgb(3, 16, 22);
+    font-weight: 700;
+  }
+}
+
+.schedule-form-input-open {
+  margin-right: 20px;
+}
+
+.schedule-form-time-open {
+  margin-right: 10px;
+}

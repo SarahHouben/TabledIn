@@ -77,7 +77,7 @@ export default class EditPlanner extends Component {
     return (
       <React.Fragment>
         <h2 className="rest-form-header">Add new Schedule</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="booking-form-form">
           <div className="booking-form-div-daypicker">
             {this.props.selectedDay ? (
               <p>Schedule for: {this.props.selectedDay.toDateString()}</p>
@@ -90,62 +90,67 @@ export default class EditPlanner extends Component {
             />
           </div>
 
-          <div>
-            <label htmlFor="open">Open? </label>
-            <input
-              type="checkbox"
-              name="open"
-              id="open"
-              checked={this.state.open}
-              onChange={this.handleCheckboxChange}
-            />
-
-            <label htmlFor="open">Closed? </label>
-            <input
-              type="checkbox"
-              name="open"
-              id="open"
-              checked={!this.state.open}
-              onChange={this.handleCheckboxChange}
-            />
-          </div>
-
-          {this.state.open && (
-            <div>
-              <label htmlFor="opentime">Opening time: </label>
+          <div className="schedule-time-div">
+            <div className="schedule-form-checkbox-div">
+              <label htmlFor="open">Open</label>
               <input
-                type="time"
-                name="opentime"
-                id="opentime"
-                min="08:00"
-                max="23:30"
-                step="900"
-                required
-                value={this.state.opentime}
-                onChange={this.handleChange}
+                className="schedule-form-input-open"
+                type="checkbox"
+                name="open"
+                id="open"
+                checked={this.state.open}
+                onChange={this.handleCheckboxChange}
               />
-              <label htmlFor="closetime">Closing time: </label>
+
+              <label htmlFor="open">Closed</label>
               <input
-                type="time"
-                name="closetime"
-                id="closetime"
-                min="08:00"
-                max="23:30"
-                step="900"
-                required
-                value={this.state.closetime}
-                onChange={this.handleChange}
+                type="checkbox"
+                name="open"
+                id="open"
+                checked={!this.state.open}
+                onChange={this.handleCheckboxChange}
               />
             </div>
-          )}
-          {this.state.message && (
-            <p className="auth-message">{this.state.message}</p>
-          )}
-          {this.state.success && (
-            <p className="success-message">
-              {this.state.success} <Link to="/planner">Back to Planner.</Link>
-            </p>
-          )}
+
+            {this.state.open && (
+              <div>
+                <label htmlFor="opentime">Opens: </label>
+                <input
+                  className="schedule-form-time-open"
+                  type="time"
+                  name="opentime"
+                  id="opentime"
+                  min="08:00"
+                  max="23:30"
+                  step="900"
+                  required
+                  value={this.state.opentime}
+                  onChange={this.handleChange}
+                />
+                <label htmlFor="closetime">Closes: </label>
+                <input
+                  type="time"
+                  name="closetime"
+                  id="closetime"
+                  min="08:00"
+                  max="23:30"
+                  step="900"
+                  required
+                  value={this.state.closetime}
+                  onChange={this.handleChange}
+                />
+              </div>
+            )}
+
+            {this.state.message && (
+              <p className="auth-message">{this.state.message}</p>
+            )}
+            {this.state.success && (
+              <p className="success-message">
+                {this.state.success} <Link to="/planner">Back to Planner.</Link>
+              </p>
+            )}
+          </div>
 
           <button className="edit-button" type="submit">
             Submit

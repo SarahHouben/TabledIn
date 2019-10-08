@@ -1,3 +1,7 @@
+.planner-overall {
+  padding: 0 20px 4vh 20px;
+}
+
 .schedule-message-div {
   padding-bottom: 10px;
   min-height: 60px;
@@ -25,6 +29,7 @@
 .add-schedule-button {
   border: none;
   background-color: #add8e6;
+  font-weight: 600;
   color: #08415c;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.1);
   margin: 15px 15px 5px 15px;
@@ -35,7 +40,6 @@
 .add-schedule-button:hover {
   background-color: #08415c;
   color: white;
-  font-weight: 600;
   transition: all 0.4s ease 0s;
 }
 
