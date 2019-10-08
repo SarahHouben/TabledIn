@@ -1,16 +1,50 @@
 .about-div {
   max-width: 600px;
-  text-align: center;
+  text-align: justify;
+  padding: 4vh 5vw 5vh 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    padding-top: 5px;
+  }
+
+  img {
+    height: 25px;
+    width: auto;
+    padding-right: 10px;
+  }
+}
+
+.about-text-link {
+  color: black;
+  display: inline;
+}
+
+.about-text-link:hover {
+  font-weight: 600;
+}
+
+.about-image-link {
+  color: black;
+  display: flex;
+  align-items: center;
+  padding-top: 2vh;
+}
+
+.about-image-link:hover {
+  font-weight: 600;
 }
 
 .about-section-top-p {
-  margin: 2vh 20px 2vh 20px;
+  margin: 2vh 0 2vh 0;
 }
 
 .about-section-top-h3-middle {
-  margin: 2vh 20px 1vh 20px;
+  margin: 2vh 0 1vh 0;
 }
 
 .about-section-top-h3-bottom {
-  margin: 4vh 20px 1vh 20px;
+  margin: 4vh 0 1vh 0;
 }
