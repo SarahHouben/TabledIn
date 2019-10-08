@@ -111,18 +111,15 @@ export default class EditRestaurant extends Component {
   setOpeningTime = (name, value, weekday) => {
     //valute that we get from time form is a string and we need it as a number in DB
     let valueInt = Number(value.replace(":", ""));
-    this.setState(
-      {
-        openingtimes: {
-          ...this.state.openingtimes,
-          [weekday]: {
-            ...this.state.openingtimes[weekday],
-            [name]: valueInt
-          }
+    this.setState({
+      openingtimes: {
+        ...this.state.openingtimes,
+        [weekday]: {
+          ...this.state.openingtimes[weekday],
+          [name]: valueInt
         }
-      },
-      () => console.log("updated state", this.state)
-    );
+      }
+    });
   };
 
   //get values from checkboxes and update states of weekdays with them

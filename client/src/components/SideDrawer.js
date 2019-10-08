@@ -69,6 +69,16 @@ const SideDrawer = props => {
               <NavLink
                 className="side-drawer-navlink"
                 activeClassName="side-drawer-navlink-active"
+                onClick={props.click}
+                to="/about"
+              >
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="side-drawer-navlink"
+                activeClassName="side-drawer-navlink-active"
                 to="/signup"
                 onClick={props.click}
               >
