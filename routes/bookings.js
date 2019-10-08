@@ -8,15 +8,26 @@ const Table = require("../models/Table");
 // POST /api/bookings
 // create a new booking resource
 router.post("/", (req, res) => {
+  let owner;
+ if(!req.body.dialogflow){
+    owner = req.user._id;
+
+ }else{
+    owner = req.body.owner;
+ }
+ console.log(req.body)
   const selectedDay = req.body.selectedDay;
   const guestnumber = req.body.guestnumber;
   const arrivaltime = req.body.arrivaltime;
   const name = req.body.name;
   const phone = req.body.phone;
   const email = req.body.email;
+<<<<<<< HEAD
   const dialogflow = req.body.dialogflow;
   const webapp = req.body.webapp;
   const owner = req.user._id;
+=======
+>>>>>>> welcome-intent
   const dayIndex = new Date(selectedDay).getDay() - 1;
   function getWeekDay(date) {
     //Create an array containing each day, starting with Sunday.
@@ -324,5 +335,6 @@ router.delete("/:id", (req, res) => {
       res.json(err);
     });
 });
-
+const restaurantIds = Restaurant.find({_id:1})
+console.log(restaurantIds);
 module.exports = router;

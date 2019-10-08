@@ -29,10 +29,10 @@
 "use strict";
 
 const express = require("express");
-const bodyParser = require("body-parser");
-const router = express.Router().use(bodyParser.json());;
+const router = express.Router();
 const axios = require("axios");
 const moment = require("moment");
+const bodyParser = require("body-parser");
 const Booking = require("../models/Booking");
 const DayReport = require("../models/DayReport");
 const { Restaurant } = require("../models/Restaurant");
@@ -42,7 +42,6 @@ const {
   SignIn,
   Suggestions,
   DateTime,
-  Permission
 } = require("actions-on-google");
 const app = dialogflow({ debug: true });
 
@@ -90,7 +89,7 @@ Restaurant.find().then(restaurants => {
   restaurants.forEach(res => {
     app.intent(
       `${res._id} - Reservation`,
-      async (conv, { guestnumber, selectedDay, arrivalTime },permision) => {
+      async (conv, { guestnumber, selectedDay, arrivalTime }) => {
         const arrivaltime = moment(arrivalTime).format("HH:mm");
         const response = await axios.post(
           "http://localhost:5555/api/bookings",
@@ -104,37 +103,31 @@ Restaurant.find().then(restaurants => {
         );
         // const options = {
         //   prompts: {
-        //     initial: `${response.data.message}`,
-        //     date: 'What day was that?',
-        //     time: 'What time works for you?',
-        //   }}
-
+        //     initial: "When would you like to schedule the appointment?",
+        //     date: "What day was that?",
+        //     time: "What time works for you?",
+        //   },
+        // };
 
         if (response.data.message == "Restaurant is closed at selected time") {
           console.log("###################################", response.data);
-          conv.ask(new DateTime(options))
         } else if (
           response.data.message == "No free tables. Pick another time."
         ) {
-          conv.ask(new DateTime(options))
-          // conv.ask("No free tables. Pick another time. ");
+          conv.ask("No free tables. Pick another time. ");
           console.log("###################################", response.data);
         } else if (
           response.data.message == "Closed on this day. Pick another date"
         ) {
-          conv.ask(new DateTime(options))
-          // conv.ask(response.data.message);
+          conv.ask(response.data.message);
           console.log("###################################", response.data);
         } else {
           conv.ask(
             new Permission({
-              context: "Can i have your name please?",
+              context: "Hi there, to get to know you better",
               permissions: "NAME",
-            }))
-            // app.intent(
-            //   `${res._id} - Reservation - Success`,(conv =>{
-            //     conv.ask('Your reservation is confirmed. Can i help you with something else?')
-            //   }))
+            })
+          );
         }
 
         // .then(response => {
@@ -147,19 +140,7 @@ Restaurant.find().then(restaurants => {
     );
   });
 });
-app.intent('Get Permission', (conv, params, granted) => {
-  // granted: inferred first (and only) argument value, boolean true if granted, false if not
-  const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
-  const name = conv.user.name
-  console.log(name)
-})
 
-app.intent('actions.intent.PERMISSION', (conv, input, granted) => {
-  // granted: inferred first (and only) argument value, boolean true if granted, false if not
-  const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
-  const name = conv.user.name
-  console.log(name)
-})
 // Restaurant.find().then(restaurants => {
 //   restaurants.forEach(res => {
 //     app.intent(
