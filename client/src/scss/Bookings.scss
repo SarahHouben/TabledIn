@@ -57,38 +57,67 @@
 
 // #### Booking Cards
 
-.bookings-list {
+.bookings-list-li {
   display: flex;
+  flex-direction: column;
   margin: 0 10px 10px 10px;
-  padding: 5px;
+  padding: 7px;
   border: 1px solid #08415c;
   border-radius: 8px;
   min-height: 90px;
   background-color: rgba(255, 255, 255, 0.7);
   align-items: flex-start;
-  justify-content: space-around;
-  min-width: 300px;
 }
 
-.bookings-list-left {
-  text-align: left;
-  min-width: 80px;
-  min-height: 90px;
-
-  p {
-    padding: 5px 0;
-  }
+.bookings-list-div {
+  display: flex;
 }
 
 .bookings-list-middle {
   text-align: left;
-  min-height: 90px;
+  min-width: 90px;
+  margin-right: 10px;
 
   p {
     padding: 5px 0;
+    color: #08415c;
+    font-weight: 600;
   }
 }
 
-.bookings-list-middle-text {
-  font-size: 0.7rem;
+.bookings-list-left {
+  text-align: left;
+  margin: 0 10px 0 0px;
+  min-width: 90px;
+  p {
+    padding: 5px 0;
+    font-weight: 600;
+  }
+}
+
+.bookings-list-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    height: 20px;
+    width: auto;
+    margin: 5px 0px;
+  }
+}
+
+.delete-booking {
+  margin: 5px 0px;
+}
+
+.bookings-list-bottom {
+  display: flex;
+
+  p {
+    font-style: italic;
+    padding-bottom: 5px;
+    padding-right: 5px;
+  }
 }

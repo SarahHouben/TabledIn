@@ -115,41 +115,37 @@ export default class Bookings extends Component {
 
       return (
         <>
-          <li key={booking._id} className="bookings-list">
-            {/* <section> */}
-            <div className="bookings-list-left">
-              <p>{[...booking.date].splice(0, 10).join("")}</p>
-              <p>{bookingTime}</p>
-              <p>Table: {booking.tablenumber}</p>
-            </div>
+          <li key={booking._id} className="bookings-list-li">
+            <div className="bookings-list-div">
+              <div className="bookings-list-left">
+                <p>{booking.visitorname}</p>
+                <p>Guests: {booking.visitorcount}</p>
+                {/* {booking.visitorphone && <p>{booking.visitorphone} </p>} */}
+              </div>
 
-            <div className="bookings-list-middle">
-              <p>{booking.visitorname}</p>
-              <p>Amount: {booking.visitorcount}</p>
-              {booking.visitorphone && (
-                <p className="bookings-list-middle-text">
-                  {booking.visitorphone}{" "}
-                </p>
-              )}
-              {booking.visitoremail && (
-                <p className="bookings-list-middle-text">
-                  {booking.visitoremail}{" "}
-                </p>
-              )}
-            </div>
+              <div className="bookings-list-middle">
+                <p>{[...booking.date].splice(0, 10).join("")}</p>
+                <p>{bookingTime}</p>
+                <p>Table {booking.tablenumber}</p>
+              </div>
 
-            <div>
-              <button
-                className="delete-button"
-                onClick={e => {
-                  this.showModal();
-                }}
-              >
-                {" "}
-                Delete{" "}
-              </button>
+              <div className="bookings-list-right">
+                <button
+                  className="delete-button delete-booking"
+                  onClick={e => {
+                    this.showModal();
+                  }}
+                >
+                  {" "}
+                  Delete{" "}
+                </button>
+                <img src="/logo192.png" alt="TabledIn-Logo" />
+              </div>
             </div>
-            {/* </section> */}
+            <div className="bookings-list-bottom">
+              {booking.visitorphone && <p>{booking.visitorphone} </p>}
+              {booking.visitoremail && <p>{booking.visitoremail} </p>}
+            </div>
           </li>
           <Modal
             onClose={this.showModal}
