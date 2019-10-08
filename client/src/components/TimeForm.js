@@ -21,15 +21,12 @@ export default class TimeForm extends Component {
 
   componentDidMount() {
     if (this.props.openingtimes) {
-      this.props.openingtimes.opentime = this.convertTime(
-        this.props.openingtimes.opentime
-      );
-      this.props.openingtimes.closetime = this.convertTime(
-        this.props.openingtimes.closetime
-      );
 
       this.setState({
-        openingtimes: this.props.openingtimes
+        openingtimes: {
+          opentime: this.convertTime(this.props.openingtimes.opentime),
+          closetime: this.convertTime(this.props.openingtimes.closetime)
+        }
       });
     }
   }
@@ -45,10 +42,9 @@ export default class TimeForm extends Component {
 
   render() {
     return (
-      <div   className="time-input">
+      <div className="time-input">
         <label htmlFor="opentime">Opens:</label>
         <input
-      
           type="time"
           name="opentime"
           id="opentime"

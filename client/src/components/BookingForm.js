@@ -74,16 +74,16 @@ export default class BookingForm extends Component {
         console.log(err);
       });
   };
- 
+
   render() {
     return (
       <React.Fragment>
         <h2 className="rest-form-header">Add a Booking</h2>
 
-        <form onSubmit={this.handleSubmit}>
-          <h3>Booking Details</h3>
+        <form onSubmit={this.handleSubmit} className="booking-form-form">
+          <h3 className="booking-form-daypicker-header">Booking Details</h3>
 
-          <div>
+          <div className="booking-form-div-daypicker">
             {this.state.selectedDay ? (
               <p>Date of booking: {this.state.selectedDay.toDateString()}</p>
             ) : (
@@ -95,32 +95,37 @@ export default class BookingForm extends Component {
             />
           </div>
 
-          <div>
-            <label htmlFor="guestnumber">Number of guests: </label>
-            <input
-              type="number"
-              name="guestnumber"
-              id="guestnumber"
-              value={this.state.guestnumber}
-              onChange={this.handleChange}
-              min="1"
-            />
-            <label htmlFor="arrivaltime">Time: </label>
-            <input
-              type="time"
-              name="arrivaltime"
-              id="arrivaltime"
-              min="08:00"
-              max="23:30"
-              step="900"
-              required
-              value={this.state.arrivaltime}
-              onChange={this.handleChange}
-            />
+          <div className="booking-form-div-guestinfo">
+            <div>
+              <label htmlFor="arrivaltime">Time: </label>
+              <input
+                type="time"
+                name="arrivaltime"
+                id="arrivaltime"
+                min="08:00"
+                max="23:30"
+                step="900"
+                required
+                value={this.state.arrivaltime}
+                onChange={this.handleChange}
+              />
+            </div>
+
+            <div className="booking-form-guests">
+              <label htmlFor="guestnumber">Guests: </label>
+              <input
+                type="number"
+                name="guestnumber"
+                id="guestnumber"
+                value={this.state.guestnumber}
+                onChange={this.handleChange}
+                min="1"
+              />
+            </div>
           </div>
 
-          <h3>Guest Details</h3>
-          <div>
+          <h3 className="booking-form-guest-header">Guest Details</h3>
+          <div className="booking-form-div-guestdetails">
             <label htmlFor="name">Name: </label>
             <input
               type="text"
@@ -151,7 +156,7 @@ export default class BookingForm extends Component {
             <p className="auth-message">{this.state.message}</p>
           )}
           {this.state.success && (
-            <p>
+            <p className="success-message">
               {this.state.success} <Link to="/">Back to home.</Link>
             </p>
           )}

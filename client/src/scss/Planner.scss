@@ -1,0 +1,48 @@
+.planner-overall {
+  padding: 0 20px 4vh 20px;
+}
+
+.schedule-message-div {
+  padding-bottom: 10px;
+  min-height: 60px;
+
+  p {
+    padding: 5px;
+  }
+}
+
+.schedule-message-top {
+  font-weight: 700;
+  color: #08415c;
+}
+
+.no-schedule-message-div {
+  min-height: 70px;
+}
+
+.no-schedule-message-p {
+  padding: 10px;
+  font-weight: 700;
+  color: #bf3513;
+}
+
+.add-schedule-button {
+  border: none;
+  background-color: #add8e6;
+  font-weight: 600;
+  color: #08415c;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.1);
+  margin: 15px 15px 5px 15px;
+  padding: 5px 20px;
+  width: 119px;
+}
+
+.add-schedule-button:hover {
+  background-color: #08415c;
+  color: white;
+  transition: all 0.4s ease 0s;
+}
+
+.edit-schedule-button {
+  width: 119px;
+}

@@ -29,7 +29,7 @@ class App extends React.Component {
     });
   };
 
-  editSchedule = (props) => {
+  editSchedule = props => {
     // console.log(this.state.selectedDay)
     axios
       .delete("/api/planner", { data: { selectedDay: this.state.selectedDay } })
@@ -49,7 +49,7 @@ class App extends React.Component {
     this.setState({
       selectedDay: undefined
     });
-  } 
+  };
 
   drawerToggleClickHandler = () => {
     this.setState(prevState => {

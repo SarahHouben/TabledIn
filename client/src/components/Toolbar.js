@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { logout } from "../services/api";
 import DrawerToggleButton from "./DrawerToggleButton";
 
@@ -20,10 +20,10 @@ const Toolbar = props => {
           <DrawerToggleButton click={props.drawerClickHandler} />
         </div>
 
-        <Link className="toolbar__logo" to="/">
+        <NavLink className="toolbar__logo" to="/">
           <img className="nav-logo" src="/logo192.png" alt="TabledIn-Logo" />{" "}
           TabledIn
-        </Link>
+        </NavLink>
 
         <div className="spacer" />
         <div className="toolbar__navigation-items">
@@ -31,30 +31,61 @@ const Toolbar = props => {
             {props.user ? (
               <>
                 <li>
-                  <Link to="/planner">Planner</Link>
+                  <NavLink
+                    className="navlink-style"
+                    activeClassName="navlink-active"
+                    to="/booking/add"
+                  >
+                    Add Booking
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/restaurant/show">Restaurant Info</Link>
+                  <NavLink
+                    className="navlink-style"
+                    activeClassName="navlink-active"
+                    to="/planner"
+                  >
+                    Planner
+                  </NavLink>
                 </li>
                 <li>
-                  <Link
-                    className="nav-link__outer"
+                  <NavLink
+                    className="navlink-style"
+                    activeClassName="navlink-active"
+                    to="/restaurant/show"
+                  >
+                    Restaurant Info
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="nav-link__outer-logout"
                     to="/"
                     onClick={() => handleLogout(props)}
                   >
                     Logout
-                  </Link>
+                  </NavLink>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <Link to="/signup">Signup</Link>
+                  <NavLink
+                    className="navlink-style"
+                    activeClassName="navlink-active"
+                    to="/signup"
+                  >
+                    Signup
+                  </NavLink>
                 </li>
                 <li>
-                  <Link className="nav-link__outer" to="/login">
+                  <NavLink
+                    activeClassName="navlink-active"
+                    className="nav-link__outer navlink-style"
+                    to="/login"
+                  >
                     Login
-                  </Link>
+                  </NavLink>
                 </li>
               </>
             )}

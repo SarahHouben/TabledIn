@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { logout } from "../services/api";
 
 //Logout function
@@ -24,32 +24,66 @@ const SideDrawer = props => {
         {props.user ? (
           <>
             <li>
-              <Link to="/planner" onClick={props.click}>
+              <NavLink
+                className="side-drawer-navlink"
+                activeClassName="side-drawer-navlink-active"
+                to="/booking/add"
+                onClick={props.click}
+              >
+                Add Booking
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="side-drawer-navlink"
+                activeClassName="side-drawer-navlink-active"
+                to="/planner"
+                onClick={props.click}
+              >
                 Planner
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/restaurant/show" onClick={props.click}>
+              <NavLink
+                className="side-drawer-navlink"
+                activeClassName="side-drawer-navlink-active"
+                to="/restaurant/show"
+                onClick={props.click}
+              >
                 Restaurant Info
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/" onClick={() => handleLogout(props)}>
+              <NavLink
+                className="side-drawer-navlink"
+                to="/"
+                onClick={() => handleLogout(props)}
+              >
                 Logout
-              </Link>
+              </NavLink>
             </li>
           </>
         ) : (
           <>
             <li>
-              <Link to="/signup" onClick={props.click}>
+              <NavLink
+                className="side-drawer-navlink"
+                activeClassName="side-drawer-navlink-active"
+                to="/signup"
+                onClick={props.click}
+              >
                 Signup
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/login" onClick={props.click}>
+              <NavLink
+                className="side-drawer-navlink"
+                activeClassName="side-drawer-navlink-active"
+                to="/login"
+                onClick={props.click}
+              >
                 Login
-              </Link>
+              </NavLink>
             </li>
           </>
         )}

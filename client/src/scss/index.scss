@@ -82,8 +82,6 @@ input {
 //#####  GENERAL STYLING BUTTONS
 
 button {
-  margin: 15px 15px 5px 15px;
-  padding: 5px 20px;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.4s ease 0s;
@@ -96,36 +94,14 @@ button {
   background-color: #5bcae8;
   color: white;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  margin: 15px 15px 5px 15px;
+  padding: 5px 20px;
 }
 
 .edit-button:hover {
   background-color: #08415c;
   font-weight: 600;
   transition: all 0.4s ease 0s;
-}
-
-//#####  GENERAL STYLING FOR VIEW MENU BUTTON
-
-.view-button {
-  border: none;
-  background-color: #3DA0D8;
-  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
-
-  a {
-    font-weight: 600;
-    color: white;
-  }
-}
-
-.view-button:hover {
-  background-color: #5bcae8;
-  font-weight: 600;
-  transition: all 0.4s ease 0s;
-
-  a {
-    text-decoration: none;
-    color: white;
-  }
 }
 
 //#####  GENERAL STYLING FOR DELETE BUTTON
@@ -135,6 +111,8 @@ button {
   background-color: #bf3513;
   color: white;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  margin: 15px 15px 5px 15px;
+  padding: 5px 20px;
 }
 
 .delete-button:hover {
@@ -149,10 +127,11 @@ button {
   border: none;
   color: gray;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  margin: 15px 15px 5px 15px;
+  padding: 5px 20px;
 }
 
 .cancel-button:hover {
-  // background-color: #cfc5c2;
   font-weight: 600;
   transition: all 0.4s ease 0s;
 }
@@ -162,9 +141,36 @@ button {
 .auth-message {
   color: #bf3513;
   padding-top: 5px;
+  font-weight: 600;
+}
+
+//#####  GENERAL STYLING FOR SUCCESS MESSAGE
+
+.success-message {
+  color: #3da0d8;
+  padding-top: 5px;
+  font-weight: 600;
+
+  a {
+    color: #3da0d8;
+  }
+
+  a:hover {
+    color: #08415c;
+  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@media (max-width: 320px) {
+  label {
+    font-size: 0.9rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
 }
