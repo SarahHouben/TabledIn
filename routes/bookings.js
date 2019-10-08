@@ -254,7 +254,7 @@ router.post("/", (req, res) => {
                           visitoremail: email,
                           tablenumber: table.tablenumber,
                           restaurant: restaurant._id,
-                          timeslot: resTime,
+                          timeslot: resTime
                         })
                           .then(booking => {
                             console.log("booking created");

@@ -38,9 +38,6 @@ const Table = require("../models/Table");
 const { dialogflow, SignIn, Suggestions } = require("actions-on-google");
 const app = dialogflow({ debug: true });
 
-const restaurantIds = Restaurant.find({_id:1})
-console.log(restaurantIds);
-
 // app.intent("Booking", conv => {
 //   console.log("THIS IS RESPONSE", conv.request);
 
@@ -50,8 +47,7 @@ console.log(restaurantIds);
 // });
 
 app.intent("Default Welcome Intent", conv => {
-  console.log('THIS IS RESPONSE' ,conv.request)
-  conv.ask('Welcome to Tabled In ,please chose restaurant?')
+  conv.ask("Welcome to Tabled In ,please chose restaurant?");
 });
 
 // app.intent("Welcome", conv => {
@@ -61,19 +57,36 @@ app.intent("Default Welcome Intent", conv => {
 //   conv.ask('Welcome to Da Toni Pizzeria,how can i help you?')
 // })
 
-Restaurant.find().then(restaurants=>{
-  restaurants.forEach(res => {
-
-  app.intent(res._id, conv => {
-    console.log(res)
-    // const marko = conv.contexts.input
-    // console.log(marko)
-    conv.ask('Welcome to Da Toni Pizzeria,how can i help you?')
+Restaurant.find()
+  .then(restaurants => {
+    restaurants.forEach(res => {
+      app.intent(res._id, conv => {
+        
+        // const marko = conv.contexts.input
+        // console.log(marko)
+        conv.ask(`Welcome to ${res.name} ,how can i help you?`);
+      });
+    });
   })
-})
-}).catch(err => {
-  console.log(err)
-})
+  .catch(err => {
+    console.log(err);
+  });
+
+Restaurant.find()
+  .then(restaurants => {
+    restaurants.forEach(res => {
+      app.intent(`${res._id} - Reservation`, (conv ,{numberofpeople,date,arivalTime}) => {
+       
+        
+        conv.ask('Let me check that for you');
+        
+
+      });
+    })
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 // ["Welcome"].forEach(intent => {
 
@@ -85,11 +98,6 @@ Restaurant.find().then(restaurants=>{
 //   })
 // })
 
-
-
-
-router.post('/', app);
-
-
+router.post("/", app);
 
 module.exports = router;
