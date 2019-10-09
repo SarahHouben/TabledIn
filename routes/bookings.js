@@ -22,12 +22,8 @@ router.post("/", (req, res) => {
   const name = req.body.name;
   const phone = req.body.phone;
   const email = req.body.email;
-<<<<<<< HEAD
   const dialogflow = req.body.dialogflow;
   const webapp = req.body.webapp;
-  const owner = req.user._id;
-=======
->>>>>>> welcome-intent
   const dayIndex = new Date(selectedDay).getDay() - 1;
   function getWeekDay(date) {
     //Create an array containing each day, starting with Sunday.

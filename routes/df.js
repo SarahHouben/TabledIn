@@ -176,3 +176,37 @@ Restaurant.find().then(restaurants => {
 router.post("/", app);
 
 module.exports = router;
+if (response.data.message == "Restaurant is closed at selected time") {
+  conv.ask('Restaurant is closed at that time,please pick another time')
+
+conv.followup(`${res._id}`, {
+   guestnumber: guestnumber,
+ });
+} else if (
+ response.data.message == "No free tables. Pick another time."
+) {
+ conv.ask('Restaurant is full,please pick another time?')
+  conv.followup(`${res._id}`, {
+   guestnumber: guestnumber,
+   selectedDay: selectedDay,
+ });
+ console.log("###################################", response.data);
+} else if (
+ response.data.message == "Closed on this day. Pick another date"
+) {
+ conv.ask('Restaurant is closed on that day. Please pick another date?')
+  conv.followup(`${res._id}`, {
+   guestnumber: guestnumber,
+ });
+ console.log("###################################", response.data);
+} else {
+ conv.ask(
+   new Permission({
+     context: "Can i have your name please?",
+     permissions: "NAME",
+   })
+ );
+ const name = conv.user.name;
+ console.log("#######################################", );
+  conv.followup(`${res._id}success`)
+}

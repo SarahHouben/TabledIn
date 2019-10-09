@@ -30,7 +30,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const router = express.Router().use(bodyParser.json());;
+const router = express.Router().use(bodyParser.json());
 const axios = require("axios");
 const moment = require("moment");
 const Booking = require("../models/Booking");
@@ -42,7 +42,7 @@ const {
   SignIn,
   Suggestions,
   DateTime,
-  Permission
+  Permission,
 } = require("actions-on-google");
 const app = dialogflow({ debug: true });
 
@@ -75,8 +75,6 @@ Restaurant.find()
   .then(restaurants => {
     restaurants.forEach(res => {
       app.intent(res._id, conv => {
-        // const marko = conv.contexts.input
-        // console.log(marko)
         conv.ask(`Welcome to ${res.name} ,how can i help you?`);
       });
     });
@@ -90,7 +88,7 @@ Restaurant.find().then(restaurants => {
   restaurants.forEach(res => {
     app.intent(
       `${res._id} - Reservation`,
-      async (conv, { guestnumber, selectedDay, arrivalTime },permision) => {
+      async (conv, { guestnumber, selectedDay, arrivalTime }, permision) => {
         const arrivaltime = moment(arrivalTime).format("HH:mm");
         const response = await axios.post(
           "http://localhost:5555/api/bookings",
@@ -102,64 +100,101 @@ Restaurant.find().then(restaurants => {
             dialogflow: true,
           }
         );
-        // const options = {
-        //   prompts: {
-        //     initial: `${response.data.message}`,
-        //     date: 'What day was that?',
-        //     time: 'What time works for you?',
-        //   }}
-
+        console.log(response.data);
 
         if (response.data.message == "Restaurant is closed at selected time") {
-          console.log("###################################", response.data);
-          conv.ask(new DateTime(options))
+           conv.ask('Restaurant is closed at that time,please pick another time')
+
+         conv.followup(`${res._id}`, {
+            guestnumber: guestnumber,
+          });
         } else if (
           response.data.message == "No free tables. Pick another time."
         ) {
-          conv.ask(new DateTime(options))
-          // conv.ask("No free tables. Pick another time. ");
+          conv.ask('Restaurant is full,please pick another time?')
+           conv.followup(`${res._id}`, {
+            guestnumber: guestnumber,
+            selectedDay: selectedDay,
+          });
           console.log("###################################", response.data);
         } else if (
           response.data.message == "Closed on this day. Pick another date"
         ) {
-          conv.ask(new DateTime(options))
-          // conv.ask(response.data.message);
+          conv.ask('Restaurant is closed on that day. Please pick another date?')
+           conv.followup(`${res._id}`, {
+            guestnumber: guestnumber,
+          });
           console.log("###################################", response.data);
         } else {
           conv.ask(
             new Permission({
               context: "Can i have your name please?",
               permissions: "NAME",
-            }))
-            // app.intent(
-            //   `${res._id} - Reservation - Success`,(conv =>{
-            //     conv.ask('Your reservation is confirmed. Can i help you with something else?')
-            //   }))
+            })
+          );
+          const name = conv.user.name;
+          console.log("#######################################", );
+           conv.followup(`${res._id}success`)
         }
+        if (response.data.message == "Restaurant is closed at selected time") {
+          
 
-        // .then(response => {
-        // if response.data._id use that id to pass it to dialogflow and on the next intent use that id to update the booking
-
-        // else if response.data.message ask to select other time
-
-        // })
+        conv.followup(`${res._id}`, {
+           guestnumber: guestnumber,
+         });
+       } else if (
+         response.data.message == "No free tables. Pick another time."
+       ) {
+         
+          conv.followup(`${res._id}`, {
+           guestnumber: guestnumber,
+           selectedDay: selectedDay,
+         });
+         
+       } else if (
+         response.data.message == "Closed on this day. Pick another date"
+       ) {
+         conv.ask('Restaurant is closed on that day. Please pick another date?')
+          conv.followup(`${res._id}`, {
+           guestnumber: guestnumber,
+         });
+         
+       } else {
+         conv.ask(
+           new Permission({
+             context: "Can i have your name please?",
+             permissions: "NAME",
+           })
+         );
+         const name = conv.user.name;
+         console.log("#######################################", );
+          conv.followup(`${res._id}success`)
+       }
+       
       }
     );
-  });
-});
-app.intent('Get Permission', (conv, params, granted) => {
-  // granted: inferred first (and only) argument value, boolean true if granted, false if not
-  const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
-  const name = conv.user.name
-  console.log(name)
-})
 
-app.intent('actions.intent.PERMISSION', (conv, input, granted) => {
-  // granted: inferred first (and only) argument value, boolean true if granted, false if not
-  const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
-  const name = conv.user.name
-  console.log(name)
-})
+    // app.intent(`${res._id} - Reservation - fallback` ,conv =>{
+    //   conv.ask(`Pick another time`)
+    // })
+  });
+}).catch(err => {
+  console.log(err);
+});
+
+// app.intent('Get Permission', (conv, params, granted) => {
+//   // granted: inferred first (and only) argument value, boolean true if granted, false if not
+//   const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
+//   const name = conv.user.name
+//   console.log(name)
+// })
+
+// app.intent('actions.intent.PERMISSION', (conv, input, granted) => {
+//   // granted: inferred first (and only) argument value, boolean true if granted, false if not
+//   const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
+//   const name = conv.user.name
+//   console.log(name)
+// })
 // Restaurant.find().then(restaurants => {
 //   restaurants.forEach(res => {
 //     app.intent(
@@ -182,15 +217,6 @@ app.intent('actions.intent.PERMISSION', (conv, input, granted) => {
 //   });
 // });
 
-// ["Welcome"].forEach(intent => {
-
-//   app.intent(intent, conv => {
-//     console.log('THIS IS RESPONSE')
-//     // const marko = conv.contexts.input
-//     // console.log(marko)
-//     conv.ask('Welcome to Da Toni Pizzeria,how can i help you?')
-//   })
-// })
 
 router.post("/", app);
 
