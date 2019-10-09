@@ -132,16 +132,29 @@ Restaurant.find()
           }
         }
       );
-      app.intent(`${res._id}-name`, (conv, params, granted) => {
+      app.intent(`${res._id}-name`, async (conv, params, granted) => {
         const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
         const name = conv.user.name;
-        console.log(conv.data.parameters, "######################################################")
+        const data = conv.data.parameters
+        const arrivaltime = moment(data.arrivalTime).format("HH:mm");
+        const response = await axios.post(
+            "http://localhost:5555/api/bookings",
+            {
+              guestnumber: data.guestnumber,
+              selectedDay: data.selectedDay,
+              arrivaltime,
+              owner: res.owner._id,
+              dialogflow: true,
+              name: name.display
+            }
+          );
+        console.log(name, "######################################################")
         // const firstName = conv.contexts.get('values').parameters['guestnumber'];
         // console.log(firstName ,"######################################################");
         
-        conv.ask('what now?')
+        conv.ask(`Thank you ${name.given}. Can i help you with something else?`);
       });
-    });
+    })
   })
   .catch(err => {
     console.log(err);
