@@ -59,15 +59,19 @@
   height: 30vh;
 
   @media (min-height: 567px) {
-    height: 23vh;
+    height: 20vh;
+  }
+
+  @media (min-height: 640px) {
+    height: 25vh;
   }
 
   @media (min-height: 666px) {
-    height: 28vh;
+    height: 25vh;
   }
 
   @media (min-height: 730px) {
-    height: 33vh;
+    height: 32vh;
   }
 
   @media (min-height: 812px) {
