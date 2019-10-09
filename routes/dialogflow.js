@@ -108,14 +108,15 @@ Restaurant.find()
               `Unfortunately the restaurant is closed on that day. Can I help you with something else?`
             );
           } else {
+            const parameters = {'selectedDay':selectedDay, 'guestnumber': guestnumber,'arrivalTime':arrivalTime};
+            // conv.contexts.set('values', 5, parameters);
+            conv.data.parameters = parameters
             conv.ask(
-              new Image({
-                url:
-                  "https://developers.google.com/web/fundamentals/accessibility/semantics-builtin/imgs/160204193356-01-cat-500.jpg",
-                alt: "A cat"
+              new Permission({
+                context: "",
+                permissions: "NAME"
               })
             );
-
             // new Permission({
             //   context: "",
             //   permissions: "NAME"
@@ -134,13 +135,11 @@ Restaurant.find()
       app.intent(`${res._id}-name`, (conv, params, granted) => {
         const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
         const name = conv.user.name;
-        const firstName = conv.contexts.get("values").parameters["guestnumber"];
-        console.log(name);
-        console.log(
-          "#heeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-          params.guestnumber
-        );
-        conv.ask("what now?");
+        console.log(conv.data.parameters, "######################################################")
+        // const firstName = conv.contexts.get('values').parameters['guestnumber'];
+        // console.log(firstName ,"######################################################");
+        
+        conv.ask('what now?')
       });
     });
   })
