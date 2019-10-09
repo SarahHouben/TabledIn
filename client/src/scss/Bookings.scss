@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4vh 15px 2vh 10px;
+  padding: 30px 15px 2vh 10px;
 }
 
 .booking-form-header {
@@ -59,7 +59,11 @@
   height: 30vh;
 
   @media (min-height: 567px) {
-    height: 23vh;
+    height: 17vh;
+  }
+
+  @media (min-height: 640px) {
+    height: 21vh;
   }
 
   @media (min-height: 666px) {
