@@ -111,30 +111,29 @@ export default class ShowRestaurant extends Component {
             alt={this.state.name}
           />
 
-          <button className="view-button">
-            {/* <a download={this.state.menu}>View Menu</a> */}
-            <a
-              href={this.state.menu}
-              download="Menu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Menu
-            </a>
-          </button>
+          {this.state.menu && (
+            <button className="view-button">
+              <a
+                href={this.state.menu}
+                download="Menu"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Menu
+              </a>
+            </button>
+          )}
         </div>
 
         <h3 className="rest-show-info-h3">General information</h3>
         <div className="rest-show-info-div">
-
-        <div className="rest-show-info-div-address">
-          <p className="address-p">
-            <strong>Address: </strong>
-            {/* {this.state.address} */}
-          </p>
-          <p>{this.state.address}</p>
-
-        </div>
+          <div className="rest-show-info-div-address">
+            <p className="address-p">
+              <strong>Address: </strong>
+              {/* {this.state.address} */}
+            </p>
+            <p>{this.state.address}</p>
+          </div>
           <p>
             <strong>Email: </strong>
             {this.state.email}

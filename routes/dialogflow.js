@@ -30,7 +30,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const router = express.Router().use(bodyParser.json());;
+const router = express.Router().use(bodyParser.json());
 const axios = require("axios");
 const moment = require("moment");
 const Booking = require("../models/Booking");
@@ -61,7 +61,7 @@ const app = dialogflow({ debug: true });
 // });
 
 app.intent("Default Welcome Intent", conv => {
-  conv.ask("Welcome to Tabled In ,please chose restaurant?");
+  conv.ask(`Welcome to TabledIn! Please choose a restaurant.`);
 });
 
 // app.intent("Welcome", conv => {
@@ -77,7 +77,7 @@ Restaurant.find()
       app.intent(res._id, conv => {
         // const marko = conv.contexts.input
         // console.log(marko)
-        conv.ask(`Welcome to ${res.name} ,how can i help you?`);
+        conv.ask(`Welcome to ${res.name}. How can I help you?`);
       });
     });
   })
@@ -90,7 +90,7 @@ Restaurant.find().then(restaurants => {
   restaurants.forEach(res => {
     app.intent(
       `${res._id} - Reservation`,
-      async (conv, { guestnumber, selectedDay, arrivalTime },permision) => {
+      async (conv, { guestnumber, selectedDay, arrivalTime }, permision) => {
         const arrivaltime = moment(arrivalTime).format("HH:mm");
         const response = await axios.post(
           "http://localhost:5555/api/bookings",
@@ -99,7 +99,7 @@ Restaurant.find().then(restaurants => {
             selectedDay,
             arrivaltime,
             owner: res.owner._id,
-            dialogflow: true,
+            dialogflow: true
           }
         );
         // const options = {
@@ -109,32 +109,32 @@ Restaurant.find().then(restaurants => {
         //     time: 'What time works for you?',
         //   }}
 
-
         if (response.data.message == "Restaurant is closed at selected time") {
           console.log("###################################", response.data);
-          conv.ask(new DateTime(options))
+          // conv.ask(new DateTime(options))
         } else if (
           response.data.message == "No free tables. Pick another time."
         ) {
-          conv.ask(new DateTime(options))
+          // conv.ask(new DateTime(options))
           // conv.ask("No free tables. Pick another time. ");
           console.log("###################################", response.data);
         } else if (
           response.data.message == "Closed on this day. Pick another date"
         ) {
-          conv.ask(new DateTime(options))
+          // conv.ask(new DateTime(options))
           // conv.ask(response.data.message);
           console.log("###################################", response.data);
         } else {
           conv.ask(
             new Permission({
               context: "Can i have your name please?",
-              permissions: "NAME",
-            }))
-            // app.intent(
-            //   `${res._id} - Reservation - Success`,(conv =>{
-            //     conv.ask('Your reservation is confirmed. Can i help you with something else?')
-            //   }))
+              permissions: "NAME"
+            })
+          );
+          // app.intent(
+          //   `${res._id} - Reservation - Success`,(conv =>{
+          //     conv.ask('Your reservation is confirmed. Can i help you with something else?')
+          //   }))
         }
 
         // .then(response => {
@@ -147,19 +147,19 @@ Restaurant.find().then(restaurants => {
     );
   });
 });
-app.intent('Get Permission', (conv, params, granted) => {
+// app.intent("Get Permission", (conv, params, granted) => {
   // granted: inferred first (and only) argument value, boolean true if granted, false if not
-  const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
-  const name = conv.user.name
-  console.log(name)
-})
+//   const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
+//   const name = conv.user.name;
+//   console.log(name);
+// });
 
-app.intent('actions.intent.PERMISSION', (conv, input, granted) => {
-  // granted: inferred first (and only) argument value, boolean true if granted, false if not
-  const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
-  const name = conv.user.name
-  console.log(name)
-})
+// app.intent("actions.intent.PERMISSION", (conv, input, granted) => {
+//   // granted: inferred first (and only) argument value, boolean true if granted, false if not
+//   const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
+//   const name = conv.user.name;
+//   console.log(name);
+// });
 // Restaurant.find().then(restaurants => {
 //   restaurants.forEach(res => {
 //     app.intent(
