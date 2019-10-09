@@ -1,4 +1,4 @@
-// ###### Milstone 1 ######
+ // ###### Milestone 1 ######
 // 1. Default welcome intent -  Create default welcome intent for each
 // restaurant and continue conversation with restaurants Agent
 // 2. Intent - User makes reservation at restaurant
@@ -6,16 +6,14 @@
 // 3. Permision - If there is free table ask permition to take his name and number or email from google.
 // 4. Intent - Create reservation - Once its confirmed there is table user confirms as well
 // 5. Intent - Cancel the reservation - user can ask to cancel reservation at any time
-
-// ######  Milstone 2  ######
+// ######  Milestone 2  ######
 // 6. Agent/Create - Create specific Agent during Restaurant creation and asign webhook that has restaurant
 // id in the end
 // ## if not possible create custom webhook link which you would use to manualy create Agent
 // inside dialogflow interface
 // 7. Intent/Permision - Ask about directions - we have code from greenspace
 // 8. Intent/Permision - Ask how much time you need to get there - we have code from greenspace
-
-// ###### MILSTONE 3 ######
+// ###### MILESTONE 3 ######
 // 8. Integration - Google phone service
 // 8. Integration - Decide which other service we wonna use?
 // bonus: websocket for displaying reservations as soon as they are made - otherwise use
@@ -23,7 +21,6 @@
 // bonus: Try to create reservation in his calendar
 // rendering page at sertain amount of time
 // not neccessary: opening times
-
 // Try to make conversations as human as possible - its a real person substitute
 
 "use strict";
@@ -42,7 +39,7 @@ const {
   SignIn,
   Suggestions,
   DateTime,
-  Permission,
+  Permission
 } = require("actions-on-google");
 const app = dialogflow({ debug: true });
 
@@ -61,7 +58,7 @@ Restaurant.find()
   .then(restaurants => {
     restaurants.forEach(res => {
       app.intent(res._id, conv => {
-        conv.ask(`Welcome to ${res.name} ,how can i help you?`);
+        conv.ask(`Welcome to ${res.name}. How can I help you?`);
       });
     });
   })
@@ -84,7 +81,7 @@ Restaurant.find()
               selectedDay,
               arrivaltime,
               owner: res.owner._id,
-              dialogflow: true,
+              dialogflow: true
             }
           );
           console.log(response.data);
@@ -93,43 +90,51 @@ Restaurant.find()
             response.data.message == "Restaurant is closed at selected time"
           ) {
             conv.ask(
-              "Restaurant is closed at that time,can i help you with  something else?"
+              `I'm afraid the restaurant is closed at that time. Can I help you with something else?`
             );
           } else if (
             response.data.message == "No free tables. Pick another time."
           ) {
             conv.ask(
-              "Im sorry,restaurant is full,can i help you with something else?"
+              `I'm sorry, the restaurant is already fully booked at this time. Can I help you with something else?`
             );
           } else if (
             response.data.message == "Closed on this day. Pick another date"
           ) {
             conv.ask(
-              "Unfortunatly restaurant is closed on that day. Can i help you with something else?"
+              `Unfortunately the restaurant is closed on that day. Can I help you with something else?`
             );
           } else {
-
-            const parameters = {'selectedDay':selectedDay, 'guestnumber': guestnumber};
+            const parameters = {'selectedDay':selectedDay, 'guestnumber': guestnumber,'arrivalTime':arrivalTime};
             // conv.contexts.set('values', 5, parameters);
             conv.data.parameters = parameters
             conv.ask(
               new Permission({
                 context: "",
                 permissions: "NAME"
-
               })
-              // new Permission({
-              //   context: "",
-              //   permissions: "NAME",
-              //   guestnumber,
-              //   selectedDay,
-              //   arrivaltime,
-
-              // })
             );
+
           }
         }
       );
+      app.intent(`${res._id}-name`, (conv, params, granted) => {
+        const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
+        const name = conv.user.name;
+        const firstName = conv.contexts.get("values").parameters["guestnumber"];
+        console.log(name);
+        console.log(
+          "#heeeeeeeeereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          params.guestnumber
+        );
+        conv.ask("what now?");
+      });
+
+
+
+
+
+
 
       app.intent(`${res._id}-name`, (conv, params, granted) => {
         const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get

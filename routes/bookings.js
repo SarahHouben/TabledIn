@@ -119,28 +119,28 @@ router.post("/", (req, res) => {
                   { new: true }
                 ).then(table => {
                   //Creating booking with all the data that we used so far.
-                  if(name){
-                  Booking.create({
-                    date: selectedDay,
-                    visitorcount: guestnumber,
-                    visitorname: name,
-                    visitorphone: phone,
-                    visitoremail: email,
-                    tablenumber: table.tablenumber,
-                    restaurant: restaurant._id,
-                    timeslot: resTime,
-                    dialogflow: dialogflow,
-                    webapp: webapp
-                  })
-                    .then(booking => {
-                      console.log("booking created");
-                      res.json(booking);
+                  if (name) {
+                    Booking.create({
+                      date: selectedDay,
+                      visitorcount: guestnumber,
+                      visitorname: name,
+                      visitorphone: phone,
+                      visitoremail: email,
+                      tablenumber: table.tablenumber,
+                      restaurant: restaurant._id,
+                      timeslot: resTime,
+                      dialogflow: dialogflow,
+                      webapp: webapp
                     })
-                    .catch(err => {
-                      res.json(err);
-                    });
-                  }else{
-                    res.json({message: 'You need name to make reservation'})
+                      .then(booking => {
+                        console.log("booking created");
+                        res.json(booking);
+                      })
+                      .catch(err => {
+                        res.json(err);
+                      });
+                  } else {
+                    res.json({ message: "You need name to make reservation" });
                   }
                 });
               } else {
@@ -259,28 +259,30 @@ router.post("/", (req, res) => {
                         { new: true }
                       ).then(table => {
                         //Creating booking with all the data that we used so far.
-                        if(name){
-                        Booking.create({
-                          date: selectedDay,
-                          visitorcount: guestnumber,
-                          visitorname: name,
-                          visitorphone: phone,
-                          visitoremail: email,
-                          tablenumber: table.tablenumber,
-                          restaurant: restaurant._id,
-                          timeslot: resTime,
-                          webapp: webapp,
-                          dialogflow: dialogflow
-                        })
-                          .then(booking => {
-                            console.log("booking created");
-                            res.json(booking);
+                        if (name) {
+                          Booking.create({
+                            date: selectedDay,
+                            visitorcount: guestnumber,
+                            visitorname: name,
+                            visitorphone: phone,
+                            visitoremail: email,
+                            tablenumber: table.tablenumber,
+                            restaurant: restaurant._id,
+                            timeslot: resTime,
+                            webapp: webapp,
+                            dialogflow: dialogflow
                           })
-                          .catch(err => {
-                            res.json(err);
+                            .then(booking => {
+                              console.log("booking created");
+                              res.json(booking);
+                            })
+                            .catch(err => {
+                              res.json(err);
+                            });
+                        } else {
+                          res.json({
+                            message: "You need name to make reservation"
                           });
-                        }else{
-                          res.json({message: 'You need name to make reservation'})
                         }
                       });
                     } else {
