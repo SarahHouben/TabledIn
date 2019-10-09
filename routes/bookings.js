@@ -120,6 +120,7 @@ router.post("/", (req, res) => {
                   { new: true }
                 ).then(table => {
                   //Creating booking with all the data that we used so far.
+                  if(name){
                   Booking.create({
                     date: selectedDay,
                     visitorcount: guestnumber,
@@ -139,6 +140,9 @@ router.post("/", (req, res) => {
                     .catch(err => {
                       res.json(err);
                     });
+                  }else{
+                    res.json({message: 'You need name to make reservation'})
+                  }
                 });
               } else {
                 console.log("No free tables. Pick another time.");
@@ -256,6 +260,7 @@ router.post("/", (req, res) => {
                         { new: true }
                       ).then(table => {
                         //Creating booking with all the data that we used so far.
+                        if(name){
                         Booking.create({
                           date: selectedDay,
                           visitorcount: guestnumber,
@@ -275,6 +280,9 @@ router.post("/", (req, res) => {
                           .catch(err => {
                             res.json(err);
                           });
+                        }else{
+                          res.json({message: 'You need name to make reservation'})
+                        }
                       });
                     } else {
                       console.log("No free tables. Pick another time.");
