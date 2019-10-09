@@ -51,7 +51,7 @@ const app = dialogflow({ debug: true });
 
 
 app.intent("Default Welcome Intent", conv => {
-  conv.ask("Welcome to Tabled In ,please chose restaurant?");
+  conv.ask(`Welcome to TabledIn! Please choose a restaurant.`);
 });
 
 // app.intent("Welcome", conv => {
@@ -87,7 +87,7 @@ Restaurant.find().then(restaurants => {
             selectedDay,
             arrivaltime,
             owner: res.owner._id,
-            dialogflow: true,
+            dialogflow: true
           }
         );
         console.log(response.data);

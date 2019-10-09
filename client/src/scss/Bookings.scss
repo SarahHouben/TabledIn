@@ -57,7 +57,34 @@
   list-style: none;
   overflow: scroll;
   height: 30vh;
-  margin-bottom: 80px;
+
+  @media (min-height: 567px) {
+    height: 23vh;
+  }
+
+  @media (min-height: 666px) {
+    height: 28vh;
+  }
+
+  @media (min-height: 730px) {
+    height: 33vh;
+  }
+
+  @media (min-height: 812px) {
+    height: 40vh;
+  }
+
+  @media (min-height: 1021px) {
+    height: 51vh;
+  }
+
+  @media (min-height: 1366px) {
+    height: 61vh;
+  }
+
+  @media (min-height: 1371px) {
+    height: 62vh;
+  }
 }
 
 // #### Booking Cards

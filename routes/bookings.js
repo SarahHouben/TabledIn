@@ -9,13 +9,12 @@ const Table = require("../models/Table");
 // create a new booking resource
 router.post("/", (req, res) => {
   let owner;
- if(!req.body.dialogflow){
+  if (!req.body.dialogflow) {
     owner = req.user._id;
-
- }else{
+  } else {
     owner = req.body.owner;
- }
- console.log(req.body)
+  }
+  console.log(req.body);
   const selectedDay = req.body.selectedDay;
   const guestnumber = req.body.guestnumber;
   const arrivaltime = req.body.arrivaltime;
@@ -299,7 +298,7 @@ router.post("/", (req, res) => {
           } else {
             console.log("Closed on this day. Pick another date");
             res
-              .json({ message: "Closed on this day. Pick another date" })
+              .json({ message: "Closed on this day. Pick another date." })
               .catch(err => {
                 res.json(err);
               });
@@ -339,6 +338,6 @@ router.delete("/:id", (req, res) => {
       res.json(err);
     });
 });
-const restaurantIds = Restaurant.find({_id:1})
+const restaurantIds = Restaurant.find({ _id: 1 });
 console.log(restaurantIds);
 module.exports = router;
