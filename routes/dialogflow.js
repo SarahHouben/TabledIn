@@ -46,10 +46,6 @@ const {
 } = require("actions-on-google");
 const app = dialogflow({ debug: true });
 
-
-
-
-
 app.intent("Default Welcome Intent", conv => {
   conv.ask(`Welcome to TabledIn! Please choose a restaurant.`);
 });
@@ -74,73 +70,83 @@ Restaurant.find()
   });
 
 // Creating booking
-Restaurant.find().then(restaurants => {
-  restaurants.forEach(res => {
-    app.intent(
-      `${res._id} - Reservation`,
-      async (conv, { guestnumber, selectedDay, arrivalTime }, permision) => {
-        const arrivaltime = moment(arrivalTime).format("HH:mm");
-        const response = await axios.post(
-          "http://localhost:5555/api/bookings",
-          {
-            guestnumber,
-            selectedDay,
-            arrivaltime,
-            owner: res.owner._id,
-            dialogflow: true
-          }
-        );
-        console.log(response.data);
-
-        if (response.data.message == "Restaurant is closed at selected time") {
-           conv.ask('Restaurant is closed at that time,can i help you with  something else?')
-        } else if (
-          response.data.message == "No free tables. Pick another time."
-        ) {
-          conv.ask('Im sorry,restaurant is full,can i help you with something else?')
-       
-          console.log("###################################", response.data);
-        } else if (
-          response.data.message == "Closed on this day. Pick another date"
-        ) {
-          conv.ask('Unfortunatly restaurant is closed on that day. Can i help you with something else?')
-      
-          console.log("###################################", response.data);
-        } else {
-          conv.ask(
-            new Permission({
-              context: "Can i have your name please?",
-              permissions: "NAME",
-            })
+Restaurant.find()
+  .then(restaurants => {
+    restaurants.forEach(res => {
+      app.intent(
+        `${res._id} - Reservation`,
+        async (conv, { guestnumber, selectedDay, arrivalTime }, permision) => {
+          const arrivaltime = moment(arrivalTime).format("HH:mm");
+          const response = await axios.post(
+            "http://localhost:5555/api/bookings",
+            {
+              guestnumber,
+              selectedDay,
+              arrivaltime,
+              owner: res.owner._id,
+              dialogflow: true,
+            }
           );
-          const name = conv.user.name;
-          console.log("#######################################", );
-        
+          console.log(response.data);
+
+          if (
+            response.data.message == "Restaurant is closed at selected time"
+          ) {
+            conv.ask(
+              "Restaurant is closed at that time,can i help you with  something else?"
+            );
+          } else if (
+            response.data.message == "No free tables. Pick another time."
+          ) {
+            conv.ask(
+              "Im sorry,restaurant is full,can i help you with something else?"
+            );
+          } else if (
+            response.data.message == "Closed on this day. Pick another date"
+          ) {
+            conv.ask(
+              "Unfortunatly restaurant is closed on that day. Can i help you with something else?"
+            );
+          } else {
+
+            const parameters = {'selectedDay':selectedDay, 'guestnumber': guestnumber};
+            // conv.contexts.set('values', 5, parameters);
+            conv.data.parameters = parameters
+            conv.ask(
+              new Permission({
+                context: "",
+                permissions: "NAME"
+
+              })
+              // new Permission({
+              //   context: "",
+              //   permissions: "NAME",
+              //   guestnumber,
+              //   selectedDay,
+              //   arrivaltime,
+
+              // })
+            );
+          }
         }
-      
-     
+      );
 
-      }
-    );
-    
-   
-    // app.intent('Get Permission', (conv, params, granted) => {
-    //   // granted: inferred first (and only) argument value, boolean true if granted, false if not
-    //   const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
-    //   const name = conv.user.name
-    //   console.log(name)
-    // })
-    
-   
+      app.intent(`${res._id}-name`, (conv, params, granted) => {
+        const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
+        const name = conv.user.name;
+        console.log(conv.data.parameters, "######################################################")
+        // const firstName = conv.contexts.get('values').parameters['guestnumber'];
+        // console.log(firstName ,"######################################################");
+        
+        conv.ask('what now?')
+      });
+    });
+  })
+  .catch(err => {
+    console.log(err);
   });
-  
-}).catch(err => {
-  console.log(err);
-});
 
-
-
-// 
+//
 // Restaurant.find().then(restaurants => {
 //   restaurants.forEach(res => {
 //     app.intent(
@@ -162,7 +168,6 @@ Restaurant.find().then(restaurants => {
 //     );
 //   });
 // });
-
 
 router.post("/", app);
 

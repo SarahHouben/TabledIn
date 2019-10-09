@@ -195,7 +195,11 @@ conv.followup(`${res._id}`, {
  response.data.message == "Closed on this day. Pick another date"
 ) {
  conv.ask('Restaurant is closed on that day. Please pick another date?')
-  conv.followup(`${res._id}`, {
+  conv.app.intent('Get Permission', (conv, params, granted) => {
+    // granted: inferred first (and only) argument value, boolean true if granted, false if not
+    const explicit = conv.arguments.get('PERMISSION') // also retrievable w/ explicit arguments.get
+    const name = conv.user.name
+  })(`${res._id}`, {
    guestnumber: guestnumber,
  });
  console.log("###################################", response.data);
