@@ -6,7 +6,7 @@
 // 3. Permision - If there is free table ask permition to take his name and number or email from google.
 // 4. Intent - Create reservation - Once its confirmed there is table user confirms as well
 // 5. Intent - Cancel the reservation - user can ask to cancel reservation at any time
-​
+
 // ######  Milestone 2  ######
 // 6. Agent/Create - Create specific Agent during Restaurant creation and asign webhook that has restaurant
 // id in the end
@@ -14,7 +14,7 @@
 // inside dialogflow interface
 // 7. Intent/Permision - Ask about directions - we have code from greenspace
 // 8. Intent/Permision - Ask how much time you need to get there - we have code from greenspace
-​
+
 // ###### MILESTONE 3 ######
 // 8. Integration - Google phone service
 // 8. Integration - Decide which other service we wonna use?
@@ -23,11 +23,11 @@
 // bonus: Try to create reservation in his calendar
 // rendering page at sertain amount of time
 // not neccessary: opening times
-​
+
 // Try to make conversations as human as possible - its a real person substitute
-​
+
 "use strict";
-​
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router().use(bodyParser.json());
@@ -45,18 +45,18 @@ const {
   Permission
 } = require("actions-on-google");
 const app = dialogflow({ debug: true });
-​
+
 app.intent("Default Welcome Intent", conv => {
   conv.ask(`Welcome to TabledIn! Please choose a restaurant.`);
 });
-​
+
 // app.intent("Welcome", conv => {
 //   console.log('THIS IS RESPONSE')
 //   const marko = Object.keys(conv.contexts.input)[0]
 //   console.log(marko)
 //   conv.ask('Welcome to Da Toni Pizzeria,how can i help you?')
 // })
-​
+
 Restaurant.find()
   .then(restaurants => {
     restaurants.forEach(res => {
@@ -68,7 +68,7 @@ Restaurant.find()
   .catch(err => {
     console.log(err);
   });
-​
+
 // Creating booking
 Restaurant.find()
   .then(restaurants => {
@@ -88,7 +88,7 @@ Restaurant.find()
             }
           );
           console.log(response.data);
-​
+
           if (
             response.data.message == "Restaurant is closed at selected time"
           ) {
@@ -115,7 +115,7 @@ Restaurant.find()
                 alt: "A cat"
               })
             );
-​
+
             // new Permission({
             //   context: "",
             //   permissions: "NAME"
@@ -147,7 +147,7 @@ Restaurant.find()
   .catch(err => {
     console.log(err);
   });
-​
+
 //
 // Restaurant.find().then(restaurants => {
 //   restaurants.forEach(res => {
@@ -165,12 +165,12 @@ Restaurant.find()
 //         console.log(dayIndex);
 //         console.log(time)
 //         conv.ask('Let me check that for you');
-​
+
 //       }
 //     );
 //   });
 // });
-​
+
 router.post("/", app);
-​
+
 module.exports = router;
