@@ -8,7 +8,7 @@ const passport = require("passport");
 // POST /api/auth/signup
 router.post("/signup", (req, res) => {
   const { username, password, email } = req.body;
-  console.log("REQ.BODY:", req.body);
+  // console.log("REQ.BODY:", req.body);
 
   if (!password || password.length < 8) {
     //statuscode 400 - send error message so the server can tell (whether or) not user has been created

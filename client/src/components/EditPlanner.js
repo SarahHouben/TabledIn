@@ -39,7 +39,7 @@ export default class EditPlanner extends Component {
   handleSubmit = event => {
     event.preventDefault();
     // console.log(this.state);
-    console.log("PROPS SELECTED DAY: ", this.props.selectedDay);
+    // console.log("PROPS SELECTED DAY: ", this.props.selectedDay);
     let success = "Created schedule.";
 
     axios

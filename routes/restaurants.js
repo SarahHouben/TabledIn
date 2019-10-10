@@ -123,7 +123,7 @@ router.put("/", (req, res) => {
     { new: true }
   )
     .then(restaurant => {
-      console.log(restaurant);
+      // console.log(restaurant);
       res.json(restaurant);
     })
     .catch(err => {

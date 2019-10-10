@@ -33,9 +33,9 @@ export default class BookingForm extends Component {
     this.setState({
       [name]: value
     });
-    console.log({
-      [name]: value
-    });
+    // console.log({
+    //   [name]: value
+    // });
   };
 
   //Handle Submit with message functionality

@@ -68,9 +68,9 @@ router.delete("/", (req, res) => {
 // Crating new dayReport with tables that have timeslots coresponding
 //with dayReport open/close times.
 router.post("/edit", (req, res) => {
-  console.log("REQ.BODY:", req.body);
+  // console.log("REQ.BODY:", req.body);
   if (!req.body.selectedDay) {
-    console.log("You need to select the date");
+    // console.log("You need to select the date");
     res.json({ message: "You need to select the date" });
   } else {
     const user = req.user._id;
