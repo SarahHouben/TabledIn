@@ -145,7 +145,7 @@ Restaurant.find()
           );
         } else {
           conv.ask(
-            "We cannot make reservation without your name. Can i help you with something else?"
+"I'm sorry, but I cannot make a reservation without your name. Can I help you with something else?"
           );
         }
       });
@@ -159,14 +159,14 @@ Restaurant.find()
         const time = conv.data.parameters.arrivalTime;
         if(date){
         if (day == today) {
-          conv.close(`Ok then see you today at ${time}. Goodbye!`);
+conv.close(`Ok then, see you today at ${time}. Goodbye!`);
         } else if (day == tomorrow) {
-          conv.close(`Ok then see you tomorrow at ${time}. Goodbye!`);
+conv.close(`Ok then, see you tomorrow at ${time}. Goodbye!`);
         } else {
-          conv.close(`Ok then see you on ${day} at ${time}. Goodbye!`);
+conv.close(`Ok then, see you on ${day} at ${time}. Goodbye!`);
         }
       }else{
-        conv.close('Thank you very much. Goodbye!')
+conv.close('Thank you. Goodbye!')
       }
       });
 
@@ -195,25 +195,25 @@ Restaurant.find()
              if (booking) {
               if (day == today) {
                  conv.ask(
-                  `Thank you ${name.given},your reservation for today has been canceled !`
+`Thank you ${name.given}, your reservation for today has been cancelled!`
                 );
-                conv.ask("Can i help you with something else?");
+                conv.ask("Can I help you with something else?");
               } else if (day == tomorrow) {
                 conv.ask(
-                  `Thank you ${name.given},your reservation for tomorrow has been canceled !`
+`Thank you ${name.given}, your reservation for tomorrow has been cancelled!`
                 );
-                conv.ask("Can i help you with something else?");
+                conv.ask("Can I help you with something else?");
               } else {
                 conv.ask(
-                  `Thank you ${name.given},your reservation for ${day} has been canceled !`
+`Thank you ${name.given}, your reservation for ${day} has been cancelled!`
                 );
-                conv.ask("Can i help you with something else?");
+                conv.ask("Can I help you with something else?");
               }
             } else {
               conv.ask(
-                `I am sorry ${name.given},we cannot find any reservation under your name`
+                `I'm sorry ${name.given}, I cannot find a reservation under your name.`
               );
-              conv.ask("Can i help you with something else?");
+              conv.ask("Can I help you with something else?");
               console.log("Deleted booking");
             }
           })
