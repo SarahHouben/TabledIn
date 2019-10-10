@@ -12,7 +12,8 @@ export default class RestaurantForm extends Component {
     googleassistant: false,
     phonegateway: false,
     menu: "",
-    logo: "",
+    logo:
+      "https://res.cloudinary.com/dmlqhwwfc/image/upload/v1570446767/TabledIn/tabledin_logo.png",
     weekdays: {
       monday: false,
       tuesday: false,
@@ -101,6 +102,15 @@ export default class RestaurantForm extends Component {
     currentState[name] = check;
 
     this.setState({ weekdays: currentState });
+  };
+
+  //Get information from Optin
+  handleOptinCheckboxChange = event => {
+    const { name, checked } = event.target;
+
+    this.setState({
+      [name]: checked
+    });
   };
 
   //create array of tables based on table number with default empty states for cap and num
@@ -392,24 +402,29 @@ export default class RestaurantForm extends Component {
                 type="checkbox"
                 name="googleassistant"
                 id="googleassistant"
-                checked={this.state.weekdays.googleassistant}
-                onChange={this.handleCheckboxChange}
+                checked={this.state.googleassistant}
+                onChange={this.handleOptinCheckboxChange}
               />
             </div>
             <div className="rest-form-optin-subdiv">
-              <label htmlFor="googleassistant">
-                Phone Gateway integration:
-              </label>
+              <label htmlFor="phonegateway">Phone Gateway integration:</label>
               <input
                 type="checkbox"
-                name="googleassistant"
-                id="googleassistant"
-                checked={this.state.weekdays.phonegateway}
-                onChange={this.handleCheckboxChange}
+                name="phonegateway"
+                id="phonegateway"
+                checked={this.state.phonegateway}
+                onChange={this.handleOptinCheckboxChange}
               />
             </div>
           </div>
-          <button className="edit-button" type="submit">
+          {this.state.phonegateway && (
+            <div className="rest-form-optin-phonenumber">
+              <p>
+                Your Phone Gateway number: <strong>+49 3636 36363</strong>
+              </p>
+            </div>
+          )}
+          <button className="edit-button rest-form-button" type="submit">
             Submit
           </button>
         </form>
