@@ -8,6 +8,8 @@ router.post("/", (req, res) => {
   const address = req.body.address;
   const phone = req.body.phone;
   const email = req.body.email;
+  const googleassistant = req.body.googleassistant;
+  const phonegateway = req.body.phonegateway;
   const logo = req.body.logo;
   const menu = req.body.menu;
   const weekdays = req.body.weekdays;
@@ -37,6 +39,8 @@ router.post("/", (req, res) => {
     address: address,
     phone: phone,
     email: email,
+    googleassistant: googleassistant,
+    phonegateway: phonegateway,
     logo: logo,
     menu: menu,
     weekdays: weekdays,

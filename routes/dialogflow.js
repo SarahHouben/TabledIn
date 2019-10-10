@@ -152,7 +152,7 @@ Restaurant.find()
         // const firstName = conv.contexts.get('values').parameters['guestnumber'];
         // console.log(firstName ,"######################################################");
         
-        conv.ask(`Thank you ${name.given}. Can i help you with something else?`);
+        conv.ask(`Thank you ${name.given}. Can I help you with something else?`);
       });
     })
   })

@@ -31,7 +31,7 @@
 }
 
 .rest-form-table-div {
-  padding: 10px 30px;
+  padding: 10px 30px 15px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,6 +61,31 @@
   width: 30px;
 }
 
+.rest-form-optin-div {
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rest-form-optin-header-div {
+  display: flex;
+  align-items: center;
+}
+
+.rest-form-optin-header-img {
+  height: 20px;
+  width: auto;
+  padding-right: 5px;
+}
+
+.rest-form-optin-subdiv {
+  display: flex;
+}
+
+.optin-top {
+  padding-bottom: 5px;
+}
 @media (min-width: 760px) {
   .time-input {
     width: 120%;

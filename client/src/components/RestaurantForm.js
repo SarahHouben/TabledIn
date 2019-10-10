@@ -9,6 +9,8 @@ export default class RestaurantForm extends Component {
     address: "",
     phone: "",
     email: "",
+    googleassistant: false,
+    phonegateway: false,
     menu: "",
     logo: "",
     weekdays: {
@@ -371,6 +373,41 @@ export default class RestaurantForm extends Component {
               tableAmount={this.state.tablenumber}
               tablesStage2A={this.tablesStage2B}
             />
+          </div>
+
+          <div className="rest-form-optin-header-div">
+            <img
+              className="rest-form-optin-header-img"
+              src="/Google_icon_coloured.png"
+              alt="Google-icon"
+            />
+            <h3>Integrations</h3>
+          </div>
+          <div className="rest-form-optin-div">
+            <div className="rest-form-optin-subdiv optin-top">
+              <label htmlFor="googleassistant">
+                Google Assistant integration:
+              </label>
+              <input
+                type="checkbox"
+                name="googleassistant"
+                id="googleassistant"
+                checked={this.state.weekdays.googleassistant}
+                onChange={this.handleCheckboxChange}
+              />
+            </div>
+            <div className="rest-form-optin-subdiv">
+              <label htmlFor="googleassistant">
+                Phone Gateway integration:
+              </label>
+              <input
+                type="checkbox"
+                name="googleassistant"
+                id="googleassistant"
+                checked={this.state.weekdays.phonegateway}
+                onChange={this.handleCheckboxChange}
+              />
+            </div>
           </div>
           <button className="edit-button" type="submit">
             Submit
