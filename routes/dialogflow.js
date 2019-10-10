@@ -134,11 +134,40 @@ Restaurant.find()
               name: name.display,
             }
           );
-        console.log(name, "######################################################")
-        // const firstName = conv.contexts.get('values').parameters['guestnumber'];
-        // console.log(firstName ,"######################################################");
-        
-        conv.ask(`Thank you ${name.given}. Can I help you with something else?`);
+          const parameters = {
+            selectedDay: data.selectedDay,
+            arrivalTime: arrivaltime,
+          };
+          // conv.contexts.set('values', 5, parameters);
+          conv.data.parameters = parameters;
+          conv.ask(
+            `Thank you ${name.given}. Your reservation at ${res.name} has been made. Can I help you with something else?`
+          );
+        } else {
+          conv.ask(
+            "We cannot make reservation without your name. Can i help you with something else?"
+          );
+        }
+      });
+      app.intent(`${res._id} - reservation - end`,  (conv, params) => {
+        const date = conv.data.parameters.selectedDay;
+        const day = moment(date).format("dddd");
+        const tomorrow = moment()
+          .add(1, "days")
+          .format("dddd");
+        const today = moment().format("dddd");
+        const time = conv.data.parameters.arrivalTime;
+        if(date){
+        if (day == today) {
+          conv.close(`Ok then see you today at ${time}. Goodbye!`);
+        } else if (day == tomorrow) {
+          conv.close(`Ok then see you tomorrow at ${time}. Goodbye!`);
+        } else {
+          conv.close(`Ok then see you on ${day} at ${time}. Goodbye!`);
+        }
+      }else{
+        conv.close('Thank you very much. Goodbye!')
+      }
       });
 
       app.intent(`${res._id} - cancellation`,  (conv, params) => {
