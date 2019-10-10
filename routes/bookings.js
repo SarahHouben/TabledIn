@@ -303,9 +303,6 @@ router.post("/", (req, res) => {
             console.log("Closed on this day. Pick another date");
             res
               .json({ message: "Closed on this day. Pick another date." })
-              .catch(err => {
-                res.json(err);
-              });
           }
         }
       });
