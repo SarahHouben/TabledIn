@@ -129,7 +129,7 @@ Restaurant.find()
           const arrivaltime = moment(data.arrivalTime).format("HH:mm");
           if (granted) {
             const response = await axios.post(
-              "http://localhost:5555/api/bookings",
+              "https://tabledin.herokuapp.com/api/bookings",
               {
                 guestnumber: data.guestnumber,
                 selectedDay: data.selectedDay,
