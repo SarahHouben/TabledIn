@@ -58,8 +58,15 @@ export default class About extends Component {
 
           <h3 className="about-section-top-h3-bottom">Try it out</h3>
           <p>
-            If you would like to test TabledIn, click on this link to sign up
-            for the testing-stage.
+            If you would like to test TabledIn, click on <a
+              target="_blank"
+              rel="noopener noreferrer"
+              className="about-text-link"
+              href="https://assistant.google.com/services/a/uid/000000691425a561?hl=de"
+            >this link{" "}
+            </a>
+            to sign up for the Alpha testing-stage of the chatbot. Or, simply create a
+            new free account to view the restaurant bookings platform.
           </p>
         </div>
       </>
