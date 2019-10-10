@@ -100,14 +100,8 @@ const restaurantSchema = new Schema(
     address: String,
     phone: String,
     email: String,
-    googleassistant: {
-      type: Boolean,
-      default: false
-    },
-    phonegateway: {
-      type: Boolean,
-      default: false
-    },
+    googleassistant: Boolean,
+    phonegateway: Boolean,
     menu: String,
     logo: {
       type: String,

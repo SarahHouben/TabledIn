@@ -22,9 +22,9 @@ export default class Signup extends Component {
     event.preventDefault();
 
     const { username, password, email } = this.state;
-    console.log("THIS STATE:", username, password, email);
+    // console.log("THIS STATE:", username, password, email);
     signup(username, password, email).then(data => {
-      console.log("DATA: ", data);
+      // console.log("DATA: ", data);
       if (data.message) {
         this.setState({
           message: data.message,
@@ -33,11 +33,11 @@ export default class Signup extends Component {
           password: ""
         });
       } else {
-        console.log(data);
+        // console.log(data);
         //successfully signed up
         // update the state of the parent component
         this.props.setUser(data);
-        console.log(this.props);
+        // console.log(this.props);
         //redirect to RESTAURANT SIGNUP/CREATION PAGE
         this.props.history.push("/restaurant/new");
       }

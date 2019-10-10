@@ -104,13 +104,18 @@ export default class RestaurantForm extends Component {
     this.setState({ weekdays: currentState });
   };
 
-  //Get information from Optin
+  //Get information from Optins
   handleOptinCheckboxChange = event => {
-    const { name, checked } = event.target;
-
-    this.setState({
-      [name]: checked
-    });
+    const name = event.target.name;
+    const check = event.target.checked;
+    this.setState(
+      {
+        [name]: check
+      },
+      () => {
+        console.log("#######OPTINSTATE : ", this.state);
+      }
+    );
   };
 
   //create array of tables based on table number with default empty states for cap and num
@@ -150,6 +155,8 @@ export default class RestaurantForm extends Component {
       address,
       phone,
       email,
+      googleassistant,
+      phonegateway,
       weekdays,
       tablenumber,
       tables,
@@ -164,6 +171,8 @@ export default class RestaurantForm extends Component {
         address,
         phone,
         email,
+        googleassistant,
+        phonegateway,
         weekdays,
         tablenumber,
         tables,
