@@ -5,6 +5,7 @@ import "react-day-picker/lib/style.css";
 import Modal from "./Modal";
 import axios from "axios";
 
+
 export default class EditPlanner extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +21,9 @@ export default class EditPlanner extends Component {
       show: false
     };
   }
+
+  
+
 
   //function to toggle modal
   showModal = () => {

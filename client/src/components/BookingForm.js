@@ -33,9 +33,9 @@ export default class BookingForm extends Component {
     this.setState({
       [name]: value
     });
-    console.log({
-      [name]: value
-    });
+    // console.log({
+    //   [name]: value
+    // });
   };
 
   //Handle Submit with message functionality
@@ -159,7 +159,9 @@ export default class BookingForm extends Component {
             />
           </div>
           {this.state.message && (
-            <p className="auth-message">{this.state.message}</p>
+            <p className="auth-message">
+              {this.state.message} <Link to="/">Or go back to home.</Link>
+            </p>
           )}
           {this.state.success && (
             <p className="success-message">

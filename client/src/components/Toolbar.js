@@ -73,6 +73,24 @@ const Toolbar = props => {
                   <NavLink
                     className="navlink-style"
                     activeClassName="navlink-active"
+                    to="/about"
+                  >
+                    About
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="navlink-style"
+                    activeClassName="navlink-active"
+                    to="/privacy"
+                  >
+                    Privacy Policy
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="navlink-style"
+                    activeClassName="navlink-active"
                     to="/signup"
                   >
                     Signup

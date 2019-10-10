@@ -11,6 +11,7 @@ export default class ShowRestaurant extends Component {
     email: "",
     logo: "",
     menu: "",
+    phonegateway: false,
     weekdays: {
       monday: false,
       tuesday: false,
@@ -66,6 +67,7 @@ export default class ShowRestaurant extends Component {
             address: response.data.address,
             phone: response.data.phone,
             email: response.data.email,
+            phonegateway: response.data.phonegateway,
             weekdays: response.data.weekdays,
             tablenumber: response.data.tablenumber,
             tables: response.data.tables,
@@ -111,38 +113,49 @@ export default class ShowRestaurant extends Component {
             alt={this.state.name}
           />
 
-          <button className="view-button">
-            {/* <a download={this.state.menu}>View Menu</a> */}
-            <a
-              href={this.state.menu}
-              download="Menu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Menu
-            </a>
-          </button>
+          {this.state.menu && (
+            <button className="view-button">
+              <a
+                href={this.state.menu}
+                download="Menu"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Menu
+              </a>
+            </button>
+          )}
         </div>
 
         <h3 className="rest-show-info-h3">General information</h3>
         <div className="rest-show-info-div">
+          <div className="rest-show-info-div-address">
+            <p className="address-p">
+              <strong>Address: </strong>
+              {/* {this.state.address} */}
+            </p>
+            <p>{this.state.address}</p>
+          </div>
+          {this.state.email && (
+            <p>
+              <strong>Email: </strong>
+              {this.state.email}
+            </p>
+          )}
 
-        <div className="rest-show-info-div-address">
-          <p className="address-p">
-            <strong>Address: </strong>
-            {/* {this.state.address} */}
-          </p>
-          <p>{this.state.address}</p>
+          {this.state.phone && (
+            <p>
+              <strong>Phone: </strong>
+              {this.state.phone}
+            </p>
+          )}
 
-        </div>
-          <p>
-            <strong>Email: </strong>
-            {this.state.email}
-          </p>
-          <p>
-            <strong>Phone: </strong>
-            {this.state.phone}
-          </p>
+          {this.state.phonegateway && (
+            <p>
+              <strong>Phone Gateway: </strong>
+              +1 424-255-7279
+            </p>
+          )}
         </div>
 
         <h3 className="rest-show-info-h3">Opening times</h3>

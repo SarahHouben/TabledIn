@@ -53,6 +53,13 @@ h3 {
 h4 {
   font-family: "Raleway", sans-serif;
   margin: 0;
+  font-size: 1.1rem;
+}
+
+h5 {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  font-size: 1rem;
 }
 
 p {
@@ -142,6 +149,14 @@ button {
   color: #bf3513;
   padding-top: 5px;
   font-weight: 600;
+
+  a {
+    color: #bf3513;
+  }
+
+  a:hover {
+    color: #bf3513;
+  }
 }
 
 //#####  GENERAL STYLING FOR SUCCESS MESSAGE
@@ -172,5 +187,13 @@ code {
 
   p {
     font-size: 0.9rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1rem;
   }
 }

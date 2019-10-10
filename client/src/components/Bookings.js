@@ -115,53 +115,60 @@ export default class Bookings extends Component {
 
       return (
         <div key={booking._id}>
-          <li className="bookings-list-li">
-            <div className="bookings-list-div">
-              <div className="bookings-list-left">
-                <p>{booking.visitorname}</p>
-                <p>Guests: {booking.visitorcount}</p>
-              </div>
+          {booking.visitorname && (
+            <div>
+              <li className="bookings-list-li">
+                <div className="bookings-list-div">
+                  <div className="bookings-list-left">
+                    <p>{booking.visitorname}</p>
+                    <p>Guests: {booking.visitorcount}</p>
+                  </div>
 
-              <div className="bookings-list-middle">
-                {/* <p>{[...booking.date].splice(0, 10).join("")}</p> */}
-                <p>{bookingTime}</p>
-                <p>Table {booking.tablenumber}</p>
-              </div>
+                  <div className="bookings-list-middle">
+                    {/* <p>{[...booking.date].splice(0, 10).join("")}</p> */}
+                    <p>{bookingTime}</p>
+                    <p>Table {booking.tablenumber}</p>
+                  </div>
 
-              <div className="bookings-list-right">
-                <button
-                  className="delete-button delete-booking"
-                  onClick={e => {
-                    this.showModal();
-                  }}
-                >
-                  {" "}
-                  Delete{" "}
-                </button>
-                {booking.webapp && (
-                  <img src="/logo192.png" alt="TabledIn-Logo" />
-                )}
-                {booking.dialogflow && (
-                  <img src="/Google_icon_coloured.png" alt="TabledIn-Logo" />
-                )}
-              </div>
+                  <div className="bookings-list-right">
+                    <button
+                      className="delete-button delete-booking"
+                      onClick={e => {
+                        this.showModal();
+                      }}
+                    >
+                      {" "}
+                      Delete{" "}
+                    </button>
+                    {booking.webapp && (
+                      <img src="/logo192.png" alt="TabledIn-Logo" />
+                    )}
+                    {booking.dialogflow && (
+                      <img
+                        src="/Google_icon_coloured.png"
+                        alt="TabledIn-Logo"
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className="bookings-list-bottom">
+                  {booking.visitorphone && <p>{booking.visitorphone} </p>}
+                  {booking.visitoremail && <p>{booking.visitoremail} </p>}
+                </div>
+              </li>
+              <Modal
+                onClose={this.showModal}
+                show={this.state.show}
+                deleteBooking={this.deleteBooking}
+                bookingID={booking._id}
+                onClickFunction={() => {
+                  this.deleteBooking(booking._id);
+                }}
+              >
+                Are you sure you wish to delete this booking?
+              </Modal>
             </div>
-            <div className="bookings-list-bottom">
-              {booking.visitorphone && <p>{booking.visitorphone} </p>}
-              {booking.visitoremail && <p>{booking.visitoremail} </p>}
-            </div>
-          </li>
-          <Modal
-            onClose={this.showModal}
-            show={this.state.show}
-            deleteBooking={this.deleteBooking}
-            bookingID={booking._id}
-            onClickFunction={() => {
-              this.deleteBooking(booking._id);
-            }}
-          >
-            Are you sure you wish to delete this booking?
-          </Modal>
+          )}
         </div>
       );
     });

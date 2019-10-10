@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import axios from "axios";
+
 export default class EditPlanner extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +39,7 @@ export default class EditPlanner extends Component {
   handleSubmit = event => {
     event.preventDefault();
     // console.log(this.state);
-    console.log("PROPS SELECTED DAY: ", this.props.selectedDay);
+    // console.log("PROPS SELECTED DAY: ", this.props.selectedDay);
     let success = "Created schedule.";
 
     axios

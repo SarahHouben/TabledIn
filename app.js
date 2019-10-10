@@ -104,6 +104,12 @@ app.use("/api/bookings", bookingRoutes);
 const plannerRoutes = require("./routes/planner");
 app.use("/api/planner", plannerRoutes);
 
+const dialogflow = require("./routes/dialogflow")
+app.use("/dialogflow", dialogflow)
+
+//IMAGE UPLOAD ROUTE
+// const plannerRoutes = require("./routes/planner");
+// app.use("/api/planner", plannerRoutes);
 const upload = require("./routes/file-upload");
 app.use("/api/add-image", upload);
 
