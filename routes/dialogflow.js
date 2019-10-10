@@ -170,10 +170,6 @@ Restaurant.find()
       }
       });
 
-<<<<<<< HEAD
-      
-    })
-=======
       app.intent(`${res._id} - cancellation`,  (conv, params) => {
         conv.ask(
           new Permission({
@@ -226,7 +222,6 @@ Restaurant.find()
           });
       });
     });
->>>>>>> cancelation
   })
   .catch(err => {
     console.log(err);
