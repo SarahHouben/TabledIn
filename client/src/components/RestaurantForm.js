@@ -9,8 +9,11 @@ export default class RestaurantForm extends Component {
     address: "",
     phone: "",
     email: "",
+    googleassistant: false,
+    phonegateway: false,
     menu: "",
-    logo: "",
+    logo:
+      "https://res.cloudinary.com/dmlqhwwfc/image/upload/v1570446767/TabledIn/tabledin_logo.png",
     weekdays: {
       monday: false,
       tuesday: false,
@@ -101,6 +104,20 @@ export default class RestaurantForm extends Component {
     this.setState({ weekdays: currentState });
   };
 
+  //Get information from Optins
+  handleOptinCheckboxChange = event => {
+    const name = event.target.name;
+    const check = event.target.checked;
+    this.setState(
+      {
+        [name]: check
+      }
+      // () => {
+      //   console.log("#######OPTINSTATE : ", this.state);
+      // }
+    );
+  };
+
   //create array of tables based on table number with default empty states for cap and num
   initializedTable = tableNumber => {
     let newTableState = [...Array(Number(tableNumber))].map(table => ({
@@ -138,6 +155,8 @@ export default class RestaurantForm extends Component {
       address,
       phone,
       email,
+      googleassistant,
+      phonegateway,
       weekdays,
       tablenumber,
       tables,
@@ -152,6 +171,8 @@ export default class RestaurantForm extends Component {
         address,
         phone,
         email,
+        googleassistant,
+        phonegateway,
         weekdays,
         tablenumber,
         tables,
@@ -372,7 +393,47 @@ export default class RestaurantForm extends Component {
               tablesStage2A={this.tablesStage2B}
             />
           </div>
-          <button className="edit-button" type="submit">
+
+          <div className="rest-form-optin-header-div">
+            <img
+              className="rest-form-optin-header-img"
+              src="/Google_icon_coloured.png"
+              alt="Google-icon"
+            />
+            <h3>Integrations</h3>
+          </div>
+          <div className="rest-form-optin-div">
+            <div className="rest-form-optin-subdiv optin-top">
+              <label htmlFor="googleassistant">
+                Google Assistant integration:
+              </label>
+              <input
+                type="checkbox"
+                name="googleassistant"
+                id="googleassistant"
+                checked={this.state.googleassistant}
+                onChange={this.handleOptinCheckboxChange}
+              />
+            </div>
+            <div className="rest-form-optin-subdiv">
+              <label htmlFor="phonegateway">Phone Gateway integration:</label>
+              <input
+                type="checkbox"
+                name="phonegateway"
+                id="phonegateway"
+                checked={this.state.phonegateway}
+                onChange={this.handleOptinCheckboxChange}
+              />
+            </div>
+          </div>
+          {this.state.phonegateway && (
+            <div className="rest-form-optin-phonenumber">
+              <p>
+                Your Phone Gateway number: <strong>+49 3636 36363</strong>
+              </p>
+            </div>
+          )}
+          <button className="edit-button rest-form-button" type="submit">
             Submit
           </button>
         </form>

@@ -11,6 +11,7 @@ export default class ShowRestaurant extends Component {
     email: "",
     logo: "",
     menu: "",
+    phonegateway: false,
     weekdays: {
       monday: false,
       tuesday: false,
@@ -66,6 +67,7 @@ export default class ShowRestaurant extends Component {
             address: response.data.address,
             phone: response.data.phone,
             email: response.data.email,
+            phonegateway: response.data.phonegateway,
             weekdays: response.data.weekdays,
             tablenumber: response.data.tablenumber,
             tables: response.data.tables,
@@ -134,14 +136,26 @@ export default class ShowRestaurant extends Component {
             </p>
             <p>{this.state.address}</p>
           </div>
-          <p>
-            <strong>Email: </strong>
-            {this.state.email}
-          </p>
-          <p>
-            <strong>Phone: </strong>
-            {this.state.phone}
-          </p>
+          {this.state.email && (
+            <p>
+              <strong>Email: </strong>
+              {this.state.email}
+            </p>
+          )}
+
+          {this.state.phone && (
+            <p>
+              <strong>Phone: </strong>
+              {this.state.phone}
+            </p>
+          )}
+
+          {this.state.phonegateway && (
+            <p>
+              <strong>Phone Gateway: </strong>
+              +49 3636 36363
+            </p>
+          )}
         </div>
 
         <h3 className="rest-show-info-h3">Opening times</h3>

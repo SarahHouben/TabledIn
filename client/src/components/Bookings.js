@@ -114,9 +114,9 @@ export default class Bookings extends Component {
       let bookingTime = hours + ":" + minutes;
 
       return (
-        <>
+        <div key={booking._id}>
           {booking.visitorname && (
-            <div key={booking._id}>
+            <div>
               <li className="bookings-list-li">
                 <div className="bookings-list-div">
                   <div className="bookings-list-left">
@@ -169,7 +169,7 @@ export default class Bookings extends Component {
               </Modal>
             </div>
           )}
-        </>
+        </div>
       );
     });
 
