@@ -13,6 +13,7 @@ import BookingForm from "./components/BookingForm";
 import Planner from "./components/Planner";
 import EditPlanner from "./components/EditPlanner";
 import About from "./components/About";
+import Privacy from "./components/Privacy";
 import axios from "axios";
 
 import "./scss/App.scss";
@@ -91,6 +92,11 @@ class App extends React.Component {
 
         <main>
           <Switch>
+          <Route
+              exact
+              path="/privacy"
+              render={props => <Privacy setUser={this.setUser} {...props} />}
+            />
             <Route
               exact
               path="/about"

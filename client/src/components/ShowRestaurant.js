@@ -153,7 +153,7 @@ export default class ShowRestaurant extends Component {
           {this.state.phonegateway && (
             <p>
               <strong>Phone Gateway: </strong>
-              +49 3636 36363
+              +1 424-255-7279
             </p>
           )}
         </div>

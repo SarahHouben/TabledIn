@@ -95,6 +95,16 @@ const SideDrawer = props => {
                 Login
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                className="side-drawer-navlink"
+                activeClassName="side-drawer-navlink-active"
+                onClick={props.click}
+                to="/privacy"
+              >
+                Privacy Policy
+              </NavLink>
+            </li>
           </>
         )}
       </ul>

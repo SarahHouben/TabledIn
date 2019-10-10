@@ -429,7 +429,7 @@ export default class RestaurantForm extends Component {
           {this.state.phonegateway && (
             <div className="rest-form-optin-phonenumber">
               <p>
-                Your Phone Gateway number: <strong>+49 3636 36363</strong>
+                Your Phone Gateway number: <strong>+1 424-255-7279</strong>
               </p>
             </div>
           )}
