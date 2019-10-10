@@ -42,20 +42,13 @@ const {
   SignIn,
   Suggestions,
   DateTime,
-  Permission
+  Permission,
 } = require("actions-on-google");
 const app = dialogflow({ debug: true });
 
 app.intent("Default Welcome Intent", conv => {
   conv.ask(`Welcome to TabledIn! Please choose a restaurant.`);
 });
-
-// app.intent("Welcome", conv => {
-//   console.log('THIS IS RESPONSE')
-//   const marko = Object.keys(conv.contexts.input)[0]
-//   console.log(marko)
-//   conv.ask('Welcome to Da Toni Pizzeria,how can i help you?')
-// })
 
 Restaurant.find()
   .then(restaurants => {
@@ -74,7 +67,7 @@ Restaurant.find()
   .then(restaurants => {
     restaurants.forEach(res => {
       app.intent(
-        `${res._id} - Reservation`,
+        `${res._id} - reservation`,
         async (conv, { guestnumber, selectedDay, arrivalTime }, permision) => {
           const arrivaltime = moment(arrivalTime).format("HH:mm");
           const response = await axios.post(
@@ -84,7 +77,7 @@ Restaurant.find()
               selectedDay,
               arrivaltime,
               owner: res.owner._id,
-              dialogflow: true
+              dialogflow: true,
             }
           );
           console.log(response.data);
@@ -108,36 +101,29 @@ Restaurant.find()
               `Unfortunately the restaurant is closed on that day. Can I help you with something else?`
             );
           } else {
-            const parameters = {'selectedDay':selectedDay, 'guestnumber': guestnumber,'arrivalTime':arrivalTime};
+            const parameters = {
+              selectedDay: selectedDay,
+              guestnumber: guestnumber,
+              arrivalTime: arrivalTime,
+            };
             // conv.contexts.set('values', 5, parameters);
-            conv.data.parameters = parameters
+            conv.data.parameters = parameters;
             conv.ask(
               new Permission({
                 context: "",
-                permissions: "NAME"
+                permissions: "NAME",
               })
             );
-            // new Permission({
-            //   context: "",
-            //   permissions: "NAME"
-            // })
-            // new Permission({
-            //   context: "",
-            //   permissions: "NAME",
-            //   guestnumber,
-            //   selectedDay,
-            //   arrivaltime,
-            // })
-            // );
           }
         }
       );
-      app.intent(`${res._id}-name`, async (conv, params, granted) => {
+      app.intent(`${res._id} - reservation - name - permission`, async (conv, params, granted) => {
         const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
         const name = conv.user.name;
-        const data = conv.data.parameters
+        const data = conv.data.parameters;
         const arrivaltime = moment(data.arrivalTime).format("HH:mm");
-        const response = await axios.post(
+        if (granted) {
+          const response = await axios.post(
             "http://localhost:5555/api/bookings",
             {
               guestnumber: data.guestnumber,
@@ -145,45 +131,107 @@ Restaurant.find()
               arrivaltime,
               owner: res.owner._id,
               dialogflow: true,
-              name: name.display
+              name: name.display,
             }
           );
-        console.log(name, "######################################################")
-        // const firstName = conv.contexts.get('values').parameters['guestnumber'];
-        // console.log(firstName ,"######################################################");
-        
-        conv.ask(`Thank you ${name.given}. Can i help you with something else?`);
+          const parameters = {
+            selectedDay: data.selectedDay,
+            arrivalTime: arrivaltime,
+          };
+          // conv.contexts.set('values', 5, parameters);
+          conv.data.parameters = parameters;
+          conv.ask(
+            `Thank you ${name.given}. Your reservation at ${res.name} has been made. Can I help you with something else?`
+          );
+        } else {
+          conv.ask(
+            "We cannot make reservation without your name. Can i help you with something else?"
+          );
+        }
+      });
+      app.intent(`${res._id} - reservation - end`,  (conv, params) => {
+        const date = conv.data.parameters.selectedDay;
+        const day = moment(date).format("dddd");
+        const tomorrow = moment()
+          .add(1, "days")
+          .format("dddd");
+        const today = moment().format("dddd");
+        const time = conv.data.parameters.arrivalTime;
+        if(date){
+        if (day == today) {
+          conv.close(`Ok then see you today at ${time}. Goodbye!`);
+        } else if (day == tomorrow) {
+          conv.close(`Ok then see you tomorrow at ${time}. Goodbye!`);
+        } else {
+          conv.close(`Ok then see you on ${day} at ${time}. Goodbye!`);
+        }
+      }else{
+        conv.close('Thank you very much. Goodbye!')
+      }
       });
 
+<<<<<<< HEAD
       
     })
+=======
+      app.intent(`${res._id} - cancellation`,  (conv, params) => {
+        conv.ask(
+          new Permission({
+            context: "Let me check that for you.",
+            permissions: "NAME",
+          })
+        );
+      });
+      app.intent(`${res._id} - cancellation - name`,  (conv, params) => {
+        const name = conv.user.name;
+        return Booking.findOneAndDelete({
+          restaurant: res._id,
+          visitorname: name.display,
+        })
+          .then(booking => {
+            console.log('###########################', booking)
+            const date = booking.date;
+            const day = moment(date).format("dddd");
+            const tomorrow = moment()
+              .add(1, "days")
+              .format("dddd");
+            const today = moment().format("dddd");
+             if (booking) {
+              if (day == today) {
+                 conv.ask(
+                  `Thank you ${name.given},your reservation for today has been canceled !`
+                );
+                conv.ask("Can i help you with something else?");
+              } else if (day == tomorrow) {
+                conv.ask(
+                  `Thank you ${name.given},your reservation for tomorrow has been canceled !`
+                );
+                conv.ask("Can i help you with something else?");
+              } else {
+                conv.ask(
+                  `Thank you ${name.given},your reservation for ${day} has been canceled !`
+                );
+                conv.ask("Can i help you with something else?");
+              }
+            } else {
+              conv.ask(
+                `I am sorry ${name.given},we cannot find any reservation under your name`
+              );
+              conv.ask("Can i help you with something else?");
+              console.log("Deleted booking");
+            }
+          })
+          .catch(err => {
+            res.json(err);
+          });
+      });
+    });
+>>>>>>> cancelation
   })
   .catch(err => {
     console.log(err);
   });
 
-//
-// Restaurant.find().then(restaurants => {
-//   restaurants.forEach(res => {
-//     app.intent(
-//       `${res._id} - Reservation`,
-//       (conv, { guestnumber, selectedDay, arrivaltime }) => {
-//         // const name = req.body.name;
-//         // const phone = req.body.phone;
-//         // const email = req.body.email;
-//         // const owner = req.user._id;
-//         const dayIndex = new Date(selectedDay).getDay() - 1;
-//         const day = moment(selectedDay).format('dddd')
-//         const time = moment(arrivaltime).format('hmm')
-//         console.log(day)
-//         console.log(dayIndex);
-//         console.log(time)
-//         conv.ask('Let me check that for you');
-
-//       }
-//     );
-//   });
-// });
 
 router.post("/", app);
 

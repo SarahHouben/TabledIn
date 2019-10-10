@@ -137,7 +137,9 @@ Restaurant.find()
 
 
 
-
+      console.log(name, "######################################################")
+      // const firstName = conv.contexts.get('values').parameters['guestnumber'];
+      // console.log(firstName ,"######################################################");
 
       app.intent(`${res._id}-name`, (conv, params, granted) => {
         const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
