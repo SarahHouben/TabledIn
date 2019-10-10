@@ -75,7 +75,6 @@ export default class ShowRestaurant extends Component {
             menu: response.data.menu,
             logo: response.data.logo
           });
-          console.log("#######STATE: ", this.state);
         }
       })
       .catch(err => {

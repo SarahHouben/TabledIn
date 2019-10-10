@@ -111,10 +111,10 @@ export default class RestaurantForm extends Component {
     this.setState(
       {
         [name]: check
-      },
-      () => {
-        console.log("#######OPTINSTATE : ", this.state);
       }
+      // () => {
+      //   console.log("#######OPTINSTATE : ", this.state);
+      // }
     );
   };
 
