@@ -51,11 +51,11 @@ app.use(
 );
 
 // CORS -  REQUIRED FOR CLOUDINARY might leave, not sure
-// app.use(
-//   cors({
-//     origin: ["http://localhost:3000"]
-//   })
-// );
+app.use(
+  cors({
+    origin: ["http://localhost:3000"]
+  })
+);
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -104,8 +104,8 @@ app.use("/api/bookings", bookingRoutes);
 const plannerRoutes = require("./routes/planner");
 app.use("/api/planner", plannerRoutes);
 
-const dialogflow = require("./routes/dialogflow")
-app.use("/dialogflow", dialogflow)
+const dialogflow = require("./routes/dialogflow");
+app.use("/dialogflow", dialogflow);
 
 //IMAGE UPLOAD ROUTE
 // const plannerRoutes = require("./routes/planner");
