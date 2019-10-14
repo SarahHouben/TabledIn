@@ -54,7 +54,7 @@ router.delete("/", (req, res) => {
           $and: [{ date: selectedDay }, { restaurant: restaurant._id }]
         })
           .then(done => {
-            console.log("Succesfully deleted");
+            // console.log("Succesfully deleted");
             res.json({ message: "Succesfully deleted" });
           })
           .catch(err => {

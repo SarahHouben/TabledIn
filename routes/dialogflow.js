@@ -191,7 +191,7 @@ Restaurant.find()
           visitorname: name.display,
         })
           .then(booking => {
-            console.log("###########################", booking);
+            // console.log("###########################", booking);
             const date = booking.date;
             const day = moment(date).format("dddd");
             const tomorrow = moment()

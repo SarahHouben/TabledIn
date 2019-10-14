@@ -17,9 +17,20 @@ export default class Bookings extends Component {
   }
 
   //function to toggle modal
-  showModal = () => {
-    this.setState({
-      show: !this.state.show
+  showModal = booking => {
+    this.setState(state => {
+      //check if the id is the same as the one being passed into the function. If yes, show modal. If no, don't show modal.
+      const bookings = state.bookings.map((item, j) => {
+        if (booking._id === item._id) {
+          item.show = !item.show;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      return {
+        bookings
+      };
     });
   };
 
@@ -33,8 +44,14 @@ export default class Bookings extends Component {
     axios
       .get("/api/bookings")
       .then(response => {
+        //add show property to bookings
+        let bookingsData = response.data.map(el => {
+          el.show = false;
+          return el;
+        });
+
         this.setState({
-          bookings: response.data
+          bookings: bookingsData
         });
       })
       .catch(err => {
@@ -98,7 +115,7 @@ export default class Bookings extends Component {
       return dateMatched;
     });
 
-    const bookingItems = filteredBookings.map(booking => {
+    const bookingItems = filteredBookings.map((booking, index) => {
       //format time for displaying
       let hours = "";
       let minutes = "";
@@ -125,7 +142,6 @@ export default class Bookings extends Component {
                   </div>
 
                   <div className="bookings-list-middle">
-                    {/* <p>{[...booking.date].splice(0, 10).join("")}</p> */}
                     <p>{bookingTime}</p>
                     <p>Table {booking.tablenumber}</p>
                   </div>
@@ -134,7 +150,7 @@ export default class Bookings extends Component {
                     <button
                       className="delete-button delete-booking"
                       onClick={e => {
-                        this.showModal();
+                        this.showModal(booking);
                       }}
                     >
                       {" "}
@@ -155,18 +171,20 @@ export default class Bookings extends Component {
                   {booking.visitorphone && <p>{booking.visitorphone} </p>}
                   {booking.visitoremail && <p>{booking.visitoremail} </p>}
                 </div>
+                <Modal
+                  onClose={() => {
+                    this.showModal(booking);
+                  }}
+                  show={booking.show}
+                  // deleteBooking={this.deleteBooking}
+                  // bookingID={booking._id}
+                  onClickFunction={() => {
+                    this.deleteBooking(booking._id);
+                  }}
+                >
+                  Are you sure you wish to delete this booking?
+                </Modal>
               </li>
-              <Modal
-                onClose={this.showModal}
-                show={this.state.show}
-                deleteBooking={this.deleteBooking}
-                bookingID={booking._id}
-                onClickFunction={() => {
-                  this.deleteBooking(booking._id);
-                }}
-              >
-                Are you sure you wish to delete this booking?
-              </Modal>
             </div>
           )}
         </div>

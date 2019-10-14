@@ -21,9 +21,7 @@ export default class Login extends Component {
     event.preventDefault();
 
     const { username, password } = this.state;
-    // console.log(username, password);
     login(username, password).then(data => {
-      // console.log(data);
       if (data.message) {
         this.setState({
           message: data.message,
@@ -34,7 +32,6 @@ export default class Login extends Component {
         //successfully logged in
         // update the state of the parent component
         this.props.setUser(data);
-        console.log(this.props);
         this.props.history.push("/");
       }
     });
