@@ -1,7 +1,7 @@
 # TabledIn
 
 
-## What Is TabledIn?
+## What Is [TabledIn](https://tabledin.herokuapp.com)?
 
 TabledIn is an integrated bookings tool that allows restaurant owners to manage their schedules and configure their own chatbot agent for taking reservations.
 
