@@ -44,6 +44,8 @@ Once all required information has been gathered the Dialogflow Apo service sends
 
 The fulfillment-response is then sent back to Dialogflow and the user receives the result of their query, e.g. “A booking has been made” or “I’m sorry, we have no free tables on this day”.
 
+![alt text](https://github.com/SarahHouben/TabledIn/blob/master/client/public/Chatbot_TabledIn.png "TabledIn Chatbot")
+
 ### How Are Bookings Made?
 
 The TabledIn database contains four different collections which are involved in the process of making a booking at a restaurant: The Restaurant-collection which for each restaurant holds a document with the restaurant information such as name, opening times, table number and table capacity; a Schedule-collection with schedules (opening times) for individual days, a Tables-collection with a document for each table and the tables open time-slots on a given day, and a Bookings-collection with all the bookings made at a restaurant.
@@ -54,6 +56,8 @@ In the next step, the schedule for the day is checked to see whether the restaur
 
 If the restaurant is open, the table documents for the day are either created (in the case that there was no previous schedule for the day) and checked, or immediately checked in order to see whether there is a table with a free time slot during the required time for the reservation and with sufficient capacity for the number of guests of the booking. 
 If there is no free table, a message is sent to the user, informing them of this. If there is a free table, a booking-document with the Id of the designated table, the timeslot, date and the information of the guest is created and a message is sent back to the user, confirming the booking.
+
+![alt text](https://github.com/SarahHouben/TabledIn/blob/master/client/public/Reservations_TabledIn.png "TabledIn Reservations")
 
 
 ## Technology Used
