@@ -73,7 +73,7 @@ In addition, we would like to add a further integration to the chatbot with Phon
 
 ## Test It Out
 
-If you would like to test the full functionality of TabledIn, click on this link [link](https://assistant.google.com/services/a/uid/000000691425a561?hl=de) to sign up for the Alpha testing-stage of the chatbot with a gmail account, or get in touch with Marko or Sarah to be added to the tester-list. 
+If you would like to test the full functionality of TabledIn, click on this [link](https://assistant.google.com/services/a/uid/000000691425a561?hl=de) to sign up for the Alpha testing-stage of the chatbot with a gmail account, or get in touch with Marko or Sarah to be added to the tester-list. 
 
 Once signed up, open Google Assistant and action TabledIn by saying *"Ok Google, talk to TabledIn"*. You will be asked to choose a restaurant. Currently you have the choice between the restaurants *"Nora's Garden"* and *"Pizzeria Da Toni"*. You can choose to make a reservation or to cancel a reservation under your name.
 
