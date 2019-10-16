@@ -1,33 +1,26 @@
 // ###### Milestone 1 ######
 // 1. Default welcome intent -  Create default welcome intent for each
-// restaurant and continue conversation with restaurants Agent
+// restaurant and continue conversation with restaurants agent
 // 2. Intent - User makes reservation at restaurant
-// Take date,time and number of people from user and check if there are free tables.
-// 3. Permision - If there is free table ask permition to take his name and number or email from google.
+// Take date, time and number of people from user and check if there are free tables.
+// 3. Permission - If there is free table ask permission to take user's name and number or email from google.
 // 4. Intent - Create reservation - Once its confirmed there is table user confirms as well
 // 5. Intent - Cancel the reservation - user can ask to cancel reservation at any time
-
 // ######  Milestone 2  ######
-// 6. Agent/Create - Create specific Agent during Restaurant creation and asign webhook that has restaurant
+// 6. Agent/Create - Create specific Agent during Restaurant creation and assign webhook that has restaurant
 // id in the end
-// ## if not possible create custom webhook link which you would use to manualy create Agent
+// ## if not possible create custom webhook link which you would use to manually create Agent
 // inside dialogflow interface
-// 7. Intent/Permision - Ask about directions - we have code from greenspace
-// 8. Intent/Permision - Ask how much time you need to get there - we have code from greenspace
-
 // ###### MILESTONE 3 ######
 // 8. Integration - Google phone service
-// 8. Integration - Decide which other service we wonna use?
-// bonus: websocket for displaying reservations as soon as they are made - otherwise use
+// bonus: websocket for displaying reservations as soon as they are made
 // bonus: Ask about day speciality
 // bonus: Try to create reservation in his calendar
-// rendering page at sertain amount of time
-// not neccessary: opening times
-
+// bonus: Give user directions to restaurant
+// rendering page at certain amount of time
+// bonus: opening times
 // Try to make conversations as human as possible - its a real person substitute
-
 "use strict";
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router().use(bodyParser.json());
@@ -43,16 +36,22 @@ const {
   Suggestions,
   DateTime,
   Permission,
-} = require("actions-on-google")
+} = require("actions-on-google");
 const app = dialogflow({ debug: true });
-
+//When you invoke our application through google assistant, webhook is activated by the Dialogflow.
+// First intent activated is always welcome intent - in our case intent which lets user choose restaurant.
+// Depending on restaurant chosen, all following intents are connected to that restaurant
 app.intent("Default Welcome Intent", conv => {
   conv.ask(`Welcome to TabledIn! Please choose a restaurant.`);
 });
-
+//All the following intents are "caught" by their name. Webhook searches our app for
+//intent with exact same name as it was set in Dialogflow. Our idea was to name first intent
+// by the restaurant id and all following intents would contain restaurant id in its name.
+// This way we achieved that our DB can be queried dynamically and create fulfillments based
+// on specific restaurant data.
 Restaurant.find()
   .then(restaurants => {
-    console.log(restaurants)
+    //This is first intent for specific restaurant where we try to see what are his intentions.
     restaurants.forEach(rest => {
       app.intent(rest._id, conv => {
         conv.ask(`Welcome to ${rest.name}. How can I help you?`);
@@ -62,8 +61,10 @@ Restaurant.find()
   .catch(err => {
     console.log(err);
   });
-
-// Creating booking
+// When the reservation intent in Google Assistant is activated, dialogflow awaits for all the
+// information to be extracted, in this case 1. guestnumber, 2.selectedDay, 3. arrivalTime
+// We send this data through axios call and try to create reservation on our booking route.
+// However we don't send the users name so actual booking will not be created.
 Restaurant.find()
   .then(restaurants => {
     restaurants.forEach(rest => {
@@ -81,36 +82,38 @@ Restaurant.find()
               dialogflow: true,
             }
           );
-          console.log('####################################');
-          console.log(response)
-          console.log('####################################');
-
+          // Depending on situation we can get diferent responses from our booking route.
+          // Each one of them has specific response to user (conv.ask()).
           if (
-            response.data.message === 'Restaurant is closed at selected time'
+            response.data.message === "Restaurant is closed at selected time"
           ) {
             conv.ask(
               `I'm afraid the restaurant is closed at that time. Can I help you with something else?`
             );
           } else if (
-            response.data.message === 'No free tables. Pick another time.'
+            response.data.message === "No free tables. Pick another time."
           ) {
             conv.ask(
               `I'm sorry, the restaurant is already fully booked at this time. Can I help you with something else?`
             );
           } else if (
-            response.data.message === 'Closed on this day. Pick another date.'
+            response.data.message === "Closed on this day. Pick another date."
           ) {
             conv.ask(
               `Unfortunately the restaurant is closed on that day. Can I help you with something else?`
             );
+            //if did not get any of those responses it means that we got "cannot create without name"
+            // warning. So now we send as parameters everything we got from user so far to the next intent
+            // which is going to be activated with asking the permision for his name.
           } else {
             const parameters = {
               selectedDay: selectedDay,
               guestnumber: guestnumber,
               arrivalTime: arrivalTime,
             };
-            // conv.contexts.set('values', 5, parameters);
             conv.data.parameters = parameters;
+            // We ask the user for permission to take his name from Google and automatically activate "permission"
+            //intent
             conv.ask(
               new Permission({
                 context: "",
@@ -120,6 +123,7 @@ Restaurant.find()
           }
         }
       );
+      //permission intent
       app.intent(
         `${rest._id} - reservation - name - permission`,
         async (conv, params, granted) => {
@@ -127,6 +131,8 @@ Restaurant.find()
           const name = conv.user.name;
           const data = conv.data.parameters;
           const arrivaltime = moment(data.arrivalTime).format("HH:mm");
+          //we took all the data from previous intent and if the permission is granted this time we make
+          //another axios call this time with name as well.
           if (granted) {
             const response = await axios.post(
               "https://tabledin.herokuapp.com/api/bookings",
@@ -139,22 +145,25 @@ Restaurant.find()
                 name: name.display,
               }
             );
+            //Sending arrival time and date for personalized closing of conversation
             const parameters = {
               selectedDay: data.selectedDay,
               arrivalTime: arrivaltime,
             };
-            // conv.contexts.set('values', 5, parameters);
             conv.data.parameters = parameters;
+            //After booking has been made we ask user if he needs anything else from us.
             conv.ask(
               `Thank you ${name.given}. Your reservation at ${rest.name} has been made. Can I help you with something else?`
             );
           } else {
+            //If user denies giving his name
             conv.ask(
               "I'm sorry, but I cannot make a reservation without your name. Can I help you with something else?"
             );
           }
         }
       );
+      // If user doesn't need anything else we activate personalized closing intent
       app.intent(`${rest._id} - reservation - end`, (conv, params) => {
         const date = conv.data.parameters.selectedDay;
         const day = moment(date).format("dddd");
@@ -175,7 +184,8 @@ Restaurant.find()
           conv.close("Thank you. Goodbye!");
         }
       });
-
+      // If user asks for cancellation of the reservation this intent is activated
+      // where we ask for users name
       app.intent(`${rest._id} - cancellation`, (conv, params) => {
         conv.ask(
           new Permission({
@@ -184,6 +194,8 @@ Restaurant.find()
           })
         );
       });
+      //If reservation under users name exists we delete it and give
+      //personalized response.
       app.intent(`${rest._id} - cancellation - name`, (conv, params) => {
         const name = conv.user.name;
         return Booking.findOneAndDelete({
@@ -191,7 +203,6 @@ Restaurant.find()
           visitorname: name.display,
         })
           .then(booking => {
-            // console.log("###########################", booking);
             const date = booking.date;
             const day = moment(date).format("dddd");
             const tomorrow = moment()
@@ -227,13 +238,10 @@ Restaurant.find()
             res.json(err);
           });
       });
-     
     });
   })
   .catch(err => {
     console.log(err);
   });
-
 router.post("/", app);
-
 module.exports = router;
