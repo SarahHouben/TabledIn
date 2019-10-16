@@ -62,7 +62,7 @@ export default class About extends Component {
               target="_blank"
               rel="noopener noreferrer"
               className="about-text-link"
-              href="https://assistant.google.com/services/a/uid/000000691425a561?hl=de"
+              href="https://assistant.google.com/services/a/uid/000000691425a561?hl"
             >this link{" "}
             </a>
           on a mobile device to sign up for the Alpha testing-stage of the chatbot with a gmail account. Once signed up, open Google Assistant and action TabledIn by saying <i>"Ok Google, talk to TabledIn"</i>. You will be asked to choose a restaurant. Currently you have the choice between the restaurants <i>"Nora's Garden"</i> and <i>"Pizzeria Da Toni"</i>. You can choose to make a reservation or to cancel a reservation under your name.
