@@ -59,6 +59,10 @@ If there is no free table, a message is sent to the user, informing them of this
 
 ![alt text](https://github.com/SarahHouben/TabledIn/blob/master/client/public/Reservations_TabledIn.png "TabledIn Reservations")
 
+### Watch the Hackshow Pitch
+
+An explanation of the functionalities of TabledIn can also be watched [here](https://www.youtube.com/watch?v=RmPYxqC37dg). The video was taken at the Ironhack October Hackshow in Berlin.
+
 
 ## Technology Used
 
