@@ -89,12 +89,18 @@ export default class Signup extends Component {
             {this.state.message && (
               <p className="auth-message">{this.state.message}</p>
             )}
-            <button className="edit-button" type="submit">Signup</button>
+            <button className="edit-button" type="submit">
+              Signup
+            </button>
           </form>
           <p>
             ...or <Link to="/login">log in</Link>
           </p>
         </div>
+        <p className="test_cred_p">
+          Want to test the app? Get the test-credentials{" "}
+          <Link to="/about">here</Link>.
+        </p>
       </>
     );
   }

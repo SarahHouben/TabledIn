@@ -57,6 +57,7 @@ export default class About extends Component {
           </a>
 
           <h3 className="about-section-top-h3-bottom">Try it out</h3>
+          <p className="about_subheader"><strong>Test the chatbot</strong></p>
           <p>
             If you would like to test the full functionality of TabledIn, click on <a
               target="_blank"
@@ -68,8 +69,23 @@ export default class About extends Component {
           on a mobile device to sign up for the Alpha testing-stage of the chatbot with a gmail account. Once signed up, open Google Assistant and action TabledIn by saying <i>"Ok Google, talk to TabledIn"</i>. You will be asked to choose a restaurant. Currently you have the choice between the restaurants <i>"Nora's Garden"</i> and <i>"Pizzeria Da Toni"</i>. You can choose to make a reservation or to cancel a reservation under your name.
             </p>
 
-            <p>
-              To view the bookings you have added via the chatbot, log into the web app using the credentials <i>"Toni"</i> and password <i>"testtest"</i>  for <i>"Pizzeria Da Toni"</i> or <i>"Nora"</i>  and password <i>"testtest"</i> for <i>"Nora's Garden"</i>.
+            <p className="about_subheader"><strong>Sign into the webapp</strong></p>
+            <p className="about_p">
+              You can log into the web app using the test-credentials:
+<div className="about_credentials">
+            <p>For <i>"Pizzeria Da Toni"</i></p>  
+              <ul>
+                <li>Username: <i>"Toni"</i></li>
+                <li>Password: <i>"testtest"</i></li>
+              </ul>
+
+             <p className="about_Nora">For <i>"Nora's Garden"</i></p>
+              <ul>
+                <li>Username: <i>"Nora"</i></li>
+                <li>Password: <i>"testtest"</i></li>
+              </ul>
+</div>
+              After signing in, you can view the bookings you have added via the chatbot,
             </p>
             <p>
              Alternatively, simply create a new free account  on the webapp to view the restaurant bookings platform.
