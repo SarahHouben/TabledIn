@@ -37,7 +37,7 @@ const {
   DateTime,
   Permission,
 } = require("actions-on-google");
-const app = dialogflow({ debug: true });
+const app = dialogflow({ debug: false });
 //When you invoke our application through google assistant, webhook is activated by the Dialogflow.
 // First intent activated is always welcome intent - in our case intent which lets user choose restaurant.
 // Depending on restaurant chosen, all following intents are connected to that restaurant
@@ -73,7 +73,7 @@ Restaurant.find()
         async (conv, { guestnumber, selectedDay, arrivalTime }, permision) => {
           const arrivaltime = moment(arrivalTime).format("HH:mm");
           const response = await axios.post(
-            "https://tabledin.herokuapp.com/api/bookings",
+            "http://localhost:5000/api/bookings",
             {
               guestnumber,
               selectedDay,
@@ -135,7 +135,7 @@ Restaurant.find()
           //another axios call this time with name as well.
           if (granted) {
             const response = await axios.post(
-              "https://tabledin.herokuapp.com/api/bookings",
+              "http://localhost:5000/api/bookings",
               {
                 guestnumber: data.guestnumber,
                 selectedDay: data.selectedDay,
@@ -243,5 +243,7 @@ Restaurant.find()
   .catch(err => {
     console.log(err);
   });
+  
 router.post("/", app);
+
 module.exports = router;

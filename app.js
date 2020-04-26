@@ -1,41 +1,30 @@
-require("dotenv").config();
+require('dotenv').config();
+const colors = require('colors');
+const errorHandler = require('./middleware/error')
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const favicon = require('serve-favicon');
+const connectDB = require('./configs/db');
+const mongoose = require('mongoose');
+const logger = require('morgan');
+const path = require('path');
+const cors = require('cors');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
 
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const express = require("express");
-const favicon = require("serve-favicon");
-const hbs = require("hbs");
-const mongoose = require("mongoose");
-const logger = require("morgan");
-const path = require("path");
-const cors = require("cors");
-const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
-const flash = require("connect-flash");
+connectDB();
 
-mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/tabledin", {
-    useNewUrlParser: true
-  })
-  // .connect("mongodb://localhost/tabledin", { useNewUrlParser: true })
-  .then(x => {
-    console.log(
-      `Connected to Mongo! Database name: "${x.connections[0].name}"`
-    );
-  })
-  .catch(err => {
-    console.error("Error connecting to mongo", err);
-  });
-
-const app_name = require("./package.json").name;
-const debug = require("debug")(
-  `${app_name}:${path.basename(__filename).split(".")[0]}`
+const app_name = require('./package.json').name;
+const debug = require('debug')(
+  `${app_name}:${path.basename(__filename).split('.')[0]}`
 );
 
 const app = express();
 
 // Middleware Setup
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -43,74 +32,69 @@ app.use(cookieParser());
 // Express View engine setup
 
 app.use(
-  require("node-sass-middleware")({
-    src: path.join(__dirname, "public"),
-    dest: path.join(__dirname, "public"),
-    sourceMap: true
+  require('node-sass-middleware')({
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    sourceMap: true,
   })
 );
 
 // CORS -  REQUIRED FOR CLOUDINARY might leave, not sure
-app.use(
-  cors({
-    origin: ["http://localhost:3000"]
-  })
-);
+app.use(cors());
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
-app.use(express.static(path.join(__dirname, "/client/build")));
-app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
-
-hbs.registerHelper("ifUndefined", (value, options) => {
-  if (arguments.length < 2)
-    throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
-  if (typeof value !== undefined) {
-    return options.inverse(this);
-  } else {
-    return options.fn(this);
-  }
-});
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 // default value for title local
-app.locals.title = "TabledIn";
+app.locals.title = 'TabledIn';
 
 // Enable authentication using session + passport
 app.use(
   session({
-    secret: "irongenerator",
+    secret: 'irongenerator',
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(flash());
-require("./passport")(app);
+require('./passport')(app);
+
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
 
 //##############   ROUTES MIDDLEWARE STARTS HERE:     ##############
 
-const index = require("./routes/index");
-app.use("/", index);
+const index = require('./routes/index');
+app.use('/', index);
 
-const authRoutes = require("./routes/auth");
-app.use("/api/auth", authRoutes);
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
 
-const restaurantRoutes = require("./routes/restaurants");
-app.use("/api/restaurants", restaurantRoutes);
+const restaurantRoutes = require('./routes/restaurants');
+app.use('/api/restaurants', restaurantRoutes);
 
-const bookingRoutes = require("./routes/bookings");
-app.use("/api/bookings", bookingRoutes);
+const bookingRoutes = require('./routes/bookings');
+app.use('/api/bookings', bookingRoutes);
 
-const plannerRoutes = require("./routes/planner");
-app.use("/api/planner", plannerRoutes);
+const plannerRoutes = require('./routes/planner');
+app.use('/api/planner', plannerRoutes);
 
-const dialogflow = require("./routes/dialogflow");
-app.use("/dialogflow", dialogflow);
+const dialogflow = require('./routes/dialogflow');
+app.use('/dialogflow', dialogflow);
 
 //IMAGE UPLOAD ROUTE
 // const plannerRoutes = require("./routes/planner");
 // app.use("/api/planner", plannerRoutes);
-const upload = require("./routes/file-upload");
-app.use("/api/add-image", upload);
+const upload = require('./routes/file-upload');
+app.use('/api/add-image', upload);
 
+const server = app.listen(PORT, () =>
+  console.log(
+    `Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`
+      .yellow.bold
+  )
+);
 module.exports = app;
