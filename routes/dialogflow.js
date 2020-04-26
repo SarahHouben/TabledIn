@@ -20,28 +20,28 @@
 // rendering page at certain amount of time
 // bonus: opening times
 // Try to make conversations as human as possible - its a real person substitute
-"use strict";
-const express = require("express");
-const bodyParser = require("body-parser");
+'use strict';
+const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router().use(bodyParser.json());
-const axios = require("axios");
-const moment = require("moment");
-const Booking = require("../models/Booking");
-const DayReport = require("../models/DayReport");
-const { Restaurant } = require("../models/Restaurant");
-const Table = require("../models/Table");
+const axios = require('axios');
+const moment = require('moment');
+const Booking = require('../models/Booking');
+const DayReport = require('../models/DayReport');
+const Restaurant = require('../models/Restaurant');
+const Table = require('../models/Table');
 const {
   dialogflow,
   SignIn,
   Suggestions,
   DateTime,
   Permission,
-} = require("actions-on-google");
+} = require('actions-on-google');
 const app = dialogflow({ debug: false });
 //When you invoke our application through google assistant, webhook is activated by the Dialogflow.
 // First intent activated is always welcome intent - in our case intent which lets user choose restaurant.
 // Depending on restaurant chosen, all following intents are connected to that restaurant
-app.intent("Default Welcome Intent", conv => {
+app.intent('Default Welcome Intent', (conv) => {
   conv.ask(`Welcome to TabledIn! Please choose a restaurant.`);
 });
 //All the following intents are "caught" by their name. Webhook searches our app for
@@ -50,15 +50,15 @@ app.intent("Default Welcome Intent", conv => {
 // This way we achieved that our DB can be queried dynamically and create fulfillments based
 // on specific restaurant data.
 Restaurant.find()
-  .then(restaurants => {
+  .then((restaurants) => {
     //This is first intent for specific restaurant where we try to see what are his intentions.
-    restaurants.forEach(rest => {
-      app.intent(rest._id, conv => {
+    restaurants.forEach((rest) => {
+      app.intent(rest._id, (conv) => {
         conv.ask(`Welcome to ${rest.name}. How can I help you?`);
       });
     });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
 // When the reservation intent in Google Assistant is activated, dialogflow awaits for all the
@@ -66,14 +66,14 @@ Restaurant.find()
 // We send this data through axios call and try to create reservation on our booking route.
 // However we don't send the users name so actual booking will not be created.
 Restaurant.find()
-  .then(restaurants => {
-    restaurants.forEach(rest => {
+  .then((restaurants) => {
+    restaurants.forEach((rest) => {
       app.intent(
         `${rest._id} - reservation`,
         async (conv, { guestnumber, selectedDay, arrivalTime }, permision) => {
-          const arrivaltime = moment(arrivalTime).format("HH:mm");
+          const arrivaltime = moment(arrivalTime).format('HH:mm');
           const response = await axios.post(
-            "http://localhost:5000/api/bookings",
+            'http://localhost:5000/api/v2/bookings',
             {
               guestnumber,
               selectedDay,
@@ -85,19 +85,19 @@ Restaurant.find()
           // Depending on situation we can get diferent responses from our booking route.
           // Each one of them has specific response to user (conv.ask()).
           if (
-            response.data.message === "Restaurant is closed at selected time"
+            response.data.message === 'Restaurant is closed at selected time'
           ) {
             conv.ask(
               `I'm afraid the restaurant is closed at that time. Can I help you with something else?`
             );
           } else if (
-            response.data.message === "No free tables. Pick another time."
+            response.data.message === 'No free tables. Pick another time.'
           ) {
             conv.ask(
               `I'm sorry, the restaurant is already fully booked at this time. Can I help you with something else?`
             );
           } else if (
-            response.data.message === "Closed on this day. Pick another date."
+            response.data.message === 'Closed on this day. Pick another date.'
           ) {
             conv.ask(
               `Unfortunately the restaurant is closed on that day. Can I help you with something else?`
@@ -116,8 +116,8 @@ Restaurant.find()
             //intent
             conv.ask(
               new Permission({
-                context: "",
-                permissions: "NAME",
+                context: '',
+                permissions: 'NAME',
               })
             );
           }
@@ -127,15 +127,15 @@ Restaurant.find()
       app.intent(
         `${rest._id} - reservation - name - permission`,
         async (conv, params, granted) => {
-          const explicit = conv.arguments.get("PERMISSION"); // also retrievable w/ explicit arguments.get
+          const explicit = conv.arguments.get('PERMISSION'); // also retrievable w/ explicit arguments.get
           const name = conv.user.name;
           const data = conv.data.parameters;
-          const arrivaltime = moment(data.arrivalTime).format("HH:mm");
+          const arrivaltime = moment(data.arrivalTime).format('HH:mm');
           //we took all the data from previous intent and if the permission is granted this time we make
           //another axios call this time with name as well.
           if (granted) {
             const response = await axios.post(
-              "http://localhost:5000/api/bookings",
+              'http://localhost:5000/api/v2/bookings',
               {
                 guestnumber: data.guestnumber,
                 selectedDay: data.selectedDay,
@@ -166,11 +166,9 @@ Restaurant.find()
       // If user doesn't need anything else we activate personalized closing intent
       app.intent(`${rest._id} - reservation - end`, (conv, params) => {
         const date = conv.data.parameters.selectedDay;
-        const day = moment(date).format("dddd");
-        const tomorrow = moment()
-          .add(1, "days")
-          .format("dddd");
-        const today = moment().format("dddd");
+        const day = moment(date).format('dddd');
+        const tomorrow = moment().add(1, 'days').format('dddd');
+        const today = moment().format('dddd');
         const time = conv.data.parameters.arrivalTime;
         if (date) {
           if (day == today) {
@@ -181,7 +179,7 @@ Restaurant.find()
             conv.close(`Ok then, see you on ${day} at ${time}. Goodbye!`);
           }
         } else {
-          conv.close("Thank you. Goodbye!");
+          conv.close('Thank you. Goodbye!');
         }
       });
       // If user asks for cancellation of the reservation this intent is activated
@@ -189,8 +187,8 @@ Restaurant.find()
       app.intent(`${rest._id} - cancellation`, (conv, params) => {
         conv.ask(
           new Permission({
-            context: "Let me check that for you.",
-            permissions: "NAME",
+            context: 'Let me check that for you.',
+            permissions: 'NAME',
           })
         );
       });
@@ -202,48 +200,46 @@ Restaurant.find()
           restaurant: rest._id,
           visitorname: name.display,
         })
-          .then(booking => {
+          .then((booking) => {
             const date = booking.date;
-            const day = moment(date).format("dddd");
-            const tomorrow = moment()
-              .add(1, "days")
-              .format("dddd");
-            const today = moment().format("dddd");
+            const day = moment(date).format('dddd');
+            const tomorrow = moment().add(1, 'days').format('dddd');
+            const today = moment().format('dddd');
             if (booking) {
               if (day == today) {
                 conv.ask(
                   `Thank you ${name.given}, your reservation for today has been cancelled!`
                 );
-                conv.ask("Can I help you with something else?");
+                conv.ask('Can I help you with something else?');
               } else if (day == tomorrow) {
                 conv.ask(
                   `Thank you ${name.given}, your reservation for tomorrow has been cancelled!`
                 );
-                conv.ask("Can I help you with something else?");
+                conv.ask('Can I help you with something else?');
               } else {
                 conv.ask(
                   `Thank you ${name.given}, your reservation for ${day} has been cancelled!`
                 );
-                conv.ask("Can I help you with something else?");
+                conv.ask('Can I help you with something else?');
               }
             } else {
               conv.ask(
                 `I'm sorry ${name.given}, I cannot find a reservation under your name.`
               );
-              conv.ask("Can I help you with something else?");
-              console.log("Deleted booking");
+              conv.ask('Can I help you with something else?');
+              console.log('Deleted booking');
             }
           })
-          .catch(err => {
+          .catch((err) => {
             res.json(err);
           });
       });
     });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
-  
-router.post("/", app);
+
+router.post('/', app);
 
 module.exports = router;

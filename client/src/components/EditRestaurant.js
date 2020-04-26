@@ -36,7 +36,7 @@ export default class EditRestaurant extends Component {
   //get Restaurant Data
   getData = () => {
     axios
-      .get("/api/restaurants")
+      .get("/api/v2/restaurants")
       .then(response => {
         // console.log(response);
         this.setState({
@@ -47,7 +47,7 @@ export default class EditRestaurant extends Component {
           weekdays: response.data.weekdays,
           tablenumber: response.data.tablenumber,
           tables: response.data.tables,
-          openingtimes: response.data.openingtime,
+          openingtimes: response.data.openingtimes,
           menu: response.data.menu,
           logo:
             response.data.logo ||
@@ -74,7 +74,7 @@ export default class EditRestaurant extends Component {
     const uploadData = new FormData();
     uploadData.append("menu", menuFile);
 
-    axios.post("/api/add-image/menu", uploadData).then(response => {
+    axios.post("/api/v2/add-image/menu", uploadData).then(response => {
       const menu = response.data.secure_url;
       this.setState({ menu: menu });
     });
@@ -87,7 +87,7 @@ export default class EditRestaurant extends Component {
     const uploadData = new FormData();
     uploadData.append("logo", logoFile);
 
-    axios.post("/api/add-image/logo", uploadData).then(response => {
+    axios.post("/api/v2/add-image/logo", uploadData).then(response => {
       const logo = response.data.secure_url;
       this.setState({ logo: logo });
     });
@@ -179,7 +179,7 @@ export default class EditRestaurant extends Component {
     } = this.state;
 
     axios
-      .put("/api/restaurants", {
+      .put("/api/v2/restaurants", {
         name,
         address,
         phone,

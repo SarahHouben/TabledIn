@@ -37,7 +37,7 @@ export default class EditPlanner extends Component {
     this.props.changeDate(day);
     // console.log(this.state.selectedDay)
     axios
-      .post("/api/planner", {
+      .post("/api/v2/planner", {
         selectedDay: day
       })
       .then(response => {

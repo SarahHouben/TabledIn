@@ -50,15 +50,15 @@ export default class ShowRestaurant extends Component {
 
   getData = () => {
     axios
-      .get("/api/restaurants")
+      .get("/api/v2/restaurants")
       .then(response => {
         if (response) {
-          Object.keys(response.data.openingtime).forEach(key => {
-            response.data.openingtime[key].opentime = this.convertTime(
-              response.data.openingtime[key].opentime
+          Object.keys(response.data.openingtimes).forEach(key => {
+            response.data.openingtimes[key].opentime = this.convertTime(
+              response.data.openingtimes[key].opentime
             );
-            response.data.openingtime[key].closetime = this.convertTime(
-              response.data.openingtime[key].closetime
+            response.data.openingtimes[key].closetime = this.convertTime(
+              response.data.openingtimes[key].closetime
             );
           });
 
@@ -71,7 +71,7 @@ export default class ShowRestaurant extends Component {
             weekdays: response.data.weekdays,
             tablenumber: response.data.tablenumber,
             tables: response.data.tables,
-            openingtimes: response.data.openingtime,
+            openingtimes: response.data.openingtimes,
             menu: response.data.menu,
             logo: response.data.logo
           });
@@ -80,9 +80,7 @@ export default class ShowRestaurant extends Component {
       .catch(err => {
         console.log(err);
         // handle err.response depending on err.response.status
-        if (err.response.status === 404) {
-          this.setState({ error: "Not found" });
-        }
+      
       });
   };
 

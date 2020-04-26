@@ -36,7 +36,7 @@ export default class TableForm extends Component {
 
   getData = () => {
     axios
-      .get("/api/restaurants")
+      .get("/api/v2/restaurants")
       .then(response => {
         if (response.data) {
           this.setState(

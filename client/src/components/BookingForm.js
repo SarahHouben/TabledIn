@@ -45,7 +45,7 @@ export default class BookingForm extends Component {
     let success = "Created booking.";
 
     axios
-      .post("/api/bookings", {
+      .post("/api/v2/bookings", {
         selectedDay: this.state.selectedDay,
         guestnumber: this.state.guestnumber,
         arrivaltime: this.state.arrivaltime,

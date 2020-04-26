@@ -42,7 +42,7 @@ export default class Bookings extends Component {
   //get all bookings
   getData = () => {
     axios
-      .get("/api/bookings")
+      .get("/api/v2/bookings")
       .then(response => {
         //add show property to bookings
         let bookingsData = response.data.map(el => {
@@ -67,7 +67,7 @@ export default class Bookings extends Component {
 
   //delete selected booking
   deleteBooking = id => {
-    axios.delete(`/api/bookings/${id}`).then(res => {
+    axios.delete(`/api/v2/bookings/${id}`).then(res => {
       this.getData();
     });
   };

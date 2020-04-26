@@ -43,7 +43,7 @@ export default class RestaurantForm extends Component {
     const uploadData = new FormData();
     uploadData.append("menu", menuFile);
 
-    axios.post("/api/add-image/menu", uploadData).then(response => {
+    axios.post("/api/v2/add-image/menu", uploadData).then(response => {
       const menu = response.data.secure_url;
       this.setState({ menu: menu });
     });
@@ -56,7 +56,7 @@ export default class RestaurantForm extends Component {
     const uploadData = new FormData();
     uploadData.append("logo", logoFile);
 
-    axios.post("/api/add-image/logo", uploadData).then(response => {
+    axios.post("/api/v2/add-image/logo", uploadData).then(response => {
       const logo = response.data.secure_url;
       this.setState({ logo: logo });
     });
@@ -166,7 +166,7 @@ export default class RestaurantForm extends Component {
     } = this.state;
 
     axios
-      .post("/api/restaurants", {
+      .post("/api/v2/restaurants", {
         name,
         address,
         phone,

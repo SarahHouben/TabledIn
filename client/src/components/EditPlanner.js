@@ -43,7 +43,7 @@ export default class EditPlanner extends Component {
     let success = "Created schedule.";
 
     axios
-      .post("/api/planner/edit", {
+      .post("/api/v2/planner/edit", {
         selectedDay: this.props.selectedDay,
         open: this.state.open,
         opentime: this.state.opentime,

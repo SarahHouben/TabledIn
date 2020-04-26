@@ -71,16 +71,16 @@ const index = require('./routes/index');
 app.use('/', index);
 
 const authRoutes = require('./routes/auth');
-app.use('/api/auth', authRoutes);
+app.use('/api/v2/auth', authRoutes);
 
 const restaurantRoutes = require('./routes/restaurants');
-app.use('/api/restaurants', restaurantRoutes);
+app.use('/api/v2/restaurants', restaurantRoutes);
 
 const bookingRoutes = require('./routes/bookings');
-app.use('/api/bookings', bookingRoutes);
+app.use('/api/v2/bookings', bookingRoutes);
 
 const plannerRoutes = require('./routes/planner');
-app.use('/api/planner', plannerRoutes);
+app.use('/api/v2/planner', plannerRoutes);
 
 const dialogflow = require('./routes/dialogflow');
 app.use('/dialogflow', dialogflow);

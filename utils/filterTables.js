@@ -3,11 +3,10 @@
 exports.filterTables =  (tables, time) => {
   const filtered =  tables
     .filter(async (table) => {
-      let timeSlotArray = Object.keys(table.timeslots);
-      let availabilityArray = Object.values(table.timeslots);
-      let timeSlotIndex = timeSlotArray.indexOf(time.toString());
-      let checkArray = [];
-      console.log(timeSlotArray, availabilityArray, timeSlotIndex);
+      const timeSlotArray = Object.keys(table.timeslots);
+      const availabilityArray = Object.values(table.timeslots);
+      const timeSlotIndex = timeSlotArray.indexOf(time.toString());
+      const checkArray = [];
       for (let i = 0; i <= 3; i++) {
         checkArray.push(
           availabilityArray[(timeSlotIndex + i) % availabilityArray.length]

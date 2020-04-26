@@ -34,7 +34,7 @@ class App extends React.Component {
   editSchedule = props => {
     // console.log(this.state.selectedDay)
     axios
-      .delete("/api/planner", { data: { selectedDay: this.state.selectedDay } })
+      .delete("/api/v2/planner", { data: { selectedDay: this.state.selectedDay } })
       .then(res => {
         // console.log('fired' res)
         props.history.push("/planner/edit");
