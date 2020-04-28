@@ -1,12 +1,13 @@
 const { timeSlots } = require('../utils/timeSlots');
-const { createProject } = require('../google/createProject')
+const { shellScript } = require('../google/ShellScript');
 const Restaurant = require('../models/Restaurant');
+const Project = require('../models/Project');
 
 // @desc Create Restaurant
 // @route POST /api/v2/restaurants/
 // @access Client
 exports.createRestaurant = async (req, res) => {
-  const  {
+  const {
     name,
     address,
     phone,
@@ -44,7 +45,14 @@ exports.createRestaurant = async (req, res) => {
     };
 
     const restaurant = await Restaurant.create(data);
-    createProject(name,`id${restaurant._id}`);
+    const update = {
+      $set: { name: restaurant.name, owner: true, restaurant: restaurant._id },
+    };
+    const option = { new: true };
+    const query = { owner: false };
+    const project = await Project.findOneAndUpdate(query, update, option);
+
+    shellScript(project.id);
 
     console.log(
       `Restaurant by the name of ${name} was created by ${owner}`.brightGreen
@@ -64,9 +72,8 @@ exports.getRestaurant = async (req, res) => {
   try {
     const restaurant = await Restaurant.findOne(filter);
     res.json(restaurant);
-    
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.json(err);
   }
 };
@@ -112,7 +119,8 @@ exports.updateRestaurant = async (req, res) => {
     const restaurant = await Restaurant.findOneAndUpdate(filter, data, {
       new: true,
     });
-
+    const id = `id${restaurant._id}`;
+    console.log(restaurant);
     res.json(restaurant);
   } catch (err) {
     console.log(err);

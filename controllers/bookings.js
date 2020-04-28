@@ -1,7 +1,6 @@
 const { getWeekDay } = require('../utils/getWeekDay');
 const { filterTables } = require('../utils/filterTables');
 const { updateTables } = require('../utils/updateTables');
-const { createProject } = require('../google/createProject');
 const Booking = require('../models/Booking');
 const DayReport = require('../models/DayReport');
 const Table = require('../models/Table');
