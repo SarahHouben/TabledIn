@@ -1,4 +1,5 @@
 const { timeSlots } = require('../utils/timeSlots');
+const { createProject } = require('../google/createProject')
 const Restaurant = require('../models/Restaurant');
 
 // @desc Create Restaurant
@@ -43,6 +44,7 @@ exports.createRestaurant = async (req, res) => {
     };
 
     const restaurant = await Restaurant.create(data);
+    createProject(name,`id${restaurant._id}`);
 
     console.log(
       `Restaurant by the name of ${name} was created by ${owner}`.brightGreen

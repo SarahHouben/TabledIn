@@ -14,7 +14,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 
-connectDB();
+connectDB().catch(console.error);
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(

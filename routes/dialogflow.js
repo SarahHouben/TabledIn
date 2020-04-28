@@ -27,9 +27,7 @@ const router = express.Router().use(bodyParser.json());
 const axios = require('axios');
 const moment = require('moment');
 const Booking = require('../models/Booking');
-const DayReport = require('../models/DayReport');
 const Restaurant = require('../models/Restaurant');
-const Table = require('../models/Table');
 const {
   dialogflow,
   SignIn,
@@ -37,7 +35,10 @@ const {
   DateTime,
   Permission,
 } = require('actions-on-google');
+// const dialogflow = require('dialogflow').v2beta1;
 const app = dialogflow({ debug: false });
+
+
 //When you invoke our application through google assistant, webhook is activated by the Dialogflow.
 // First intent activated is always welcome intent - in our case intent which lets user choose restaurant.
 // Depending on restaurant chosen, all following intents are connected to that restaurant

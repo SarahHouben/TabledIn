@@ -1,6 +1,7 @@
 const { getWeekDay } = require('../utils/getWeekDay');
 const { filterTables } = require('../utils/filterTables');
 const { updateTables } = require('../utils/updateTables');
+const { createProject } = require('../google/createProject');
 const Booking = require('../models/Booking');
 const DayReport = require('../models/DayReport');
 const Table = require('../models/Table');
@@ -59,7 +60,7 @@ exports.createBooking = async (req, res) => {
         ],
       };
       const tables = await Table.find(filter);
-  
+
       const availableTables = await filterTables(tables, arival);
 
       //if there is table that can fit our reservation we take 0 index because its
@@ -92,7 +93,7 @@ exports.createBooking = async (req, res) => {
             webapp: webapp,
           };
           const booking = await Booking.create(data);
-
+          
           console.log('booking created'.brightGreen);
           res.json(booking);
         } else {
@@ -179,6 +180,7 @@ exports.createBooking = async (req, res) => {
             };
 
             const booking = await Booking.create(data);
+           
 
             console.log('booking created'.brightGreen);
             res.json(booking);
