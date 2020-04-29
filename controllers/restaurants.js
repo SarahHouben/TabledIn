@@ -1,9 +1,12 @@
 const { timeSlots } = require('../utils/timeSlots');
 const { shellScript } = require('../google/ShellScript');
+const { createAgent } = require('../google/CreateAgent');
+const { deleteAgent } = require('../google/DeleteAgent');
+const { uploadKey } = require('../google/UploadKey');
 const Restaurant = require('../models/Restaurant');
 const Project = require('../models/Project');
 
-// @desc Create Restaurant
+// @desc Create Restaurant and Dialogflow agent
 // @route POST /api/v2/restaurants/
 // @access Client
 exports.createRestaurant = async (req, res) => {
@@ -46,14 +49,15 @@ exports.createRestaurant = async (req, res) => {
 
     const restaurant = await Restaurant.create(data);
     const update = {
-      $set: { name: restaurant.name, owner: true, restaurant: restaurant._id },
+      $set: { name: restaurant.name, owned: true, restaurant: restaurant._id },
     };
     const option = { new: true };
     const query = { owner: false };
-    const project = await Project.findOneAndUpdate(query, update, option);
+    if (googleassistant) {
+      const project = await Project.findOneAndUpdate(query, update, option);
 
-    shellScript(project.id);
-
+      shellScript(project.id);
+    }
     console.log(
       `Restaurant by the name of ${name} was created by ${owner}`.brightGreen
     );
@@ -71,6 +75,13 @@ exports.getRestaurant = async (req, res) => {
   const filter = { owner: user };
   try {
     const restaurant = await Restaurant.findOne(filter);
+    // shellScript('mmadqweqwegcls7777dasdd');
+    // createAgent('mmadqweqwegcls7777dasdd', 'Madera');
+    // deleteAgent('mmadqweqwegcls7777dasdd')
+    const key = await uploadKey('mmadqweqwegcls7777dasdd', 'Madera');
+    console.log(key)
+
+
     res.json(restaurant);
   } catch (err) {
     console.log(err);
@@ -119,8 +130,7 @@ exports.updateRestaurant = async (req, res) => {
     const restaurant = await Restaurant.findOneAndUpdate(filter, data, {
       new: true,
     });
-    const id = `id${restaurant._id}`;
-    console.log(restaurant);
+
     res.json(restaurant);
   } catch (err) {
     console.log(err);
