@@ -1,5 +1,5 @@
 const { google } = require('googleapis');
-const { authToken } = require('./Authorize');
+const { authToken } = require('./Auth');
 
 
 exports.deleteAgent = async (id) => {
@@ -19,7 +19,7 @@ exports.deleteAgent = async (id) => {
  
 
   const result = await dialogflow.projects
-    .deleteAgent(request)
+    .getAgent(request)
     .catch(console.error);
 
  

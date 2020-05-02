@@ -56,13 +56,19 @@ exports.createRestaurant = async (req, res) => {
     if (googleassistant) {
       const project = await Project.findOneAndUpdate(query, update, option);
 
-      shellScript(project.id);
+      await shellScript(project.id);
+
+      await reateAgent(project.id, restaurant.name);
+
+      await uploadKey(project.id, restaurant.name);
+      // deleteAgent('mmadqweqwegcls7777dasdd')
     }
     console.log(
       `Restaurant by the name of ${name} was created by ${owner}`.brightGreen
     );
     res.json(restaurant);
   } catch (err) {
+    console.error(err);
     res.json(err);
   }
 };
@@ -75,12 +81,6 @@ exports.getRestaurant = async (req, res) => {
   const filter = { owner: user };
   try {
     const restaurant = await Restaurant.findOne(filter);
-    // shellScript('mmadqweqwegcls7777dasdd');
-    // createAgent('mmadqweqwegcls7777dasdd', 'Madera');
-    // deleteAgent('mmadqweqwegcls7777dasdd')
-    const key = await uploadKey('mmadqweqwegcls7777dasdd', 'Madera');
-    console.log(key)
-
 
     res.json(restaurant);
   } catch (err) {
