@@ -86,21 +86,21 @@ exports.editReport = async (req, res) => {
       const report = await DayReport.create(data);
 
       if (report.open) {
-        const data = {
-          dayreport: dayreport._id,
-          tablecapacity: el.cap,
-          tablenumber: el.num,
-          timeslots: dayreport.timeslots[dayIndex].timeslots,
-          date: dayreport.date,
-        };
-
-        await dayreport.tables.map((el) => {
-          Table.create(data);
+       
+        const dayIndex = new Date(selectedDay).getDay() - 1;
+        await report.tables.map(async (el) => {
+          const data = {
+            dayreport: report._id,
+            tablecapacity: el.cap,
+            tablenumber: el.num,
+            timeslots: report.timeslots[dayIndex].timeslots,
+            date: report.date,
+          };
+          await Table.create(data);
         });
       }
-
       res.json({});
-      console.log('something');
+      console.log('Edited Report' .brightGreen);
     } catch (err) {
       console.error(err);
       res.json(err);

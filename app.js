@@ -64,7 +64,7 @@ require('./passport')(app);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+
 
 //##############   ROUTES MIDDLEWARE STARTS HERE:     ##############
 
@@ -92,10 +92,5 @@ app.use('/dialogflow', dialogflow);
 const upload = require('./routes/file-upload');
 app.use('/api/add-image', upload);
 
-const server = app.listen(PORT, () =>
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`
-      .yellow.bold
-  )
-);
+
 module.exports = app;

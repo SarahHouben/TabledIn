@@ -38,7 +38,6 @@ const {
 // const dialogflow = require('dialogflow').v2beta1;
 const app = dialogflow({ debug: false });
 
-
 //When you invoke our application through google assistant, webhook is activated by the Dialogflow.
 // First intent activated is always welcome intent - in our case intent which lets user choose restaurant.
 // Depending on restaurant chosen, all following intents are connected to that restaurant
@@ -53,11 +52,7 @@ app.intent('Default Welcome Intent', (conv) => {
 Restaurant.find()
   .then((restaurants) => {
     //This is first intent for specific restaurant where we try to see what are his intentions.
-    restaurants.forEach((rest) => {
-      app.intent(rest._id, (conv) => {
-        conv.ask(`Welcome to ${rest.name}. How can I help you?`);
-      });
-    });
+    restaurants.forEach((rest) => {});
   })
   .catch((err) => {
     console.log(err);
@@ -69,6 +64,10 @@ Restaurant.find()
 Restaurant.find()
   .then((restaurants) => {
     restaurants.forEach((rest) => {
+      app.intent(rest._id, (conv) => {
+        conv.ask(`Welcome to ${rest.name}. How can I help you?`);
+      });
+
       app.intent(
         `${rest._id} - reservation`,
         async (conv, { guestnumber, selectedDay, arrivalTime }, permision) => {
