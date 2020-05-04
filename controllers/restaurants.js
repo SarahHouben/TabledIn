@@ -2,6 +2,7 @@ const { timeSlots } = require('../utils/timeSlots');
 const { shellScript } = require('../google/ShellScript');
 const { createAgent } = require('../google/CreateAgent');
 const { deleteAgent } = require('../google/DeleteAgent');
+const { validationResult } = require('express-validator');
 const { uploadKey } = require('../google/UploadKey');
 const Restaurant = require('../models/Restaurant');
 const Project = require('../models/Project');
@@ -24,10 +25,15 @@ exports.createRestaurant = async (req, res) => {
     tables,
     openingtimes,
   } = req.body;
+
   const owner = req.user._id;
 
-  // map the timeslots with opening times
   try {
+    const errors = await validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.json({ message: errors.errors[0].msg });
+    }
     const timeslots = await timeSlots(openingtimes);
 
     const data = {
@@ -109,7 +115,11 @@ exports.updateRestaurant = async (req, res) => {
   } = req.body;
 
   try {
-    // map the timeslots array with the openingtimes in combined
+    const errors = await validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.json({ message: errors.errors[0].msg });
+    }
     const timeslots = await timeSlots(openingtimes);
 
     const filter = { owner: user };

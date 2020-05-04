@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const { getWeekDay } = require('../utils/getWeekDay');
 const { filterTables } = require('../utils/filterTables');
 const { updateTables } = require('../utils/updateTables');
@@ -7,10 +8,16 @@ const Table = require('../models/Table');
 const Restaurant = require('../models/Restaurant');
 
 // @desc Create Bookings along with DayReport
-// @route post /api/v2/bookings/
+// @route POST /api/v2/bookings/
 // @access Client and Dialogflow
 exports.createBooking = async (req, res) => {
   try {
+    const errors = await validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.json({ message: errors.errors[0].msg });
+    }
+
     let owner;
     if (!req.body.dialogflow) {
       owner = req.user._id;
@@ -221,7 +228,7 @@ exports.getBookings = async (req, res) => {
   }
 };
 
-// @desc DELETE Bookings from DB
+// @desc Delete Bookings from DB
 // @route DELETE /api/v2/bookings/
 // @access Client
 exports.deleteBooking = async (req, res) => {

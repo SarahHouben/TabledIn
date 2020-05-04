@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const {restaurantValidator} = require('../utils/validators')
 const {
   createRestaurant,
   getRestaurant,
@@ -9,7 +10,7 @@ const {
 router
   .route('/')
   .get(getRestaurant)
-  .post(createRestaurant)
-  .put(updateRestaurant);
+  .post(restaurantValidator,createRestaurant)
+  .put(restaurantValidator,updateRestaurant);
 
 module.exports = router;

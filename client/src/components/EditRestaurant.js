@@ -1,16 +1,17 @@
-import React, { Component } from "react";
-import TimeForm from "./TimeForm";
-import TableForm from "./TableForm";
-import axios from "axios";
+import React, { Component } from 'react';
+import TimeForm from './TimeForm';
+import TableForm from './TableForm';
+import axios from 'axios';
 
 export default class EditRestaurant extends Component {
   state = {
-    name: "",
-    address: "",
-    phone: "",
-    email: "",
-    menu: "",
-    logo: "",
+    name: '',
+    address: '',
+    phone: '',
+    email: '',
+    menu: '',
+    logo: '',
+    message: '',
     weekdays: {
       monday: false,
       tuesday: false,
@@ -18,7 +19,7 @@ export default class EditRestaurant extends Component {
       thursday: false,
       friday: false,
       saturday: false,
-      sunday: false
+      sunday: false,
     },
     tablenumber: 0,
     tables: [],
@@ -29,36 +30,50 @@ export default class EditRestaurant extends Component {
       thursday: {},
       friday: {},
       saturday: {},
-      sunday: {}
-    }
+      sunday: {},
+    },
   };
 
   //get Restaurant Data
   getData = () => {
     axios
-      .get("/api/v2/restaurants")
-      .then(response => {
-        // console.log(response);
+      .get('/api/v2/restaurants')
+      .then((res) => {
+        const {
+          name,
+          address,
+          phone,
+          email,
+          weekdays,
+          tablenumber,
+          tables,
+          openingtimes,
+          menu,
+          message,
+          logo,
+        } = res.data;
+
         this.setState({
-          name: response.data.name,
-          address: response.data.address,
-          phone: response.data.phone,
-          email: response.data.email,
-          weekdays: response.data.weekdays,
-          tablenumber: response.data.tablenumber,
-          tables: response.data.tables,
-          openingtimes: response.data.openingtimes,
-          menu: response.data.menu,
+          name,
+          address,
+          phone,
+          email,
+          weekdays,
+          tablenumber,
+          tables,
+          openingtimes,
+          menu,
+          message,
           logo:
-            response.data.logo ||
-            "https://res.cloudinary.com/dmlqhwwfc/image/upload/v1570446767/TabledIn/tabledin_logo.png"
+            logo ||
+            'https://res.cloudinary.com/dmlqhwwfc/image/upload/v1570446767/TabledIn/tabledin_logo.png',
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
         // handle err.response depending on err.response.status
         if (err.response.status === 404) {
-          this.setState({ error: "Not found" });
+          this.setState({ error: 'Not found' });
         }
       });
   };
@@ -68,40 +83,40 @@ export default class EditRestaurant extends Component {
   };
 
   //UPLOAD MENU (PDF)
-  fileChangedHandlerMenu = event => {
+  fileChangedHandlerMenu = (event) => {
     const menuFile = event.target.files[0];
 
     const uploadData = new FormData();
-    uploadData.append("menu", menuFile);
+    uploadData.append('menu', menuFile);
 
-    axios.post("/api/v2/add-image/menu", uploadData).then(response => {
+    axios.post('/api/v2/add-image/menu', uploadData).then((response) => {
       const menu = response.data.secure_url;
       this.setState({ menu: menu });
     });
   };
 
   //UPLOAD LOGO
-  fileChangedHandlerLogo = event => {
+  fileChangedHandlerLogo = (event) => {
     const logoFile = event.target.files[0];
 
     const uploadData = new FormData();
-    uploadData.append("logo", logoFile);
+    uploadData.append('logo', logoFile);
 
-    axios.post("/api/v2/add-image/logo", uploadData).then(response => {
+    axios.post('/api/v2/add-image/logo', uploadData).then((response) => {
       const logo = response.data.secure_url;
       this.setState({ logo: logo });
     });
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target;
 
     this.setState(
       {
-        [name]: value
+        [name]: value,
       },
       () => {
-        if (name === "tablenumber" && this.state.tablenumber) {
+        if (name === 'tablenumber' && this.state.tablenumber) {
           this.initializedTable(this.state.tablenumber);
         }
       }
@@ -110,20 +125,20 @@ export default class EditRestaurant extends Component {
 
   setOpeningTime = (name, value, weekday) => {
     //valute that we get from time form is a string and we need it as a number in DB
-    let valueInt = Number(value.replace(":", ""));
+    let valueInt = Number(value.replace(':', ''));
     this.setState({
       openingtimes: {
         ...this.state.openingtimes,
         [weekday]: {
           ...this.state.openingtimes[weekday],
-          [name]: valueInt
-        }
-      }
+          [name]: valueInt,
+        },
+      },
     });
   };
 
   //get values from checkboxes and update states of weekdays with them
-  handleCheckboxChange = event => {
+  handleCheckboxChange = (event) => {
     const { weekdays } = { ...this.state };
     const currentState = weekdays;
 
@@ -135,10 +150,10 @@ export default class EditRestaurant extends Component {
   };
 
   //create array of tables based on table number with default empty states for cap and num
-  initializedTable = tableNumber => {
-    let newTableState = [...Array(Number(tableNumber))].map(table => ({
+  initializedTable = (tableNumber) => {
+    let newTableState = [...Array(Number(tableNumber))].map((table) => ({
       cap: 0,
-      num: ""
+      num: '',
     }));
     this.setState({ tables: newTableState });
   };
@@ -149,20 +164,20 @@ export default class EditRestaurant extends Component {
       if (index === i) {
         return {
           cap,
-          num
+          num,
         };
       } else return table;
     });
 
     this.setState(
       {
-        tables: totalTables
+        tables: totalTables,
       },
       () => {}
     );
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     const {
@@ -175,11 +190,11 @@ export default class EditRestaurant extends Component {
       weekdays,
       tablenumber,
       tables,
-      openingtimes
+      openingtimes,
     } = this.state;
 
     axios
-      .put("/api/v2/restaurants", {
+      .put('/api/v2/restaurants', {
         name,
         address,
         phone,
@@ -189,12 +204,18 @@ export default class EditRestaurant extends Component {
         weekdays,
         tablenumber,
         tables,
-        openingtimes
+        openingtimes,
       })
-      .then(data => {
-        this.props.history.push("/restaurant/show");
+      .then((res) => {
+        if (res.data.message) {
+          this.setState({
+            message: res.data.message,
+          });
+        } else {
+          this.props.history.push('/restaurant/show');
+        }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -269,7 +290,7 @@ export default class EditRestaurant extends Component {
                 <TimeForm
                   openingtimes={this.state.openingtimes.monday}
                   setOpeningTime={this.setOpeningTime}
-                  weekday={"monday"}
+                  weekday={'monday'}
                 />
               )}
             </div>
@@ -287,7 +308,7 @@ export default class EditRestaurant extends Component {
                 <TimeForm
                   openingtimes={this.state.openingtimes.tuesday}
                   setOpeningTime={this.setOpeningTime}
-                  weekday={"tuesday"}
+                  weekday={'tuesday'}
                 />
               )}
             </div>
@@ -305,7 +326,7 @@ export default class EditRestaurant extends Component {
                 <TimeForm
                   openingtimes={this.state.openingtimes.wednesday}
                   setOpeningTime={this.setOpeningTime}
-                  weekday={"wednesday"}
+                  weekday={'wednesday'}
                 />
               )}
             </div>
@@ -323,7 +344,7 @@ export default class EditRestaurant extends Component {
                 <TimeForm
                   openingtimes={this.state.openingtimes.thursday}
                   setOpeningTime={this.setOpeningTime}
-                  weekday={"thursday"}
+                  weekday={'thursday'}
                 />
               )}
             </div>
@@ -341,7 +362,7 @@ export default class EditRestaurant extends Component {
                 <TimeForm
                   openingtimes={this.state.openingtimes.friday}
                   setOpeningTime={this.setOpeningTime}
-                  weekday={"friday"}
+                  weekday={'friday'}
                 />
               )}
             </div>
@@ -359,7 +380,7 @@ export default class EditRestaurant extends Component {
                 <TimeForm
                   openingtimes={this.state.openingtimes.saturday}
                   setOpeningTime={this.setOpeningTime}
-                  weekday={"saturday"}
+                  weekday={'saturday'}
                 />
               )}
             </div>
@@ -377,7 +398,7 @@ export default class EditRestaurant extends Component {
                 <TimeForm
                   openingtimes={this.state.openingtimes.sunday}
                   setOpeningTime={this.setOpeningTime}
-                  weekday={"sunday"}
+                  weekday={'sunday'}
                 />
               )}
             </div>
@@ -403,6 +424,9 @@ export default class EditRestaurant extends Component {
               tablesStage2A={this.tablesStage2B}
             />
           </div>
+          {this.state.message && (
+            <p className="auth-message">{this.state.message}</p>
+          )}
           <button className="edit-button" type="submit">
             Submit
           </button>
