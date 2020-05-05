@@ -1,5 +1,5 @@
-const { getWeekDay } = require('../utils/getWeekDay');
-const { openingTimes } = require('../utils/openingTimes');
+const { getWeekDay } = require('../services/planer');
+const { openingTimes } = require('../services/planer');
 const DayReport = require('../models/DayReport');
 const Table = require('../models/Table');
 const Booking = require('../models/Booking');

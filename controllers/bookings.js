@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
-const { getWeekDay } = require('../utils/getWeekDay');
-const { filterTables } = require('../utils/filterTables');
-const { updateTables } = require('../utils/updateTables');
+const { getWeekDay } = require('../services/bookings');
+const { filterTables } = require('../services/bookings');
+const { updateTables } = require('../services/bookings');
 const Booking = require('../models/Booking');
 const DayReport = require('../models/DayReport');
 const Table = require('../models/Table');

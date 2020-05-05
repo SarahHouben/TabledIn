@@ -1,9 +1,9 @@
-const { timeSlots } = require('../utils/timeSlots');
-const { shellScript } = require('../google/ShellScript');
-const { createAgent } = require('../google/CreateAgent');
-const { deleteAgent } = require('../google/DeleteAgent');
+const { timeSlots } = require('../services/restaurants');
+const { shellScript } = require('../services/google/ShellScript');
+const { createAgent } = require('../services/google/CreateAgent');
+const { deleteAgent } = require('../services/google/DeleteAgent');
 const { validationResult } = require('express-validator');
-const { uploadKey } = require('../google/UploadKey');
+const { uploadKey } = require('../services/google/UploadKey');
 const Restaurant = require('../models/Restaurant');
 const Project = require('../models/Project');
 
