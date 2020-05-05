@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { getReport, deleteReport,editReport } = require('../controllers/planer');
+const { plannerValidator } = require('../utils/validators.js');
+const {
+  getReport,
+  deleteReport,
+  editReport,
+} = require('../controllers/planer');
 
+router.route('/').post(getReport).delete(plannerValidator, deleteReport);
 
-
-router.route('/').post(getReport).delete(deleteReport);
-
-router.route('/edit').post(editReport);
+router.route('/edit').post(plannerValidator, editReport);
 
 module.exports = router;

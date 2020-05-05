@@ -16,9 +16,7 @@ exports.restaurantValidator = [
     .withMessage('You must provide valid Email Address'),
 ];
 
-
-
-exports.authValidator = [
+exports.authSignupValidator = [
   check('username')
     .isLength({ min: 5 })
     .withMessage('Your username must be 5 characters min'),
@@ -29,6 +27,14 @@ exports.authValidator = [
     .normalizeEmail()
     .isEmail()
     .withMessage('You must provide valid Email Address'),
+];
+exports.authLoginValidator = [
+  check('username')
+    .isLength({ min: 5 })
+    .withMessage('Your username must be 5 characters min'),
+  check('password')
+    .isLength({ min: 8 })
+    .withMessage('Your password must be 8 characters min'),
 ];
 
 exports.bookingValidator = [
@@ -43,7 +49,10 @@ exports.bookingValidator = [
     .isEmail()
     .withMessage('You must provide valid Email Address'),
   check('selectedDay').exists().withMessage('You must select date'),
-  check('selectedDay').isAfter().withMessage('You cannot selecet date from past'),
+  check('selectedDay').isAfter().withMessage("you can't select date from past"),
 ];
 
-
+exports.plannerValidator = [
+  check('selectedDay').exists().withMessage('You must select date'),
+  check('selectedDay').isAfter().withMessage("you can't select date from past"),
+];
