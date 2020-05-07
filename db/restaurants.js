@@ -5,7 +5,8 @@ const Project = require('../models/Project');
 exports.createRestaurantDB = async (resData, owner) => {
   try {
     const data = resData;
-    data.timeslots = await timeSlots(openingtimes);
+    data.timeslots = await timeSlots(data.openingtimes);
+    
     data.owner = owner;
 
     const restaurant = await Restaurant.create(data);
@@ -44,7 +45,9 @@ exports.updateRestaurantDB = async (data, user) => {
   const filter = { owner: user };
   const option = { new: true };
   const update = data;
-  update.timeSlots = await timeSlots(openingtimes);
+
+  update.timeSlots = await timeSlots(data.openingtimes);
+
   update.owner = user;
 
   try {

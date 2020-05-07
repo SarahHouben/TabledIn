@@ -1,4 +1,4 @@
-const { getWeekDay } = require('../services/planer');
+const { getWeekDay } = require('../utils/getWeekDay');
 const { openingTimes } = require('../services/planer');
 const { getRestaurantDB } = require('../db/restaurants');
 const DayReport = require('../models/DayReport');
@@ -7,7 +7,6 @@ const Booking = require('../models/Booking');
 const Restaurant = require('../models/Restaurant');
 
 exports.getReportDB = async (selectedDay, user) => {
-
   try {
     const restaurant = await getRestaurantDB(user);
     const filterReport = {
@@ -29,7 +28,6 @@ exports.getReportDB = async (selectedDay, user) => {
 };
 
 exports.deleteReportDB = async (selectedDay, user) => {
-  
   try {
     const filterRestaurant = { owner: user };
     const restaurant = await Restaurant.findOne(filterRestaurant);
@@ -57,11 +55,11 @@ exports.editReportDB = async (data, user) => {
   const trimCloseTime = Number(closetime.replace(':', ''));
 
   try {
-    
     const day = await getWeekDay(selectedDay);
     const openingtime = {
       [day]: { opentime: trimOpenTime, closetime: trimCloseTime },
     };
+    console.log(openingtime);
     const combined = await openingTimes(openingtime);
 
     const filter = { owner: user };

@@ -1,7 +1,6 @@
 const { timeSlots } = require('./restaurants');
 
 exports.openingTimes = async (openingtime) => {
-  
   const openDays = {
     monday: {},
     tuesday: {},
@@ -13,7 +12,7 @@ exports.openingTimes = async (openingtime) => {
   };
   const openingTimes = Object.assign(openDays, openingtime);
   const slots = await timeSlots(openingTimes);
- 
+
   let combined = await slots.map((timeSlotObj) => {
     let businessTime = openingTimes[timeSlotObj.day];
 
@@ -29,22 +28,6 @@ exports.openingTimes = async (openingtime) => {
     } else return timeSlotObj;
   });
 
-  return combined
+  return combined;
 };
 
-exports.getWeekDay = (selectedDay) => {
-  //Create an array containing each day, starting with Sunday.
-  const dayIndex = new Date(selectedDay).getDay();
-  const weekdays = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-  //Return the element that corresponds to that index.
-  
-  return  weekdays[dayIndex].toLowerCase();
-};

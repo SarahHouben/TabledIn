@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production node ./bin/www",
-    "dev": "NODE_ENV=development DEBUG=tabledin:* nodemon ./bin/www"
+    "dev": "NODE_ENV=development DEBUG=tabledin:* nodemon ./bin/www",
+    "test": "jest --verbose",
+    "testwatch": "jest --verbose --watchAll",
+    "testcoverage": "jest --coverage"
   },
   "dependencies": {
     "actions-on-google": "^2.12.0",
@@ -38,6 +41,9 @@
     "uuid": "^7.0.3"
   },
   "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1",
     "nodemon": "^1.19.4"
   },
   "nodemonConfig": {

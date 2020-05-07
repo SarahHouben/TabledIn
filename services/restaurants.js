@@ -74,9 +74,9 @@ const getTimeslots = () => {
   }, {});
 };
 
-exports.timeSlots = async (openingtimes) => {
+exports.timeSlots =  (openingtimes) => {
   //Creates timeslots for each day
-  const weekDays = await [
+  const weekDays =  [
     'monday',
     'tuesday',
     'wednesday',
@@ -92,20 +92,22 @@ exports.timeSlots = async (openingtimes) => {
   });
 
   //Maps timeslots acording to opening times
-  const mapedTimeslots = await weekDays.map((timeSlotObj) => {
+  const mapedTimeslots =  weekDays.map((timeSlotObj) => {
     const businessTime = openingtimes[timeSlotObj.day];
+    
     if (businessTime && businessTime.opentime) {
-      for (let key in timeSlotObj.timeSlots) {
+
+      for(const key in timeSlotObj.timeslots) {
         const timeNum = Number(key);
         const openingTime = businessTime.opentime;
         const closingTime = businessTime.closetime;
-
         if (timeNum < closingTime && timeNum > openingTime)
-          timeSlotObj.timeSlots[key] = true;
+          timeSlotObj.timeslots[key] = true;
+      
+      
       }
       return timeSlotObj;
     } else return timeSlotObj;
   });
-
   return mapedTimeslots;
 };

@@ -1,4 +1,4 @@
-const { getWeekDay } = require('../services/bookings');
+const { getWeekDay } = require('../utils/getWeekDay');
 const { filterTables } = require('../services/bookings');
 const { updateTables } = require('../services/bookings');
 const Booking = require('../models/Booking');
@@ -48,6 +48,7 @@ exports.createBookingDB = async (data, owner) => {
       ],
     };
     const tables = await Table.find(filter);
+    console.log(tables);
 
     const availableTables = await filterTables(tables, arival);
 
@@ -169,7 +170,7 @@ exports.createBookingDB = async (data, owner) => {
 
           const booking = await Booking.create(data);
 
-          console.log('booking created'.brightGreen);
+          console.log('booking created'.brightGreen , booking);
           return booking;
         } else {
           return {
