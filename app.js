@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const favicon = require('serve-favicon');
-const connectDB = require('./configs/db');
+const connectDB = require('./config/db');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
@@ -29,6 +29,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
+
 
 // Express View engine setup
 
@@ -40,8 +42,7 @@ app.use(
   })
 );
 
-// CORS -  REQUIRED FOR CLOUDINARY might leave, not sure
-app.use(cors());
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, '/client/build')));
@@ -65,8 +66,6 @@ require('./passport')(app);
 app.use(errorHandler);
 
 
-
-//##############   ROUTES MIDDLEWARE STARTS HERE:     ##############
 
 const index = require('./routes/index');
 app.use('/', index);

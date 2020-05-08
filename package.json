@@ -5,7 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production node ./bin/www",
     "dev": "NODE_ENV=development DEBUG=tabledin:* nodemon ./bin/www",
-    "test": "jest --verbose",
+    "test": "NODE_ENV=test jest --verbose --watchAll",
     "testwatch": "jest --verbose --watchAll",
     "testcoverage": "jest --coverage"
   },
